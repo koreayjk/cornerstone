@@ -41,12 +41,14 @@
 - **Never commit secrets.** Only the Supabase URL and anon key may appear in front-end code. The service-role key never goes in the repo. Admin-only actions go through RLS policies or Supabase Edge Functions.
 - **Suggested structure** (move away from the single file step by step; no framework is required):
   ```
-  /index.html            public site
+  /index.html            public site (home)
+  /about/ /academics/ /enrichment/ /admissions/ /student-life/   section pages (index.html each)
   /portal/index.html     Family Portal (login + app)
   /css/base.css          shared tokens, reset, brand, toast (loaded by both pages)
   /css/site.css          public site styles
   /css/portal.css        portal styles
   /js/common.js          shared helpers ($, $$, toast)
+  /js/layout.js          shared nav (dropdowns), mobile menu, sub-nav and footer for all public pages; MENU config mirrors the old site menu
   /js/site.js            scroll effects, reveal, video handling
   /js/i18n.js            shared i18n engine (site + portal; dictionary folder via data-dict)
   /js/i18n/              public-site dictionaries (en/ko/zh/es .json)
@@ -57,6 +59,10 @@
   ```
 - If the build grows, Vite with `base: '/cornerstone/'` deployed to Pages through GitHub Actions is acceptable. Ask Moses before adding a framework.
 - **Large media**: the videos are about 5 MB each. Keep the total repo size reasonable, compress new videos (H.264, `-preset veryfast`, CRF 26–28, 720p), and always set a `poster`.
+
+### Section pages and the old site menu
+The public site mirrors the old WordPress menu (About, Academics, Enrichment, Admissions, Student Life) as five pages; each sub-menu item is a section (`#id`) on that page. `MENU` in `js/layout.js` drives the nav dropdowns, the mobile menu and each page's sticky sub-nav.
+Items marked `ready: false` have no source content yet and are hidden: Faculty and Staff, Board of Directors, Employment Opportunities, Kindergarten, Grades 1-5 Curriculum, Curriculum – Upper Grades, Art, Computer Lab, Tuition, Parent and Student Handbook, 2026-27 School Supply Lists, Uniforms and Dress Code, Field Trips / Field Studies, Fundraisers. To add one: get the original text/files from the school or Moses (the old site blocks cloud fetches), add the `<section class="sec" id="…">` to the page, add its keys to all four dictionaries, and remove `ready: false`. Never invent tuition amounts, staff names or dates.
 
 ## 4. Design system (do not drift)
 

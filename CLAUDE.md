@@ -67,6 +67,15 @@
 The public site mirrors the old WordPress menu (About, Academics, Enrichment, Admissions, Student Life) as five pages; each sub-menu item is a section (`#id`) on that page. `MENU` in `js/layout.js` drives the nav dropdowns, the mobile menu and each page's sticky sub-nav.
 Items marked `ready: false` have no source content yet and are hidden: Faculty and Staff, Board of Directors, Employment Opportunities, Kindergarten, Grades 1-5 Curriculum, Curriculum – Upper Grades, Art, Computer Lab, Tuition, Parent and Student Handbook, 2026-27 School Supply Lists, Uniforms and Dress Code, Field Trips / Field Studies, Fundraisers. To add one: get the original text/files from the school or Moses (the old site blocks cloud fetches), add the `<section class="sec" id="…">` to the page, add its keys to all four dictionaries, and remove `ready: false`. Never invent tuition amounts, staff names or dates.
 
+### Automated checks
+`npx playwright test` (after `npm install`) starts a static server and checks, on desktop 1440px and mobile 390px:
+- every public page and the 404 page in all four languages: no JS errors, no 404s, no horizontal overflow, no untranslated keys, and an axe-core accessibility audit;
+- every internal link and `#anchor`, and that photos load as AVIF/WebP;
+- the portal: every role, view and child in all four languages; rejection flow; per-child and per-staff threads; `.ics` export;
+- search in all four languages;
+- dictionaries: identical keys, HTML tags and `{placeholders}` across languages, and that every key the code uses exists.
+`.github/workflows/ci.yml` runs the same on every pull request and on pushes to `main`. Run it before merging; add a test when you add a feature. The Playwright version is pinned to match the browser pre-installed in the cloud environment.
+
 ## 4. Design system (do not drift)
 
 - **Direction**: Apple-style cinematic. The page should feel like watching a film. Photos are part of the screen, not boxes on a page. Text is minimal.

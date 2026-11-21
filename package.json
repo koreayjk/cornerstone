@@ -1,0 +1,13 @@
+{
+  "name": "cornerstone-site",
+  "private": true,
+  "description": "Static site + Family Portal demo for Cornerstone Christian Academy. No build step; this file only drives the automated checks.",
+  "scripts": {
+    "serve": "python3 -m http.server 4173",
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "axe-core": "4.10.2"
+  }
+}

@@ -52,9 +52,29 @@ const I18N = (() => {
     document.documentElement.lang = lang === 'zh' ? 'zh-Hans' : lang;
     document.title = t('meta.title');
   }
+  // Web fonts for CJK, injected only when the language is used (the stacks live in
+  // css/base.css). We wait briefly for the heading weight so text doesn't visibly swap.
+  const FONTS = {
+    ko: { css: 'https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css', family: 'Pretendard Variable', sample: '가나다' },
+    zh: { css: 'https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400..700&display=swap', family: 'Noto Sans SC', sample: '智慧成长' }
+  };
+  function loadFont(l) {
+    const f = FONTS[l];
+    if (!f) return Promise.resolve();
+    if (!f.p) {
+      f.p = new Promise(res => {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet'; link.href = f.css; link.crossOrigin = 'anonymous';
+        link.onload = () => Promise.all(['400', '600'].map(w => document.fonts.load(`${w} 1em "${f.family}"`, f.sample))).then(res, res);
+        link.onerror = res;
+        document.head.appendChild(link);
+      });
+    }
+    return Promise.race([f.p, new Promise(r => setTimeout(r, 1500))]);
+  }
   async function set(l) {
     if (!LANGS[l]) l = 'en';
-    await Promise.all([load('en'), load(l)]);
+    await Promise.all([load('en'), load(l), loadFont(l)]);
     lang = l;
     try { localStorage.setItem(KEY, l); } catch (e) {}
     apply();

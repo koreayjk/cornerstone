@@ -5,12 +5,21 @@
 --serif:'Inter Tight',system-ui,sans-serif; --sans:'Inter',system-ui,sans-serif;
 --ease:cubic-bezier(.22,.61,.12,1);
 }
+/* Per-language type. Latin (en/es) stays Inter Tight / Inter. The CJK web fonts are
+   loaded by js/i18n.js only when that language is chosen.
+   ko: Pretendard (built on Inter, so Latin and Hangul match). zh: Noto Sans SC. */
+:root:lang(ko){
+--serif:'Inter Tight','Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',system-ui,sans-serif;
+--sans:'Pretendard Variable',Pretendard,'Inter','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',system-ui,sans-serif}
+:root:lang(zh){
+--serif:'Inter Tight','Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei',system-ui,sans-serif;
+--sans:'Inter','Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei',system-ui,sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
 body{font-family:var(--sans);background:#000;color:#F5F5F7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
-.d{font-family:'Inter Tight',sans-serif;letter-spacing:-.035em;font-weight:600}
+.d{font-family:var(--serif);letter-spacing:-.035em;font-weight:600}
 .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
 .img{background:#111 center/cover no-repeat}
 .eyebrow{font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--gold2)}
@@ -18,7 +27,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .rv.in{opacity:1;transform:none}
 .dl1{transition-delay:.1s}.dl2{transition-delay:.2s}.dl3{transition-delay:.3s}
 
-.brand{display:flex;align-items:center;gap:10px;font-family:'Inter Tight';font-weight:600;font-size:15px;letter-spacing:-.01em}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;font-size:15px;letter-spacing:-.01em}
 .brand svg{width:22px;height:26px}
 
 .toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,40px);background:var(--navy);color:#fff;padding:14px 22px;border-radius:30px;font-size:13px;opacity:0;transition:.5s var(--ease);z-index:300;pointer-events:none;border:1px solid var(--gold)}

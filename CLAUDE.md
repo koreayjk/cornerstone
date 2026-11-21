@@ -177,3 +177,4 @@ events(id, title, starts_at, ends_at, location, audience)
 - Never put children's real personal data in seed data or commits. Use clearly fake demo data.
 - Never commit `.env`, service-role keys or real credentials. Add a `.gitignore` for `.env*`.
 - After each step, report: what changed, how to test it, and what is next.
+- **Merge automatically** (Moses's standing instruction): when a step is finished and tested, commit, push, open a PR to `main` and merge it right away — do not ask first. If `main` moved, merge `origin/main` into the branch before opening the PR. Then report the PR link.

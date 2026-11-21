@@ -8,7 +8,7 @@ Build-plan step 3. The schema, Row Level Security (RLS) policies and storage rul
 |---|---|
 | `migrations/20261121000000_init.sql` | Tables, helper functions, triggers, grants, RLS policies, private `documents` bucket, realtime for messages |
 | `migrations/20261121010000_profile_from_app_metadata.sql` | Creates the profile when the role is set after the invite, and keeps role changes in sync |
-| `functions/invite-user/` | Edge Function the office calls to invite someone: checks that the caller is an admin, validates the request (`validate.js`, unit-tested), sends the invitation, sets the role, links students |
+| `functions/invite-user/` | Edge Function the office calls to invite someone: checks that the caller is an admin, validates the request (`validate.mjs`, unit-tested), sends the invitation, sets the role, links students |
 | `templates/*.html` | Auth emails (invitation, sign-in link, password reset), each in en/ko/zh/es, chosen by `user_metadata.lang` |
 | `config.toml` | Local CLI config: sign-up disabled, email templates |
 | `seed.sql` | **Fictional** demo data for local development only (5 accounts, 3 students). Never load it into production. |

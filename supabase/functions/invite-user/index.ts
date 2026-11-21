@@ -10,7 +10,7 @@
 // on_auth_user_role_changed trigger creates the profile) -> link parents to students.
 // The service-role key stays inside this function; it never reaches the browser or the repo.
 import { createClient } from 'npm:@supabase/supabase-js@2.45.4';
-import { validateInvite } from './validate.js';
+import { validateInvite } from './validate.mjs';
 
 const cors = {
   'Access-Control-Allow-Origin': Deno.env.get('ALLOWED_ORIGIN') ?? '*',

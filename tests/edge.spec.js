@@ -10,7 +10,7 @@ test.describe('supabase edge + email', () => {
   test.beforeEach(({}, info) => test.skip(info.project.name !== 'desktop', 'runs once'));
 
   test('invite-user validates its input', async () => {
-    const { validateInvite } = await import(pathToFileURL(path.join(ROOT, 'supabase/functions/invite-user/validate.js')).href);
+    const { validateInvite } = await import(pathToFileURL(path.join(ROOT, 'supabase/functions/invite-user/validate.mjs')).href);
     const sid = 'a0000000-0000-4000-8000-000000000001';
     const ok = validateInvite({ email: ' Kim.Family@Example.com ', full_name: ' The Kim Family ', role: 'parent', lang: 'ko', student_ids: [sid, sid.toUpperCase()] });
     expect(ok).toEqual({ ok: true, value: { email: 'kim.family@example.com', full_name: 'The Kim Family', role: 'parent', lang: 'ko', student_ids: [sid] } });

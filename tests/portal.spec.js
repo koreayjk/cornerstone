@@ -178,3 +178,41 @@ test('email templates render in each language', async ({ page }) => {
   await expectSubject('msg', 'es', 'Nuevo mensaje de Mrs. Sarah Taylor');
   await expectSubject('invite', 'en', 'You’re invited to the Cornerstone Family Portal');
 });
+
+test('issued document downloads as a real PDF', async ({ page }, info) => {
+  test.skip(info.project.name !== 'desktop', 'runs once');
+  await open(page, 'portal/', 'en');
+  await page.evaluate(() => { enter('parent'); pickChild(0); go('doc') });
+  await page.getByRole('button', { name: 'Download' }).click();
+  const [dl] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Download PDF' }).click()]);
+  expect(dl.suggestedFilename()).toBe('CCA-101-enrollment.pdf');
+  const buf = fs.readFileSync(await dl.path());
+  expect(buf.subarray(0, 5).toString()).toBe('%PDF-');
+  expect(buf.length).toBeGreaterThan(4000);                     // fonts + crest image embedded
+  // parse it back with pdf-lib (already loaded in the page): one US Letter page, titled
+  const info2 = await page.evaluate(async b64 => {
+    const d = await PDFLib.PDFDocument.load(Uint8Array.from(atob(b64), c => c.charCodeAt(0)));
+    const p = d.getPage(0).getSize();
+    return { pages: d.getPageCount(), title: d.getTitle(), w: Math.round(p.width), h: Math.round(p.height) };
+  }, buf.toString('base64'));
+  expect(info2).toEqual({ pages: 1, title: 'Enrollment Verification Letter — CCA-101', w: 612, h: 792 });
+});
+
+test('portal is installable and opens offline', async ({ page, context, baseURL }, info) => {
+  test.skip(info.project.name !== 'desktop', 'runs once');
+  const res = await page.request.get('portal/manifest.webmanifest');
+  const m = await res.json();
+  expect(m.display).toBe('standalone');
+  for (const icon of m.icons) expect((await page.request.get(new URL(icon.src, baseURL + 'portal/').href)).ok(), icon.src).toBe(true);
+  expect(m.icons.some(i => i.purpose === 'maskable')).toBe(true);
+  await open(page, 'portal/', 'en');
+  await page.evaluate(async () => { await navigator.serviceWorker.ready });
+  await page.reload();                                           // now controlled by the service worker
+  await page.waitForFunction(() => !!navigator.serviceWorker.controller);
+  await context.setOffline(true);
+  await page.reload();
+  await expect(page.locator('.login-card h2')).toHaveText('Welcome home.');
+  await page.evaluate(() => enter('parent'));
+  await expect(page.locator('#ptitle')).toHaveText('Home');
+  await context.setOffline(false);
+});

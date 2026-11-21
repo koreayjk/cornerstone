@@ -268,3 +268,5 @@ html.i18n-pending .login-card,html.i18n-pending .portal{visibility:hidden}
 .acc-lead{color:var(--muted);font-size:14px;line-height:1.6}
 .acc-card input[readonly]{background:#F3F3F5;color:var(--muted)}
 .acc-act{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
+.pwa-row{margin-top:14px}.pwa-row .hint{margin:0}
+.doc-actions{flex-wrap:wrap}

@@ -320,5 +320,10 @@
   "em.doc.p2": "학부모 포털의 증명서 메뉴에서 내려받으세요. 내려받기 링크는 본인 계정에서만 열립니다.",
   "em.doc.cta": "내려받기",
   "em.footer": "Cornerstone Christian Academy · 3200 Cavitt Avenue, Bryan, Texas 77801",
-  "em.why": "학부모 포털 계정이 있어 이 이메일을 받으셨습니다."
+  "em.why": "학부모 포털 계정이 있어 이 이메일을 받으셨습니다.",
+  "docm.pdf": "PDF 내려받기",
+  "docm.pdfDone": "PDF를 내려받았습니다",
+  "docm.pdfFail": "PDF를 만들지 못했습니다 — 인쇄 기능을 이용해 주세요",
+  "pwa.install": "앱 설치",
+  "pwa.ios": "아이폰: 공유 버튼 → “홈 화면에 추가”를 누르세요."
 }

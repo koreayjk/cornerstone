@@ -325,5 +325,10 @@
   "em.doc.p2": "Download it from Documents in the Family Portal. The download link is private to your account.",
   "em.doc.cta": "Download",
   "em.footer": "Cornerstone Christian Academy · 3200 Cavitt Avenue, Bryan, Texas 77801",
-  "em.why": "You are receiving this email because you have a Family Portal account."
+  "em.why": "You are receiving this email because you have a Family Portal account.",
+  "docm.pdf": "Download PDF",
+  "docm.pdfDone": "PDF downloaded",
+  "docm.pdfFail": "Could not create the PDF — use Print instead",
+  "pwa.install": "Install the app",
+  "pwa.ios": "On iPhone: tap Share, then “Add to Home Screen”."
 }

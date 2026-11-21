@@ -611,27 +611,42 @@ render(); toast(t(S.role === 'parent' ? 'toast.sentParent' : 'toast.sentTeacher'
 }
 
 // Issued documents are official English records; only the modal buttons follow the UI language.
-function openDoc(id) {
-const r = S.requests.find(x => x.id === id); if (S.role === 'parent') r.dl = true; const s = kidBy(r.student);
-const type = I18N.en('docType.' + r.type), grade = `Grade ${s.grade}`;
+// One content model feeds both the on-screen preview (openDoc) and the PDF (js/portal/pdf.js).
+function docContent(r) {
+const s = kidBy(r.student), type = I18N.en('docType.' + r.type), grade = `Grade ${s.grade}`, school = 'Brazos Valley Cornerstone Christian Academy';
+const P = (...parts) => parts.map(x => typeof x === 'string' ? { t: x } : x), B = t => ({ t, b: true });
 const bodies = {
-enrollment: `<p>This letter certifies that <b>${s.name}</b> (Date of Birth: ${s.dob}; Student ID: ${s.id}) is currently enrolled as a full-time student in <b>${grade}</b> at Brazos Valley Cornerstone Christian Academy for the 2026–2027 academic year.</p><p>${s.name} has been enrolled continuously since ${s.entered} and is in good academic and disciplinary standing.</p>`,
-attendance: `<p>This is to certify that <b>${s.name}</b> (Student ID: ${s.id}) has attended Brazos Valley Cornerstone Christian Academy in ${grade} during the Fall Semester 2026, with an attendance rate of 98%.</p>`,
-goodStanding: `<p>This letter confirms that <b>${s.name}</b>, a ${grade} student (Student ID: ${s.id}), is a student in good standing academically, spiritually and behaviorally at Brazos Valley Cornerstone Christian Academy.</p>`
+  enrollment: [P('This letter certifies that ', B(s.name), ` (Date of Birth: ${s.dob}; Student ID: ${s.id}) is currently enrolled as a full-time student in `, B(grade), ` at ${school} for the 2026–2027 academic year.`),
+               P(`${s.name} has been enrolled continuously since ${s.entered} and is in good academic and disciplinary standing.`)],
+  attendance: [P('This is to certify that ', B(s.name), ` (Student ID: ${s.id}) has attended ${school} in ${grade} during the Fall Semester 2026, with an attendance rate of 98%.`)],
+  goodStanding: [P('This letter confirms that ', B(s.name), `, a ${grade} student (Student ID: ${s.id}), is a student in good standing academically, spiritually and behaviorally at ${school}.`)]
 };
-const body = bodies[r.type] || `<p>This document certifies the requested record — <b>${type}</b> — for <b>${s.name}</b> (Student ID: ${s.id}), ${grade}, issued by the Office of the Registrar of Brazos Valley Cornerstone Christian Academy.</p>`;
+const ref = `CCA-${r.id}`;
+return {
+  school, address: '3200 Cavitt Avenue · Bryan, Texas 77801 · (979) 694-8200', date: 'November 20, 2026', ref, type, title: type.toUpperCase(),
+  salutation: 'To Whom It May Concern:',
+  body: bodies[r.type] || [P('This document certifies the requested record — ', B(type), ' — for ', B(s.name), ` (Student ID: ${s.id}), ${grade}, issued by the Office of the Registrar of ${school}.`)],
+  closing: 'Should you require further information, please contact the school office at (979) 694-8200.',
+  signer: 'Head of School', signerLine: `Head of School · ${school}`,
+  demo: 'Demo document — layout preview only. Not an official record.',
+  file: `${ref}-${r.type}.pdf`
+};
+}
+function openDoc(id) {
+const r = S.requests.find(x => x.id === id); if (S.role === 'parent') r.dl = true;
+const c = docContent(r), para = runs => `<p>${runs.map(x => x.b ? `<b>${esc(x.t)}</b>` : esc(x.t)).join('')}</p>`;
 document.getElementById('doc').innerHTML = `
-<div class="doc-actions"><button onclick="closeModal()">${esc(t('docm.close'))}</button><button class="pri" onclick="window.print()">${esc(t('docm.print'))}</button></div>
+<div class="doc-actions"><button onclick="closeModal()">${esc(t('docm.close'))}</button><button onclick="window.print()">${esc(t('docm.print'))}</button><button class="pri" onclick="downloadDocPdf(${r.id}, this)">${esc(t('docm.pdf'))}</button></div>
 <div lang="en">
 <div class="lh"><svg viewBox="0 0 44 52"><use href="#crest"/></svg>
-<div><b>Brazos Valley Cornerstone Christian Academy</b><small>3200 Cavitt Avenue · Bryan, Texas 77801 · (979) 694-8200</small></div></div>
-<p style="text-align:right">November 20, 2026<br><small style="color:#888">Ref. CCA-${r.id}</small></p>
-<h2>${type.toUpperCase()}</h2>
-<p>To Whom It May Concern:</p>${body}
-<p>Should you require further information, please contact the school office at (979) 694-8200.</p>
-<div class="sig"><div><p style="margin:0">Sincerely,</p><div style="font-family:var(--serif);font-style:italic;font-size:30px;margin:18px 0 4px;color:var(--navy)">Head of School</div><p style="margin:0;border-top:1px solid #ccc;padding-top:6px;font-size:12px">Head of School · Brazos Valley Cornerstone Christian Academy</p></div>
+<div><b>${esc(c.school)}</b><small>${esc(c.address)}</small></div></div>
+<p style="text-align:right">${esc(c.date)}<br><small style="color:#888">Ref. ${esc(c.ref)}</small></p>
+<h2>${esc(c.title)}</h2>
+<p>${esc(c.salutation)}</p>${c.body.map(para).join('')}
+<p>${esc(c.closing)}</p>
+<div class="sig"><div><p style="margin:0">Sincerely,</p><div style="font-family:var(--serif);font-style:italic;font-size:30px;margin:18px 0 4px;color:var(--navy)">${esc(c.signer)}</div><p style="margin:0;border-top:1px solid #ccc;padding-top:6px;font-size:12px">${esc(c.signerLine)}</p></div>
 <div class="seal">Official<br>Cornerstone<br>Seal<br>· 2002 ·</div></div>
-<p style="margin-top:40px;font-size:11px;color:#777;text-align:center">Demo document — layout preview only. Not an official record.</p></div>`;
+<p style="margin-top:40px;font-size:11px;color:#777;text-align:center">${esc(c.demo)}</p></div>`;
 openModal();
 }
 function openModal() { const m = document.getElementById('docModal'); m._back = document.activeElement; m.classList.add('open'); m.querySelector('.doc-actions button').focus() }
@@ -641,6 +656,14 @@ addEventListener('keydown', e => {
   if (document.getElementById('docModal').classList.contains('open')) closeModal();
   if (document.getElementById('accModal').classList.contains('open')) closeAccept();
 });
+
+// installable app: register the service worker; offer "Install" where the browser supports it
+if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+let installEvt = null;
+addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; const b = document.getElementById('installBtn'); if (b) b.hidden = false });
+function installApp() { if (!installEvt) return; installEvt.prompt(); installEvt.userChoice.finally(() => { installEvt = null; document.getElementById('installBtn').hidden = true }) }
+// iPhone/iPad Safari has no install prompt: show the Add-to-Home-Screen hint instead
+if (/iphone|ipad|ipod/i.test(navigator.userAgent) && !navigator.standalone) { const h = document.getElementById('iosHint'); if (h) h.hidden = false }
 
 I18N.onChange(() => render());
 I18N.init();

@@ -30,3 +30,21 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 14
+
+  database:
+    # schema + Row Level Security tests (supabase/) on a fresh PostgreSQL
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - run: supabase/tests/run.sh
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres

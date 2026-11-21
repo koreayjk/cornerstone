@@ -74,7 +74,7 @@ Items marked `ready: false` have no source content yet and are hidden: Faculty a
 - the portal: every role, view and child in all four languages; rejection flow; per-child and per-staff threads; `.ics` export;
 - search in all four languages;
 - dictionaries: identical keys, HTML tags and `{placeholders}` across languages, and that every key the code uses exists.
-`.github/workflows/ci.yml` runs the same on every pull request and on pushes to `main`. Run it before merging; add a test when you add a feature. The Playwright version is pinned to match the browser pre-installed in the cloud environment.
+`.github/workflows/ci.yml` runs the same on every pull request and on pushes to `main`, plus a `database` job that builds the schema on PostgreSQL 16 and runs the RLS tests (`supabase/tests/run.sh`). Run it before merging; add a test when you add a feature. The Playwright version is pinned to match the browser pre-installed in the cloud environment.
 
 ## 4. Design system (do not drift)
 
@@ -168,7 +168,7 @@ events(id, title, starts_at, ends_at, location, audience)
 
 1. **Split files**: extract CSS and JS from `index.html` into `/css` and `/js` without changing the look. Replace the `img/1.jpg` usage with an appropriate image.
 2. **Portal page**: move the portal demo to `/portal/`. The public site's "Family Portal" buttons link there.
-3. **Supabase setup**: schema and RLS migrations in `/supabase/migrations`, seed data (demo students, a parent, a teacher), and `js/supabase.js`.
+3. **Supabase setup**: schema and RLS migrations in `/supabase/migrations`, seed data (demo students, a parent, a teacher), and `js/supabase.js`. ✅ files done and tested (`supabase/tests/run.sh`, also in CI); **not yet applied to a live project** — see `supabase/README.md` for the setup steps (disable public sign-up, invitations via an Edge Function setting `app_metadata.role`).
 4. **Auth and roles**: login, logout, a role-based nav, and invitation flow documentation.
 5. **Announcements**, then **Messages**, then **Grades & Attendance**, then **Document requests + PDF**.
 6. **EN/KO/ZH/ES i18n** across the portal. ✅ done for the demo (dictionaries + picker).

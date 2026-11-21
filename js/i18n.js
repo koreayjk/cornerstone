@@ -50,7 +50,8 @@ const I18N = (() => {
     root.querySelectorAll('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
     root.querySelectorAll('select.lang').forEach(s => { s.value = lang; });
     document.documentElement.lang = lang === 'zh' ? 'zh-Hans' : lang;
-    document.title = t('meta.title');
+    const tt = document.querySelector('title[data-i18n]');
+    document.title = t(tt ? tt.dataset.i18n : 'meta.title');
   }
   // Web fonts for CJK, injected only when the language is used (the stacks live in
   // css/base.css). We wait briefly for the heading weight so text doesn't visibly swap.

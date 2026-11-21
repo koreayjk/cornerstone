@@ -13,28 +13,7 @@
 <link rel="stylesheet" href="css/site.css">
 </head>
 <body>
-<a class="skip" href="#main" data-i18n="a11y.skip">Skip to content</a>
-<svg width="0" height="0" style="position:absolute"><defs>
-<symbol id="crest" viewBox="0 0 44 52">
-<path d="M3 4 H41 V22 C41 36 32 45 22 50 C12 45 3 36 3 22 Z" fill="#111113" stroke="#E3C46E" stroke-width="1.8"/>
-<g fill="#E3C46E"><rect x="20.2" y="9" width="3.6" height="33"/><rect x="11" y="17.2" width="22" height="3.6"/>
-<circle cx="22" cy="8.6" r="2.6"/><circle cx="19.6" cy="11" r="1.7"/><circle cx="24.4" cy="11" r="1.7"/>
-<circle cx="10.6" cy="19" r="2.6"/><circle cx="13" cy="16.6" r="1.7"/><circle cx="13" cy="21.4" r="1.7"/>
-<circle cx="33.4" cy="19" r="2.6"/><circle cx="31" cy="16.6" r="1.7"/><circle cx="31" cy="21.4" r="1.7"/>
-<circle cx="22" cy="42.4" r="2.6"/><circle cx="19.6" cy="40" r="1.7"/><circle cx="24.4" cy="40" r="1.7"/></g>
-</symbol></defs></svg>
-<aside class="prop" aria-label="Notice" data-i18n-aria="a11y.notice" data-i18n="prop">Design proposal for Cornerstone Christian Academy — not the official school website. Portal uses demo data.</aside>
-<header class="nav" id="nav"><div class="wrap">
-<a class="brand" href="#top"><svg><use href="#crest"/></svg>Cornerstone</a>
-<nav class="menu"><a href="#story" data-i18n="nav.story">Our Story</a><a href="#academics" data-i18n="nav.academics">Academics</a><a href="#athletics" data-i18n="nav.athletics">Athletics</a><a href="#international" data-i18n="nav.international">International</a><a href="#heritage" data-i18n="nav.heritage">Heritage</a><a href="#admissions" data-i18n="nav.admissions">Admissions</a></nav>
-<div class="nr"><label class="lang-pick dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9s1.3-6.4 3.8-9z"/></svg><select class="lang" aria-label="Language" data-i18n-aria="lang.label" onchange="I18N.set(this.value)"><option value="en">English</option><option value="ko">한국어</option><option value="zh">中文</option><option value="es">Español</option></select></label><a class="lnk" href="portal/" data-i18n="nav.portal">Family Portal</a><a class="pill gold" href="#admissions" data-i18n="nav.visit">Visit</a>
-<button class="burger" onclick="openMenu()" aria-label="Menu" data-i18n-aria="a11y.menu" aria-expanded="false" aria-controls="mnav"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><path d="M4 9h16M4 15h16"/></svg></button></div>
-</div></header>
-<div class="mnav" id="mnav" role="dialog" aria-modal="true" aria-label="Menu" data-i18n-aria="a11y.menu" onclick="if(event.target.tagName==='A'||event.target===this)closeMenu()">
-<button class="mclose" onclick="closeMenu()" aria-label="Close menu" data-i18n-aria="a11y.closeMenu">✕</button>
-<a href="#story" data-i18n="nav.story">Our Story</a><a href="#academics" data-i18n="nav.academics">Academics</a><a href="#athletics" data-i18n="nav.athletics">Athletics</a><a href="#international" data-i18n="nav.international">International</a><a href="#heritage" data-i18n="nav.heritage">Heritage</a><a href="#admissions" data-i18n="nav.admissions">Admissions</a>
-<a href="portal/" style="color:var(--gold2)" data-i18n="nav.portal">Family Portal</a>
-</div>
+<div id="layout-top"></div><script src="js/layout.js"></script><script>Layout.top()</script>
 <main id="main" tabindex="-1">
 <!-- HERO -->
 <section class="hero" id="top">
@@ -154,16 +133,7 @@
 </div>
 </div></section>
 </main>
-<footer><div class="wrap">
-<div class="fg">
-<div><a class="brand" href="#top" style="color:#1d1d1f"><svg><use href="#crest"/></svg>Cornerstone Christian Academy</a><p style="margin-top:12px;line-height:1.6">Brazos Valley Cornerstone Christian Academy<br><span data-i18n="foot.tagline">Christ-centered · Biblically based · K–12</span></p></div>
-<div><h4 data-i18n="foot.visit">Visit</h4><ul><li>3200 Cavitt Avenue</li><li>Bryan, Texas 77801</li><li><a href="tel:9796948200">(979) 694-8200</a></li><li><a href="mailto:office@bvcca.com">office@bvcca.com</a></li></ul></div>
-<div><h4 data-i18n="foot.explore">Explore</h4><ul><li><a href="#academics" data-i18n="nav.academics">Academics</a></li><li><a href="#athletics" data-i18n="nav.athletics">Athletics</a></li><li><a href="#international" data-i18n="nav.international">International</a></li><li><a href="#admissions" data-i18n="nav.admissions">Admissions</a></li></ul></div>
-<div><h4 data-i18n="foot.families">Families</h4><ul><li><a href="portal/" data-i18n="nav.portal">Family Portal</a></li><li><a href="portal/" data-i18n="foot.docs">Request documents</a></li><li><a href="#" onclick="toast(t('foot.packToast'));return false">PACK</a></li><li><a href="#" onclick="toast(t('foot.giveToast'));return false" data-i18n="foot.give">Give</a></li></ul></div>
-</div>
-<div class="fb"><span data-i18n="foot.copy">© 2026 Brazos Valley Cornerstone Christian Academy. All rights reserved.</span><span data-i18n="foot.acc">Accredited by Cognia · SEVP Certified · Go Cougars</span></div>
-</div></footer>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div id="layout-bottom"></div><script>Layout.bottom()</script>
 <script src="js/common.js"></script>
 <script src="js/i18n.js" data-dict="js/i18n/"></script>
 <script src="js/site.js"></script>

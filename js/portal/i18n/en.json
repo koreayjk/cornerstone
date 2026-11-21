@@ -330,5 +330,7 @@
   "docm.pdfDone": "PDF downloaded",
   "docm.pdfFail": "Could not create the PDF — use Print instead",
   "pwa.install": "Install the app",
-  "pwa.ios": "On iPhone: tap Share, then “Add to Home Screen”."
+  "pwa.ios": "On iPhone: tap Share, then “Add to Home Screen”.",
+  "login.privacy": "Privacy Policy",
+  "login.terms": "Terms of Use"
 }

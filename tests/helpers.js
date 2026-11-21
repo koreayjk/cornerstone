@@ -3,7 +3,8 @@ const fs = require('fs');
 const path = require('path');
 
 const LANGS = ['en', 'ko', 'zh', 'es'];
-const PAGES = ['', 'about/', 'academics/', 'enrichment/', 'admissions/', 'student-life/'];
+const PAGES = ['', 'about/', 'academics/', 'enrichment/', 'admissions/', 'student-life/', 'privacy/', 'terms/'];
+const MENU_PAGES = ['about/', 'academics/', 'enrichment/', 'admissions/', 'student-life/'];
 const AXE_SRC = fs.readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
 const ROOT = path.join(__dirname, '..');
 
@@ -53,4 +54,4 @@ async function axe(page, context) {
   }, context || null);
 }
 
-module.exports = { LANGS, PAGES, ROOT, open, scrollThrough, layoutIssues, axe };
+module.exports = { LANGS, PAGES, MENU_PAGES, ROOT, open, scrollThrough, layoutIssues, axe };

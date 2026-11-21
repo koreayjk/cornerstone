@@ -164,6 +164,22 @@ do $$ begin
 end $$;
 reset role;
 
+-- ======================================================== the real invite flow: user first, role second
+do $$ begin
+  -- inviteUserByEmail: user exists, no role yet -> no profile
+  insert into auth.users (id, email, raw_user_meta_data) values ('88888888-8888-4888-8888-888888888888', 'invited.parent@example.com', '{"full_name":"Invited Parent","lang":"zh"}');
+  assert not exists (select 1 from public.profiles where id = '88888888-8888-4888-8888-888888888888'), 'no profile before the role is set';
+  -- Edge Function: updateUserById(app_metadata.role) -> profile appears
+  update auth.users set raw_app_meta_data = '{"role":"parent"}' where id = '88888888-8888-4888-8888-888888888888';
+  assert (select role || '/' || lang || '/' || full_name from public.profiles where id = '88888888-8888-4888-8888-888888888888') = 'parent/zh/Invited Parent', 'setting the role creates the profile';
+  -- a later role change by the service role is mirrored
+  update auth.users set raw_app_meta_data = '{"role":"teacher"}' where id = '88888888-8888-4888-8888-888888888888';
+  assert (select role from public.profiles where id = '88888888-8888-4888-8888-888888888888') = 'teacher', 'role changes are mirrored to the profile';
+  -- an unknown role is ignored
+  update auth.users set raw_app_meta_data = '{"role":"superuser"}' where id = '88888888-8888-4888-8888-888888888888';
+  assert (select role from public.profiles where id = '88888888-8888-4888-8888-888888888888') = 'teacher', 'unknown roles are ignored';
+end $$;
+
 -- every public table has RLS on
 do $$ begin
   assert not exists (select 1 from pg_tables where schemaname = 'public' and not rowsecurity), 'every public table has RLS enabled';

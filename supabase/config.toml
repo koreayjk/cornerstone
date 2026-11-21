@@ -1,0 +1,25 @@
+# Supabase CLI configuration (local development with `supabase start`; the hosted project
+# is configured in the dashboard, mirroring these settings). Only non-default values are set.
+project_id = "cornerstone"
+
+[auth]
+site_url = "http://localhost:4173/portal/"
+additional_redirect_urls = ["https://koreayjk.github.io/cornerstone/portal/"]
+# Invitation-only: nobody can create an account themselves.
+enable_signup = false
+
+[auth.email]
+enable_signup = false
+
+# One template per email type; each picks en/ko/zh/es from user_metadata.lang.
+[auth.email.template.invite]
+subject = "Cornerstone Family Portal — invitation · 초대 · 邀请 · invitación"
+content_path = "./supabase/templates/invite.html"
+
+[auth.email.template.magic_link]
+subject = "Cornerstone Family Portal — sign-in link · 로그인 · 登录 · inicio de sesión"
+content_path = "./supabase/templates/magic_link.html"
+
+[auth.email.template.recovery]
+subject = "Cornerstone Family Portal — reset password · 비밀번호 재설정 · 重置密码 · restablecer contraseña"
+content_path = "./supabase/templates/recovery.html"

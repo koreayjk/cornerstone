@@ -325,5 +325,7 @@
   "docm.pdfDone": "PDF 已下载",
   "docm.pdfFail": "无法生成 PDF — 请改用打印",
   "pwa.install": "安装应用",
-  "pwa.ios": "iPhone：点击“分享”，再选“添加到主屏幕”。"
+  "pwa.ios": "iPhone：点击“分享”，再选“添加到主屏幕”。",
+  "login.privacy": "隐私政策",
+  "login.terms": "使用条款"
 }

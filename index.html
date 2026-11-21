@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Design Proposal — Cornerstone Christian Academy — Bryan, Texas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+--navy:#0A0A0B; --navy2:#141416; --navy3:#2A2A2E;
+--ivory:#F5F5F7; --paper:#FBFBFD; --gold:#C9A13B; --gold2:#E3C46E;
+--ink:#1D1D1F; --muted:#6E6E73; --line:rgba(0,0,0,.1); --lineL:rgba(255,255,255,.14);
+--serif:'Inter Tight',system-ui,sans-serif; --sans:'Inter',system-ui,sans-serif;
+--ease:cubic-bezier(.22,.61,.12,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:#000;color:#F5F5F7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.d{font-family:'Inter Tight',sans-serif;letter-spacing:-.035em;font-weight:600}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.img{background:#111 center/cover no-repeat}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--gold2)}
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.dl1{transition-delay:.1s}.dl2{transition-delay:.2s}.dl3{transition-delay:.3s}
+
+.nav{position:fixed;inset:0 0 auto;z-index:60;height:52px;display:flex;align-items:center;transition:background .4s,backdrop-filter .4s}
+.nav.solid{background:rgba(0,0,0,.72);backdrop-filter:saturate(180%) blur(20px)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1180px}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Inter Tight';font-weight:600;font-size:15px;letter-spacing:-.01em}
+.brand svg{width:22px;height:26px}
+.menu{display:flex;gap:30px;font-size:12.5px;color:rgba(255,255,255,.8)}
+.menu a:hover{color:#fff}
+.nr{display:flex;gap:16px;align-items:center;font-size:12.5px}
+.pill{background:#fff;color:#000;padding:7px 14px;border-radius:999px;font-weight:600;font-size:12px;transition:transform .3s}
+.pill:hover{transform:scale(1.04)}
+.pill.gold{background:var(--gold);color:#000}
+.burger{display:none}
+.prop{position:fixed;left:0;right:0;bottom:0;z-index:55;background:rgba(201,161,59,.95);color:#000;font-size:11.5px;font-weight:600;text-align:center;padding:6px 12px}
+
+.hero{position:relative;height:100svh;min-height:640px;overflow:hidden}
+.hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,.15) 55%,rgba(0,0,0,.85) 100%)}
+.hero-in{position:absolute;left:0;right:0;bottom:0;z-index:2;padding-bottom:9vh}
+.hero h1{font-size:clamp(56px,10vw,150px);line-height:.92;letter-spacing:-.05em;font-weight:600}
+.hero h1 span{display:block;opacity:0;transform:translateY(60px);animation:up 1.6s var(--ease) forwards}
+.hero h1 span:nth-child(2){animation-delay:.18s;color:rgba(255,255,255,.55)}
+@keyframes up{to{opacity:1;transform:none}}
+.hero .sub{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-top:34px;opacity:0;animation:up 1.4s .6s var(--ease) forwards}
+.hero .sub p{font-size:19px;line-height:1.5;color:rgba(255,255,255,.82);max-width:470px;font-weight:400}
+.hero .ctas{display:flex;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 24px;border-radius:999px;font-size:15px;font-weight:500;transition:all .35s var(--ease)}
+.btn.w{background:#fff;color:#000}.btn.w:hover{background:#e8e8ed}
+.btn.o{border:1px solid rgba(255,255,255,.4);color:#fff}.btn.o:hover{background:rgba(255,255,255,.1)}
+.btn.k{background:#000;color:#fff}.btn.k:hover{background:#2a2a2e}
+.btn.g{background:var(--gold);color:#000}
+.cue{position:absolute;left:50%;bottom:22px;z-index:3;transform:translateX(-50%);font-size:11px;letter-spacing:.2em;color:rgba(255,255,255,.6);text-transform:uppercase}
+
+.statement{background:#000;padding:22vh 0}
+.statement p{font-family:'Inter Tight';font-weight:600;letter-spacing:-.035em;font-size:clamp(34px,5.2vw,72px);line-height:1.08;max-width:1050px}
+.statement p .w{color:#2c2c2e;transition:color .5s}
+.statement p .w.on{color:#f5f5f7}
+.statement p .w.g.on{color:var(--gold2)}
+
+.scene{position:relative;height:260vh;background:#000}
+.scene .stick{position:sticky;top:0;height:100vh;overflow:hidden}
+.scene .bg{position:absolute;inset:0;transform:scale(1.18);will-change:transform}
+.scene .shade{position:absolute;inset:0;background:rgba(0,0,0,.25)}
+.scene .cap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 24px}
+.scene .cap > div{position:absolute;opacity:0;transform:translateY(30px);transition:opacity .9s var(--ease),transform .9s var(--ease);max-width:900px}
+.scene .cap > div.on{opacity:1;transform:none}
+.scene .cap h2{font-size:clamp(44px,7.5vw,112px);line-height:.96;letter-spacing:-.045em;font-weight:600;text-shadow:0 10px 60px rgba(0,0,0,.4)}
+.scene .cap p{font-size:clamp(18px,2vw,24px);line-height:1.45;color:rgba(255,255,255,.88);margin-top:22px;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+.scene .cap small{display:block;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold2);margin-top:20px}
+
+.nums{background:#000;padding:16vh 0}
+.nums h3{font-size:clamp(40px,5.6vw,80px);line-height:1;letter-spacing:-.045em;font-weight:600;max-width:820px;margin-bottom:9vh}
+.nums h3 em{font-style:normal;color:#6e6e73}
+.ngrid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px}
+.ngrid b{display:block;font-family:'Inter Tight';font-weight:600;letter-spacing:-.05em;font-size:clamp(54px,6.4vw,96px);line-height:1;background:linear-gradient(180deg,#fff 30%,#8a8a8f);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ngrid b.gd{background:linear-gradient(180deg,#F3DA8F 10%,#B8902E);-webkit-background-clip:text;background-clip:text}
+.ngrid span{display:block;margin-top:14px;font-size:15px;color:#a1a1a6;line-height:1.45}
+
+.tiles{background:#F5F5F7;color:#1d1d1f;padding:16vh 0 14vh}
+.tiles .hd{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:50px}
+.tiles h3{font-size:clamp(40px,5.6vw,80px);line-height:1;letter-spacing:-.045em;font-weight:600}
+.tiles .hd p{max-width:360px;color:#6e6e73;font-size:17px;line-height:1.5}
+.track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 max(28px,calc((100vw - 1180px)/2 + 28px)) 30px;scrollbar-width:none}
+.track::-webkit-scrollbar{display:none}
+.tile{flex:none;width:min(78vw,400px);height:620px;border-radius:28px;overflow:hidden;position:relative;scroll-snap-align:start;color:#fff;transition:transform .6s var(--ease)}
+.tile:hover{transform:scale(1.015)}
+.tile .img{position:absolute;inset:0;transition:transform 1.4s var(--ease)}
+.tile:hover .img{transform:scale(1.06)}
+.tile:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,0) 35%,rgba(0,0,0,0) 55%,rgba(0,0,0,.8))}
+.tile .t{position:absolute;top:30px;left:30px;right:30px;z-index:2}
+.tile .t small{font-size:13px;font-weight:600;color:var(--gold2)}
+.tile .t h4{font-family:'Inter Tight';font-size:34px;letter-spacing:-.035em;font-weight:600;margin-top:6px;line-height:1.05}
+.tile .b{position:absolute;bottom:28px;left:30px;right:30px;z-index:2;font-size:15px;line-height:1.5;color:rgba(255,255,255,.9)}
+.tnav{display:flex;justify-content:flex-end;gap:10px;padding:0 28px;max-width:1180px;margin:0 auto}
+.tnav button{width:40px;height:40px;border-radius:50%;background:#e3e3e8;color:#1d1d1f;font-size:18px}
+
+.ath{position:relative;height:110vh;min-height:640px;overflow:hidden;background:#000}
+.ath video,.ath .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ath:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.85) 0%,rgba(0,0,0,.2) 60%,rgba(0,0,0,0))}
+.ath .athin{position:absolute;inset:0;z-index:2;display:flex;align-items:center}
+.ath h3{font-size:clamp(50px,8vw,124px);line-height:.92;letter-spacing:-.05em;font-weight:600}
+.ath h3 span{color:var(--gold2)}
+.ath p{max-width:440px;margin-top:28px;font-size:19px;line-height:1.5;color:rgba(255,255,255,.8)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px;max-width:460px}
+.chips span{padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);font-size:13px}
+
+.split{background:#000;padding:16vh 0}
+.sgrid{display:grid;grid-template-columns:1.1fr 1fr;gap:70px;align-items:center}
+.sgrid .ph{height:min(80vh,680px);border-radius:28px;overflow:hidden}
+.sgrid .ph .img{width:100%;height:100%;transform:scale(1.1);transition:transform 2s var(--ease)}
+.sgrid .ph.in .img{transform:scale(1)}
+.sgrid h3{font-size:clamp(40px,5vw,72px);line-height:1;letter-spacing:-.045em;font-weight:600;margin:14px 0 24px}
+.sgrid p{font-size:19px;line-height:1.55;color:#a1a1a6}
+.sgrid p b{color:#f5f5f7;font-weight:500}
+.list{margin-top:34px;border-top:1px solid var(--lineL)}
+.list div{display:flex;justify-content:space-between;gap:20px;padding:18px 0;border-bottom:1px solid var(--lineL);font-size:16px}
+.list div span:last-child{color:#86868b}
+
+.her{background:#F5F5F7;color:#1d1d1f;padding:16vh 0}
+.her h3{font-size:clamp(40px,5.6vw,80px);line-height:1;letter-spacing:-.045em;font-weight:600;max-width:760px}
+.her .lead{font-size:21px;line-height:1.5;color:#6e6e73;max-width:640px;margin:26px 0 9vh}
+.tl{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.tl>div{background:#fff;border-radius:24px;padding:34px 30px;min-height:230px;display:flex;flex-direction:column;justify-content:space-between}
+.tl b{font-family:'Inter Tight';font-size:58px;letter-spacing:-.05em;font-weight:600;line-height:1}
+.tl b.gd{color:var(--gold)}
+.tl h5{font-size:19px;font-weight:600;margin-bottom:6px;letter-spacing:-.01em}
+.tl p{color:#6e6e73;font-size:15px;line-height:1.5}
+.acc{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px;align-items:center}
+.acc em{font-style:normal;font-size:13px;color:#86868b;margin-right:8px}
+.acc span{background:#fff;border-radius:999px;padding:9px 16px;font-size:13.5px;font-weight:500}
+
+.adm{background:#000;padding:16vh 0}
+.adm h3{font-size:clamp(44px,6.4vw,96px);line-height:.95;letter-spacing:-.05em;font-weight:600;text-align:center}
+.adm .lead{text-align:center;font-size:21px;color:#a1a1a6;max-width:640px;margin:24px auto 70px;line-height:1.5}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.steps div{background:#141416;border-radius:22px;padding:28px 24px;min-height:200px}
+.steps b{display:block;font-family:'Inter Tight';color:var(--gold2);font-size:15px;font-weight:600}
+.steps h5{font-size:22px;letter-spacing:-.02em;font-weight:600;margin:40px 0 8px}
+.steps p{font-size:14.5px;color:#a1a1a6;line-height:1.5}
+.opts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px}
+.opts div{border:1px solid #2a2a2e;border-radius:22px;padding:24px}
+.opts b{display:block;font-size:17px;font-weight:600}.opts span{font-size:14px;color:#86868b}
+.cta{display:flex;gap:12px;justify-content:center;margin-top:50px;flex-wrap:wrap}
+
+.sent{position:relative;height:100vh;min-height:600px;overflow:hidden;display:flex;align-items:flex-end}
+.sent .img{position:absolute;inset:0}
+.sent:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,.85))}
+.sent .wrap{position:relative;z-index:2;padding-bottom:12vh;width:100%}
+.sent h3{font-size:clamp(70px,13vw,210px);line-height:.85;letter-spacing:-.06em;font-weight:600}
+.sent p{font-size:21px;color:rgba(255,255,255,.85);max-width:560px;margin-top:20px;line-height:1.45}
+
+.pt{background:#F5F5F7;color:#1d1d1f;padding:16vh 0;text-align:center;overflow:hidden}
+.pt h3{font-size:clamp(44px,6vw,88px);line-height:.98;letter-spacing:-.05em;font-weight:600}
+.pt .lead{font-size:21px;color:#6e6e73;max-width:620px;margin:22px auto 40px;line-height:1.5}
+.feat4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:70px;text-align:left}
+.feat4 div{background:#fff;border-radius:24px;padding:30px 26px}
+.feat4 i{display:block;width:40px;height:40px;border-radius:12px;background:#000;color:var(--gold2);font-style:normal;display:flex;align-items:center;justify-content:center;margin-bottom:40px;font-weight:700}
+.feat4 b{display:block;font-size:20px;letter-spacing:-.02em;margin-bottom:6px}
+.feat4 span{font-size:14.5px;color:#6e6e73;line-height:1.5}
+
+footer{background:#F5F5F7;color:#6e6e73;font-size:12.5px;padding:0 0 30px}
+footer .wrap{border-top:1px solid #d2d2d7;padding-top:24px}
+.fg{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:30px;padding:20px 0 30px;border-bottom:1px solid #d2d2d7}
+.fg h6{font-size:12.5px;color:#1d1d1f;font-weight:600;margin-bottom:10px}
+.fg li{list-style:none;margin-bottom:8px}
+.fg a:hover{color:#1d1d1f;text-decoration:underline}
+.fb{display:flex;justify-content:space-between;gap:20px;padding-top:16px;flex-wrap:wrap}
+
+.mnav{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.96);backdrop-filter:blur(20px);display:none;flex-direction:column;padding:90px 34px;gap:4px}
+.mnav.open{display:flex}
+.mnav a{font-family:'Inter Tight';font-size:32px;font-weight:600;letter-spacing:-.03em;padding:8px 0}
+.mclose{position:absolute;top:14px;right:22px;font-size:22px}
+
+.portal{position:fixed;inset:0;z-index:100;background:var(--paper);display:none;font-size:14px}
+.portal.open{display:flex;animation:pin .6s var(--ease)}
+@keyframes pin{from{opacity:0;transform:translateY(20px)}}
+.p-side{width:256px;background:var(--navy);color:rgba(255,255,255,.72);display:flex;flex-direction:column;padding:26px 16px;flex:none}
+.p-side .brand{padding:0 8px 28px;border-bottom:1px solid var(--lineL);margin-bottom:22px}
+.p-side .brand svg{width:34px;height:40px}.p-side .brand b{font-size:19px}
+.p-nav button{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border-radius:6px;font-size:13.5px;text-align:left;color:inherit;transition:background .3s}
+.p-nav button:hover{background:rgba(255,255,255,.05)}
+.p-nav button.on{background:rgba(255,255,255,.09);color:#fff}
+.p-nav button.on svg{color:var(--gold2)}
+.p-nav svg{width:18px;height:18px;flex:none}
+.p-nav .ct{margin-left:auto;background:var(--gold);color:#fff;font-size:10px;font-weight:700;border-radius:20px;padding:2px 7px}
+.p-me{margin-top:auto;padding:16px 10px 0;border-top:1px solid var(--lineL);display:flex;align-items:center;gap:12px}
+.av{width:36px;height:36px;border-radius:50%;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none}
+.p-me div:not(.av){flex:1;min-width:0}.p-me b{display:block;color:#fff;font-size:13px;font-weight:600}.p-me small{font-size:11px}
+.p-main{flex:1;overflow-y:auto;min-width:0}
+.p-top{position:sticky;top:0;z-index:5;background:rgba(250,248,243,.9);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:space-between;padding:20px 44px;border-bottom:1px solid var(--line);gap:16px}
+.p-top h1{font-family:var(--serif);font-weight:500;font-size:30px;line-height:1}
+.p-top .r{display:flex;gap:10px;align-items:center}
+.demo{font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:#8A6A35;background:#EFE6D3;padding:6px 10px;border-radius:20px}
+.p-body{padding:36px 44px 80px;max-width:1180px}
+.sbtn{padding:10px 16px;font-size:12px;font-weight:600;border-radius:6px;border:1px solid var(--line);background:#fff;transition:.3s}
+.sbtn:hover{border-color:var(--navy)}
+.sbtn.pri{background:var(--navy);color:#fff;border-color:var(--navy)}
+.sbtn.pri:hover{background:var(--navy3)}
+.sbtn.gold{background:var(--gold);border-color:var(--gold);color:#fff}
+.grid2{display:grid;grid-template-columns:1.5fr 1fr;gap:24px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.box{background:#fff;border:1px solid var(--line);border-radius:10px;padding:26px}
+.box h3{font-family:var(--serif);font-weight:500;font-size:24px;margin-bottom:4px}
+.box .sub{color:var(--muted);font-size:12.5px;margin-bottom:18px}
+.kpi b{display:block;font-family:var(--serif);font-size:44px;font-weight:500;line-height:1;margin:10px 0 6px}
+.kpi span{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.kpi small{font-size:12px;color:var(--muted)}
+.welcome{background:var(--navy);color:#fff;border-radius:12px;padding:38px;position:relative;overflow:hidden;margin-bottom:24px}
+.welcome .img{position:absolute;inset:0;opacity:.28}
+.welcome > *{position:relative}
+.welcome h2{font-family:var(--serif);font-weight:400;font-size:40px;margin:10px 0 8px}
+.welcome p{color:rgba(255,255,255,.75);max-width:520px;line-height:1.7}
+.qa{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.qa button{background:rgba(255,255,255,.1);border:1px solid var(--lineL);color:#fff;padding:10px 16px;border-radius:30px;font-size:12.5px;transition:.3s}
+.qa button:hover{background:var(--gold);border-color:var(--gold)}
+.ann{padding:18px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.ann:last-child{border-bottom:0}
+.ann .t{display:flex;gap:10px;align-items:center;font-size:11px;color:var(--muted);margin-bottom:6px}
+.ann h4{font-family:var(--serif);font-size:21px;font-weight:500}
+.ann p{color:var(--muted);line-height:1.65;margin-top:6px;font-size:13.5px}
+.tag{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:3px 9px;border-radius:20px;background:#ECEBE7;color:#3a3a40}
+.tag.urgent{background:#F6E1DC;color:#9B3B2A}
+.tag.gold{background:#F1E7C8;color:#7F6318}
+.tag.green{background:#DFEEE3;color:#2D6A42}
+.cal p{display:flex;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);align-items:center}
+.cal p:last-child{border:0}
+.cal .dd{width:52px;text-align:center;flex:none;font-family:var(--serif);font-size:26px;line-height:1}
+.cal .dd small{display:block;font-family:var(--sans);font-size:9px;letter-spacing:.2em;color:var(--gold);font-weight:700;margin-top:3px}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:12px 10px;border-bottom:1px solid var(--line)}
+td{padding:15px 10px;border-bottom:1px solid var(--line);font-size:13.5px}
+tr:last-child td{border:0}
+.grade{font-family:var(--serif);font-size:22px;font-weight:600}
+.bar2{height:5px;background:#EEE9DE;border-radius:5px;overflow:hidden;width:110px}
+.bar2 i{display:block;height:100%;background:var(--gold)}
+label{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--muted);margin:16px 0 8px}
+input,select,textarea{width:100%;font:inherit;font-size:14px;padding:12px 14px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
+textarea{min-height:110px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.track{display:flex;gap:4px;margin-top:10px}
+.track i{flex:1;height:4px;border-radius:4px;background:#EEE9DE}
+.track i.on{background:var(--gold)}
+.req{padding:18px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}
+.req:last-child{border:0}
+.req h4{font-size:15px;font-weight:600}
+.req small{color:var(--muted);font-size:12px}
+.msgs{display:grid;grid-template-columns:300px 1fr;height:calc(100vh - 190px);min-height:480px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.th-list{border-right:1px solid var(--line);overflow-y:auto}
+.th{padding:18px 20px;border-bottom:1px solid var(--line);cursor:pointer;display:flex;gap:12px}
+.th.on{background:var(--ivory)}
+.th b{font-size:13.5px;display:block}
+.th small{font-size:12px;color:var(--muted);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px}
+.th .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);margin-left:auto;margin-top:6px;flex:none}
+.conv{display:flex;flex-direction:column;min-width:0}
+.conv-h{padding:18px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}
+.conv-h b{font-family:var(--serif);font-size:21px;font-weight:500}
+.conv-b{flex:1;overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:12px;background:var(--paper)}
+.bub{max-width:72%;padding:12px 16px;border-radius:14px;line-height:1.55;font-size:13.5px;background:#fff;border:1px solid var(--line);align-self:flex-start}
+.bub.me{align-self:flex-end;background:var(--navy);color:#fff;border-color:var(--navy)}
+.bub small{display:block;font-size:10.5px;opacity:.6;margin-top:6px}
+.conv-f{display:flex;gap:10px;padding:16px;border-top:1px solid var(--line)}
+.conv-f input{background:#fff}
+.toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,40px);background:var(--navy);color:#fff;padding:14px 22px;border-radius:30px;font-size:13px;opacity:0;transition:.5s var(--ease);z-index:300;pointer-events:none;border:1px solid var(--gold)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.login{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;background:rgba(7,15,27,.7);backdrop-filter:blur(10px);padding:20px}
+.login.open{display:flex}
+.login-card{background:var(--paper);width:min(940px,100%);display:grid;grid-template-columns:1fr 1fr;border-radius:12px;overflow:hidden;box-shadow:0 60px 120px rgba(0,0,0,.4)}
+.login-card .img{min-height:520px;position:relative}
+.login-card .img:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,17,19,.2),rgba(17,17,19,.85))}
+.login-card .img div{position:absolute;bottom:34px;left:34px;right:34px;z-index:2;color:#fff;font-family:var(--serif);font-size:28px;line-height:1.2;font-style:italic}
+.login-card .f{padding:50px 46px;display:flex;flex-direction:column;justify-content:center}
+.login-card h2{font-family:var(--serif);font-weight:400;font-size:42px;margin:14px 0 8px}
+.role{display:flex;align-items:center;gap:16px;padding:18px;border:1px solid var(--line);border-radius:8px;margin-top:12px;text-align:left;transition:.3s;width:100%;background:#fff}
+.role:hover{border-color:var(--gold);transform:translateX(4px)}
+.role b{display:block;font-family:var(--serif);font-size:21px;font-weight:500}
+.role small{color:var(--muted);font-size:12.5px}
+.modal{position:fixed;inset:0;z-index:200;background:rgba(7,15,27,.65);display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto}
+.modal.open{display:flex}
+.doc{background:#fff;width:min(780px,100%);padding:70px 76px;box-shadow:0 40px 100px rgba(0,0,0,.4);position:relative}
+.doc .lh{display:flex;align-items:center;gap:16px;padding-bottom:22px;border-bottom:2px solid var(--gold);margin-bottom:40px}
+.doc .lh svg{width:46px;height:54px}
+.doc .lh b{font-family:var(--serif);font-size:26px;font-weight:600;color:var(--navy);display:block}
+.doc .lh small{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.doc h2{font-family:var(--serif);text-align:center;font-weight:600;font-size:30px;letter-spacing:.04em;margin-bottom:34px;color:var(--navy)}
+.doc p{line-height:1.9;font-size:14.5px;margin-bottom:16px;font-family:Georgia,serif}
+.doc .sig{margin-top:60px;display:flex;justify-content:space-between;align-items:flex-end}
+.doc .seal{width:110px;height:110px;border-radius:50%;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;text-align:center;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700;transform:rotate(-12deg)}
+.doc-actions{position:absolute;top:-52px;right:0;display:flex;gap:8px}
+.doc-actions button{background:#fff;padding:10px 16px;border-radius:6px;font-size:12px;font-weight:600}
+.doc-actions .pri{background:var(--gold);color:#fff}
+.empty{color:var(--muted);text-align:center;padding:30px;font-size:13px}
+.mtab{display:none}
+@media print{
+body *{visibility:hidden}
+.doc,.doc *{visibility:visible}
+.doc{position:absolute;left:0;top:0;box-shadow:none;width:100%}
+.doc-actions{display:none}
+}
+.portal,.login,.modal,.toast{color:var(--ink)}.toast{color:#fff}
+.login-card h2,.welcome h2,.box h3,.p-top h1{letter-spacing:-.03em;font-weight:600}
+@media (max-width:1000px){
+.menu{display:none}.burger{display:block;width:30px;height:30px}
+.ngrid{grid-template-columns:1fr 1fr;row-gap:50px}
+.sgrid{grid-template-columns:1fr;gap:40px}
+.tl{grid-template-columns:1fr 1fr}
+.steps{grid-template-columns:1fr 1fr}.opts{grid-template-columns:1fr 1fr}
+.feat4{grid-template-columns:1fr 1fr}
+.fg{grid-template-columns:1fr 1fr}
+.grid2,.grid3{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+.nr .lnk{display:none}
+.hero .sub{flex-direction:column;align-items:flex-start}
+.hero .sub p{font-size:17px}
+.tile{height:520px}
+.tiles .hd{flex-direction:column;align-items:flex-start}
+.tl{grid-template-columns:1fr}
+.steps{grid-template-columns:1fr}.steps h5{margin-top:20px}.steps div{min-height:0}
+.feat4{grid-template-columns:1fr}
+.ath:after{background:linear-gradient(0deg,rgba(0,0,0,.9) 10%,rgba(0,0,0,.2) 70%)}
+.ath .athin{align-items:flex-end;padding-bottom:12vh}
+
+.portal.open{flex-direction:column}
+.p-side{display:none}
+.mtab{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:20;background:#0A0A0B;padding:8px 4px calc(8px + env(safe-area-inset-bottom));justify-content:space-around}
+.mtab button{display:flex;flex-direction:column;align-items:center;gap:4px;color:rgba(255,255,255,.6);font-size:10px;padding:4px 6px;position:relative}
+.mtab button.on{color:var(--gold2)}
+.mtab svg{width:20px;height:20px}
+.mtab .ct{position:absolute;top:-2px;right:2px;background:var(--gold);color:#000;font-size:9px;border-radius:10px;padding:1px 5px}
+.p-top{padding:16px 20px}.p-top h1{font-size:24px}.p-top .demo{display:none}
+.p-body{padding:22px 18px 110px}
+.welcome{padding:28px}.welcome h2{font-size:30px}
+.row2{grid-template-columns:1fr}
+.msgs{grid-template-columns:1fr;height:auto}
+.th-list{max-height:220px;border-right:0;border-bottom:1px solid var(--line)}
+.conv-b{min-height:320px}
+.login-card{grid-template-columns:1fr}.login-card .img{display:none}
+.login-card .f{padding:36px 26px}
+.doc{padding:40px 26px}
+.doc-actions{position:static;margin-bottom:14px;justify-content:flex-end}
+.tbl-wrap{overflow-x:auto}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.hero h1 span,.hero .sub{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="crest" viewBox="0 0 44 52">
+<path d="M3 4 H41 V22 C41 36 32 45 22 50 C12 45 3 36 3 22 Z" fill="#111113" stroke="#E3C46E" stroke-width="1.8"/>
+<g fill="#E3C46E"><rect x="20.2" y="9" width="3.6" height="33"/><rect x="11" y="17.2" width="22" height="3.6"/>
+<circle cx="22" cy="8.6" r="2.6"/><circle cx="19.6" cy="11" r="1.7"/><circle cx="24.4" cy="11" r="1.7"/>
+<circle cx="10.6" cy="19" r="2.6"/><circle cx="13" cy="16.6" r="1.7"/><circle cx="13" cy="21.4" r="1.7"/>
+<circle cx="33.4" cy="19" r="2.6"/><circle cx="31" cy="16.6" r="1.7"/><circle cx="31" cy="21.4" r="1.7"/>
+<circle cx="22" cy="42.4" r="2.6"/><circle cx="19.6" cy="40" r="1.7"/><circle cx="24.4" cy="40" r="1.7"/></g>
+</symbol></defs></svg>
+<div class="prop">Design proposal for Cornerstone Christian Academy — not the official school website. Portal uses demo data.</div>
+<header class="nav" id="nav"><div class="wrap">
+<a class="brand" href="#top"><svg><use href="#crest"/></svg>Cornerstone</a>
+<nav class="menu"><a href="#story">Our Story</a><a href="#academics">Academics</a><a href="#athletics">Athletics</a><a href="#international">International</a><a href="#heritage">Heritage</a><a href="#admissions">Admissions</a></nav>
+<div class="nr"><a class="lnk" href="#" onclick="openLogin();return false">Family Portal</a><a class="pill gold" href="#admissions">Visit</a>
+<button class="burger" onclick="document.getElementById('mnav').classList.add('open')" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><path d="M4 9h16M4 15h16"/></svg></button></div>
+</div></header>
+<div class="mnav" id="mnav" onclick="if(event.target.tagName==='A'||event.target===this)this.classList.remove('open')">
+<button class="mclose" onclick="this.parentElement.classList.remove('open')">✕</button>
+<a href="#story">Our Story</a><a href="#academics">Academics</a><a href="#athletics">Athletics</a><a href="#international">International</a><a href="#heritage">Heritage</a><a href="#admissions">Admissions</a>
+<a href="#" onclick="openLogin();return false" style="color:var(--gold2)">Family Portal</a>
+</div>
+<!-- HERO -->
+<section class="hero" id="top">
+<div class="poster img" style="background-image:url(img/0.jpg)"></div>
+<video autoplay muted loop playsinline preload="auto" poster="img/0.jpg" src="img/v0.mp4"></video>
+<div class="hero-in"><div class="wrap">
+<h1 class="d"><span>Grow in wisdom.</span><span>Grow in grace.</span></h1>
+<div class="sub">
+<p>A Christ-centered K–12 academy in Bryan, Texas — where every child is known by name.</p>
+<div class="ctas"><a class="btn w" href="#admissions">Plan a visit</a><a class="btn o" href="#story">Discover more</a></div>
+</div>
+</div></div>
+<div class="cue">Scroll</div>
+</section>
+<!-- STATEMENT -->
+<section class="statement" id="story"><div class="wrap">
+<p class="lit" data-g="wisdom,stature,favor">Since 2002, Cornerstone has believed that educating a child takes a Biblical foundation and a true partnership with the family — so that every student will increase in wisdom and stature, and in favor with God and man.</p>
+</div></section>
+<!-- SCENE: Chapel -->
+<section class="scene">
+<div class="stick">
+<div class="bg img" style="background-image:url(img/8.jpg)"></div><div class="shade"></div>
+<div class="cap">
+<div data-at="0.12"><h2 class="d">Every day<br>begins here.</h2></div>
+<div data-at="0.45"><h2 class="d">In chapel.</h2><p>Songs, prayer and a word from Scripture, every morning. On Fridays, every class recites its memory verse together.</p></div>
+<div data-at="0.75"><p style="font-size:clamp(22px,2.6vw,34px);color:#fff">“And Jesus increased in wisdom and in stature<br>and in favor with God and man.”</p><small>Luke 2:52 · ESV</small></div>
+</div>
+</div>
+</section>
+<!-- NUMBERS -->
+<section class="nums"><div class="wrap">
+<h3 class="d rv">Small by design.<br><em>Exceptional by every measure.</em></h3>
+<div class="ngrid">
+<div class="rv"><b>Top 10%</b><span>Nationally on the Stanford Achievement Test</span></div>
+<div class="rv dl1"><b>3 : 1</b><span>Students to every teacher</span></div>
+<div class="rv dl2"><b class="gd">2×</b><span>TCAL State Champions, girls’ basketball</span></div>
+<div class="rv dl3"><b>K–12</b><span>Fully accredited by Cognia (SACS)</span></div>
+</div>
+</div></section>
+<!-- DIVISIONS -->
+<section class="tiles" id="academics">
+<div class="wrap hd"><h3 class="d rv">One school.<br>Every season of growing up.</h3><p class="rv dl1">Core academics every morning. Bible, Spanish, art, music, computers and PE every afternoon. Teachers who know your child.</p></div>
+<div class="track" id="track">
+<div class="tile"><div class="img" style="background-image:url(img/6.jpg)"></div><div class="t"><small>Kindergarten – Grade 5</small><h4>Lower School</h4></div><div class="b">Reading, wonder and Scripture memory. Full-day or part-day core options, with extended care from 7:30 AM to 5:30 PM.</div></div>
+<div class="tile"><div class="img" style="background-image:url(img/3.jpg)"></div><div class="t"><small>Grades 6 – 8</small><h4>Middle School</h4></div><div class="b">Great books, applied mathematics and lab science — plus Spanish, American Sign Language, band and athletics. NJHS.</div></div>
+<div class="tile"><div class="img" style="background-image:url(img/2.jpg)"></div><div class="t"><small>Grades 9 – 12</small><h4>Upper School</h4></div><div class="b">College-preparatory rigor, the National Honor Society and dual credit through Blinn College.</div></div>
+<div class="tile"><div class="img" style="background-image:url(img/1.jpg)"></div><div class="t"><small>Every grade</small><h4>Faith &amp; Service</h4></div><div class="b">Daily Bible classes, chapel, the Joanne Walker Day of Service and work days at Messiah’s Ranch.</div></div>
+</div>
+<div class="tnav"><button onclick="slide(-1)" aria-label="Previous">‹</button><button onclick="slide(1)" aria-label="Next">›</button></div>
+</section>
+<!-- ATHLETICS -->
+<section class="ath" id="athletics">
+<div class="poster img" style="background-image:url(img/4.jpg)"></div>
+<video autoplay muted loop playsinline preload="metadata" poster="img/4.jpg" src="img/v1.mp4"></video>
+<div class="athin"><div class="wrap">
+<div class="eyebrow rv">Cougar Athletics</div>
+<h3 class="d rv dl1" style="margin-top:12px">Back to back.<br><span>State champions.</span></h3>
+<p class="rv dl2">The Lady Cougars claimed a second straight Texas Christian Athletic League Class 2A title — 60 to 30 over Marshall Christian.</p>
+<div class="chips rv dl3"><span>Basketball</span><span>Volleyball</span><span>Football</span><span>Cheer</span><span>Baseball</span><span>Track &amp; Field</span></div>
+</div></div>
+</section>
+<!-- INTERNATIONAL -->
+<section class="split" id="international"><div class="wrap sgrid">
+<div class="ph rv"><div class="img" style="background-image:url(img/7.jpg)"></div></div>
+<div>
+<div class="eyebrow rv">International Students</div>
+<h3 class="d rv dl1">A home in Texas.<br>A future anywhere.</h3>
+<p class="rv dl2">Cornerstone is <b>SEVP-certified</b> and issues Form I-20 for F-1 students. Families from around the world trust us with their children — and those students are thriving at the top of their class.</p>
+<div class="list rv dl3"><div><span>Form I-20</span><span>Issued by the school</span></div><div><span>Residential care</span><span>On-site coordinators</span></div><div><span>English support</span><span>Personal coaching</span></div><div><span>College pathway</span><span>Dual credit · Blinn</span></div></div>
+</div>
+</div></section>
+<!-- HERITAGE -->
+<section class="her" id="heritage"><div class="wrap">
+<div class="eyebrow rv" style="color:var(--gold)">Our Heritage</div>
+<h3 class="d rv dl1" style="margin-top:12px">It started with forty believers and one question.</h3>
+<p class="lead rv dl2">In July 2001, Christians across Bryan–College Station gathered to imagine a school that would surround children with the love of God — and equip them to become whatever God intends.</p>
+<div class="tl">
+<div class="rv"><b>2002</b><div><h5>Doors open</h5><p>August 18 — eleven kindergarten and pre-K students.</p></div></div>
+<div class="rv dl1"><b>Top 3%</b><div><h5>In reading</h5><p>By 2005, our kindergartners ranked among the nation’s best in total reading.</p></div></div>
+<div class="rv dl2"><b>SACS</b><div><h5>Fully accredited</h5><p>The smallest school ever accredited by the Southern Association.</p></div></div>
+<div class="rv"><b>2006</b><div><h5>Science Academy</h5><p>The first and only Science Academy in Brazos County.</p></div></div>
+<div class="rv dl1"><b>2015</b><div><h5>First graduates</h5><p>A grade added every year — until our first senior class walked.</p></div></div>
+<div class="rv dl2"><b class="gd">2022</b><div><h5>State champions</h5><p>The Lady Cougars win back-to-back TCAL Class 2A titles.</p></div></div>
+</div>
+<div class="acc rv"><em>Accredited &amp; affiliated</em><span>Cognia · AdvancED / SACS</span><span>TCSA</span><span>NCSA</span><span>PSIA</span><span>TCAL</span><span>National Honor Society</span><span>NJHS</span></div>
+</div></section>
+<!-- SENT -->
+<section class="sent">
+<div class="img" style="background-image:url(img/5.jpg)"></div>
+<div class="wrap"><h3 class="d rv">Sent.</h3><p class="rv dl1">Cornerstone graduates go on to Texas A&amp;M, Harding University, Blinn College and beyond — prepared to go boldly into the world with purpose and love.</p></div>
+</section>
+<!-- ADMISSIONS -->
+<section class="adm" id="admissions"><div class="wrap">
+<h3 class="d rv">Come and see.</h3>
+<p class="lead rv dl1">Admission is open year-round as space allows. Every family is welcome to a free three-day trial, so your child can experience Cornerstone before you decide.</p>
+<div class="steps">
+<div class="rv"><b>01</b><h5>Inquire</h5><p>Call or email our office to start the conversation.</p></div>
+<div class="rv dl1"><b>02</b><h5>3-day trial</h5><p>Free days in the classroom — for your child and for you.</p></div>
+<div class="rv dl2"><b>03</b><h5>Apply</h5><p>Application, enrollment documents and immunization records.</p></div>
+<div class="rv dl3"><b>04</b><h5>Interview</h5><p>With the principal or a member of the Board.</p></div>
+<div class="rv dl3"><b>05</b><h5>Enroll</h5><p>Registration secures your child’s seat. Welcome, Cougar.</p></div>
+</div>
+<div class="opts rv"><div><b>Traditional full day</b><span>K – 12</span></div><div><b>Part-day core</b><span>K – 5</span></div><div><b>Homeschool enrichment</b><span>Part-day electives</span></div><div><b>Extended care</b><span>7:30 AM · 3:30–5:30 PM</span></div></div>
+<div class="cta rv"><a class="btn w" href="tel:9796948200">Call (979) 694-8200</a><a class="btn o" href="mailto:office@bvcca.com">office@bvcca.com</a></div>
+</div></section>
+<!-- PORTAL TEASER -->
+<section class="pt"><div class="wrap">
+<div class="eyebrow rv" style="color:var(--gold)">Family Portal</div>
+<h3 class="d rv dl1" style="margin-top:12px">Your family.<br>Your school. One place.</h3>
+<p class="lead rv dl2">Announcements, grades, private messages with teachers, and official school documents — requested in seconds and issued digitally.</p>
+<button class="btn k rv dl3" onclick="openLogin()">Open Family Portal</button>
+<div class="feat4">
+<div class="rv"><i>01</i><b>Announcements</b><span>Every notice from school and class, in one feed.</span></div>
+<div class="rv dl1"><i>02</i><b>Teacher messages</b><span>Direct, private conversations with every teacher.</span></div>
+<div class="rv dl2"><i>03</i><b>Grades &amp; attendance</b><span>Always current, always clear.</span></div>
+<div class="rv dl3"><i>04</i><b>Certificates</b><span>Enrollment letters, transcripts and more — download when ready.</span></div>
+</div>
+</div></section>
+<footer><div class="wrap">
+<div class="fg">
+<div><a class="brand" href="#top" style="color:#1d1d1f"><svg><use href="#crest"/></svg>Cornerstone Christian Academy</a><p style="margin-top:12px;line-height:1.6">Brazos Valley Cornerstone Christian Academy<br>Christ-centered · Biblically based · K–12</p></div>
+<div><h6>Visit</h6><ul><li>3200 Cavitt Avenue</li><li>Bryan, Texas 77801</li><li><a href="tel:9796948200">(979) 694-8200</a></li><li><a href="mailto:office@bvcca.com">office@bvcca.com</a></li></ul></div>
+<div><h6>Explore</h6><ul><li><a href="#academics">Academics</a></li><li><a href="#athletics">Athletics</a></li><li><a href="#international">International</a></li><li><a href="#admissions">Admissions</a></li></ul></div>
+<div><h6>Families</h6><ul><li><a href="#" onclick="openLogin();return false">Family Portal</a></li><li><a href="#" onclick="openLogin();return false">Request documents</a></li><li><a href="#" onclick="toast('PACK — Parents Association for Cornerstone Kids');return false">PACK</a></li><li><a href="#" onclick="toast('Giving page — next build');return false">Give</a></li></ul></div>
+</div>
+<div class="fb"><span>© 2026 Brazos Valley Cornerstone Christian Academy. All rights reserved.</span><span>Accredited by Cognia · SEVP Certified · Go Cougars</span></div>
+</div></footer>
+<!-- LOGIN -->
+<div class="login" id="login" onclick="if(event.target===this)closeLogin()">
+<div class="login-card">
+<div class="img" style="background-image:url(img/2.jpg)"><div>“Families are not visitors here; they are essential.”</div></div>
+<div class="f">
+<div class="eyebrow">Family Portal · Demo</div>
+<h2>Welcome home.</h2>
+<p style="color:var(--muted);font-size:14px;line-height:1.7">Preview the portal as a parent or a teacher. Switch roles anytime to see how messages and requests flow between them.</p>
+<button class="role" onclick="enter('parent')"><div class="av">KF</div><div><b>Continue as Parent</b><small>The Kim Family · Grace, Grade 10</small></div></button>
+<button class="role" onclick="enter('teacher')"><div class="av" style="background:var(--navy)">ST</div><div><b>Continue as Teacher / Staff</b><small>Mrs. Sarah Taylor · Upper School</small></div></button>
+<button style="margin-top:22px;font-size:12px;color:var(--muted)" onclick="closeLogin()">← Back to website</button>
+</div>
+</div>
+</div>
+<!-- PORTAL -->
+<div class="portal" id="portal">
+<aside class="p-side">
+<a class="brand" href="#" onclick="exitPortal();return false"><svg><use href="#crest"/></svg><span><b>Cornerstone</b><small>Family Portal</small></span></a>
+<nav class="p-nav" id="pnav"></nav>
+<div class="p-me"><div class="av" id="meAv">KF</div><div><b id="meName">The Kim Family</b><small id="meRole">Parent</small></div>
+<button title="Switch role" onclick="switchRole()" style="color:var(--gold2)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 7h11l-3-3M17 17H6l3 3"/></svg></button></div>
+</aside>
+<div class="p-main" id="pmain">
+<div class="p-top">
+<h1 id="ptitle">Home</h1>
+<div class="r"><span class="demo">Demo data</span><button class="sbtn" onclick="switchRole()">Switch role</button><button class="sbtn pri" onclick="exitPortal()">Exit</button></div>
+</div>
+<div class="p-body" id="pbody"></div>
+</div>
+<nav class="mtab" id="mtab"></nav>
+</div>
+<!-- DOC MODAL -->
+<div class="modal" id="docModal" onclick="if(event.target===this)this.classList.remove('open')">
+<div style="position:relative;width:min(780px,100%);margin-top:52px">
+<div class="doc" id="doc"></div>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),2600)}
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.18});
+$$('.rv').forEach(el=>io.observe(el));
+// statement word split
+$$('.lit').forEach(p=>{const g=(p.dataset.g||'').split(',');p.innerHTML=p.textContent.trim().split(/\s+/).map(w=>`<span class="w${g.some(x=>x&&w.toLowerCase().startsWith(x))?' g':''}">${w}</span>`).join(' ')});
+function onScroll(){
+const vh=innerHeight;
+$('#nav').classList.toggle('solid',scrollY>40);
+$$('.lit').forEach(p=>{const r=p.getBoundingClientRect();const prog=Math.min(1,Math.max(0,(vh*.85-r.top)/(r.height+vh*.35)));const ws=p.querySelectorAll('.w');const n=Math.floor(prog*ws.length);ws.forEach((w,i)=>w.classList.toggle('on',i<n))});
+$$('.scene').forEach(sc=>{const r=sc.getBoundingClientRect();const prog=Math.min(1,Math.max(0,-r.top/(r.height-vh)));
+sc.querySelector('.bg').style.transform=`scale(${1.18-prog*.18})`;
+sc.querySelector('.shade').style.background=`rgba(0,0,0,${.2+prog*.35})`;
+const caps=[...sc.querySelectorAll('.cap>div')];let cur=-1;caps.forEach((c,i)=>{if(prog>=+c.dataset.at-.1)cur=i});caps.forEach((c,i)=>c.classList.toggle('on',i===cur))});
+}
+addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);onScroll();
+function slide(d){const t=$('#track');t.scrollBy({left:d*(t.querySelector('.tile').offsetWidth+20),behavior:'smooth'})}
+// smooth anchor
+$$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id.length>1&&$(id)){e.preventDefault();$(id).scrollIntoView({behavior:'smooth'})}}));
+// pause offscreen videos
+const vo=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){v.play&&v.play().catch(()=>{})}else v.pause&&v.pause()}),{threshold:.05});
+$$('video').forEach(v=>vo.observe(v));
+
+const S={
+role:null, view:'home', thread:0,
+student:{name:'Grace Kim',grade:'Grade 10',id:'CCA-2026-0142',dob:'March 14, 2011',entered:'August 2024'},
+announcements:[
+{id:1,title:'Christmas Program & Lessons and Carols',date:'Nov 18',tag:'Event',aud:'All Families',body:'Join us Thursday, December 4 at 6:30 PM in the Sanctuary. Students should arrive by 6:00 PM in Sunday dress. Please RSVP by Nov 28.',read:false},
+{id:2,title:'Thanksgiving Break — No School Nov 24–28',date:'Nov 15',tag:'Urgent',aud:'All Families',body:'Campus will be closed for Thanksgiving Break. Classes resume Monday, December 1. Residential students: dormitory schedule has been sent separately.',read:false},
+{id:3,title:'Upper School Semester Exam Schedule',date:'Nov 10',tag:'Academics',aud:'Upper School',body:'Semester exams run December 15–18. A detailed schedule and study guides are posted in each course.',read:true},
+],
+grades:[
+{c:'English II (Honors)',t:'Mrs. Taylor',g:'A',p:96},{c:'Algebra II',t:'Mr. Collins',g:'A-',p:92},{c:'Biology',t:'Dr. Reyes',g:'A',p:95},
+{c:'World History',t:'Mr. Bennett',g:'B+',p:89},{c:'Bible: Life of Christ',t:'Pastor Hale',g:'A',p:98},{c:'Spanish II',t:'Sra. Morales',g:'A-',p:91}
+],
+attendance:{present:62,absent:1,tardy:0},
+events:[{d:'04',m:'DEC',t:'Christmas Program',s:'6:30 PM · Sanctuary'},{d:'15',m:'DEC',t:'Semester exams begin',s:'Upper School'},{d:'19',m:'DEC',t:'Christmas break begins',s:'Noon dismissal'},{d:'06',m:'FEB',t:'Parent–Teacher Conferences',s:'Book a time slot'}],
+docTypes:['Enrollment Verification Letter','Certificate of Attendance','Official Transcript','Report Card (Certified Copy)','Letter of Good Standing','Immunization Record Copy','I-20 Support Letter (International)'],
+requests:[
+{id:101,type:'Enrollment Verification Letter',purpose:'Visa / consulate',lang:'English',copies:1,date:'Nov 12',status:2,by:'The Kim Family'},
+{id:102,type:'Official Transcript',purpose:'Summer program application',lang:'English',copies:2,date:'Nov 17',status:1,by:'The Kim Family'},
+],
+threads:[
+{with:'Mrs. Sarah Taylor',role:'English II · Homeroom',ini:'ST',unreadP:true,unreadT:false,msgs:[
+{from:'teacher',text:'Hello Mr. and Mrs. Kim — Grace’s essay on Hebrews 11 was outstanding. I’d love to enter it in the regional writing competition. May I?',time:'Nov 18 · 3:12 PM'}]},
+{with:'Front Office',role:'Administration',ini:'FO',unreadP:false,unreadT:false,msgs:[
+{from:'teacher',text:'Your Enrollment Verification Letter is ready to download in Documents.',time:'Nov 14 · 10:02 AM'},
+{from:'parent',text:'Thank you so much!',time:'Nov 14 · 10:40 AM'}]},
+{with:'Mr. Collins',role:'Algebra II',ini:'MC',unreadP:false,unreadT:false,msgs:[
+{from:'parent',text:'Could Grace get extra practice for the Unit 4 test?',time:'Nov 6 · 7:15 PM'},
+{from:'teacher',text:'Absolutely — I’ve posted a practice set and I’m available Tuesdays after school.',time:'Nov 7 · 8:01 AM'}]}
+]
+};
+const STEPS=['Submitted','In review','Ready'];
+const ICON={
+home:'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+ann:'<path d="M4 10v4h3l6 4V6L7 10H4zM17 9a4 4 0 0 1 0 6"/>',
+msg:'<path d="M4 5h16v11H8l-4 4z"/>',
+acad:'<path d="M2 9l10-5 10 5-10 5zM6 11v5c3 2 9 2 12 0v-5"/>',
+doc:'<path d="M6 3h9l4 4v14H6zM14 3v5h5M9 13h7M9 17h5"/>',
+cal:'<path d="M4 6h16v15H4zM4 10h16M8 3v5M16 3v5"/>',
+inbox:'<path d="M3 13l3-8h12l3 8v6H3zM3 13h5l1 2h6l1-2h5"/>'
+};
+const ic=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">${ICON[k]}</svg>`;
+function navItems(){
+if(S.role==='parent'){
+const ua=S.announcements.filter(a=>!a.read).length, um=S.threads.filter(t=>t.unreadP).length, rd=S.requests.filter(r=>r.status===2&&!r.dl).length;
+return [['home','Home','home'],['ann','Announcements','ann',ua],['msg','Messages','msg',um],['acad','Academics','acad'],['doc','Documents','doc',rd],['cal','Calendar','cal']];
+}
+const pend=S.requests.filter(r=>r.status<2).length, um=S.threads.filter(t=>t.unreadT).length;
+return [['home','Dashboard','home'],['ann','Post Notice','ann'],['msg','Messages','msg',um],['doc','Requests','inbox',pend],['acad','Gradebook','acad']];
+}
+function renderNav(){
+const items=navItems();
+const html=items.map(([k,l,i,c])=>`<button class="${S.view===k?'on':''}" onclick="go('${k}')">${ic(i)}<span>${l}</span>${c?`<span class="ct">${c}</span>`:''}</button>`).join('');
+document.getElementById('pnav').innerHTML=html;
+document.getElementById('mtab').innerHTML=items.slice(0,5).map(([k,l,i,c])=>`<button class="${S.view===k?'on':''}" onclick="go('${k}')">${ic(i)}<span>${l.split(' ')[0]}</span>${c?`<span class="ct">${c}</span>`:''}</button>`).join('');
+}
+function go(v){S.view=v;render();document.getElementById('pmain').scrollTop=0}
+function openLogin(){document.getElementById('login').classList.add('open')}
+function closeLogin(){document.getElementById('login').classList.remove('open')}
+function enter(r){S.role=r;S.view='home';closeLogin();document.getElementById('portal').classList.add('open');document.body.style.overflow='hidden';
+document.getElementById('meAv').textContent=r==='parent'?'KF':'ST';document.getElementById('meAv').style.background=r==='parent'?'var(--gold)':'var(--navy3)';
+document.getElementById('meName').textContent=r==='parent'?'The Kim Family':'Mrs. Sarah Taylor';document.getElementById('meRole').textContent=r==='parent'?'Parent · Grace, Gr. 10':'Teacher · Upper School';
+render();toast(r==='parent'?'Signed in as Parent (demo)':'Signed in as Teacher (demo)')}
+function switchRole(){enter(S.role==='parent'?'teacher':'parent')}
+function exitPortal(){document.getElementById('portal').classList.remove('open');document.body.style.overflow=''}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const tagCls=t=>t==='Urgent'?'urgent':t==='Event'?'gold':t==='Academics'?'':'green';
+function render(){
+renderNav();
+const titles={home:S.role==='parent'?'Home':'Dashboard',ann:S.role==='parent'?'Announcements':'Post a Notice',msg:'Messages',acad:S.role==='parent'?'Academics':'Gradebook',doc:S.role==='parent'?'Documents & Certificates':'Document Requests',cal:'Calendar'};
+document.getElementById('ptitle').textContent=titles[S.view];
+const b=document.getElementById('pbody');
+b.innerHTML=(S.role==='parent'?P:T)[S.view]();
+}
+
+const P={
+home(){
+const ua=S.announcements.filter(a=>!a.read).length;
+const avg=Math.round(S.grades.reduce((a,g)=>a+g.p,0)/S.grades.length);
+const att=S.attendance; const pct=(att.present/(att.present+att.absent)*100).toFixed(0);
+return `
+<div class="welcome"><div class="img" style="background-image:url(img/3.jpg)"></div>
+<div class="eyebrow">Good afternoon</div><h2>Welcome back, Kim Family.</h2>
+<p>${S.student.name} · ${S.student.grade} · Student ID ${S.student.id}</p>
+<div class="qa"><button onclick="go('doc')">Request a certificate</button><button onclick="go('msg')">Message a teacher</button><button onclick="go('acad')">View grades</button></div></div>
+<div class="grid3" style="margin-bottom:24px">
+<div class="box kpi"><span>Average</span><b>${avg}%</b><small>Across ${S.grades.length} courses</small></div>
+<div class="box kpi"><span>Attendance</span><b>${pct}%</b><small>${att.absent} absence this semester</small></div>
+<div class="box kpi"><span>Unread notices</span><b>${ua}</b><small><a href="#" onclick="go('ann');return false" style="color:var(--gold)">Read now →</a></small></div>
+</div>
+<div class="grid2">
+<div class="box"><h3>Latest announcements</h3><div class="sub">From the school office and teachers</div>${S.announcements.slice(0,3).map(annRow).join('')}</div>
+<div class="box"><h3>Upcoming</h3><div class="sub">School calendar</div><div class="cal">${S.events.map(e=>`<p><span class="dd">${e.d}<small>${e.m}</small></span><span><b style="font-weight:600">${e.t}</b><br><small style="color:var(--muted)">${e.s}</small></span></p>`).join('')}</div></div>
+</div>`;
+},
+ann(){return `<div class="box">${S.announcements.map(a=>{a.read=true;return annRow(a,true)}).join('')||'<div class="empty">No announcements</div>'}</div>`},
+msg(){return msgView('parent')},
+acad(){
+const att=S.attendance;
+return `<div class="grid2"><div class="box"><h3>Fall Semester 2026</h3><div class="sub">${S.student.name} · ${S.student.grade} · Updated daily</div>
+<div class="tbl-wrap"><table><tr><th>Course</th><th>Teacher</th><th>Progress</th><th>Grade</th></tr>
+${S.grades.map(g=>`<tr><td><b style="font-weight:600">${g.c}</b></td><td style="color:var(--muted)">${g.t}</td><td><div class="bar2"><i style="width:${g.p}%"></i></div><small style="color:var(--muted)">${g.p}%</small></td><td class="grade">${g.g}</td></tr>`).join('')}
+</table></div></div>
+<div><div class="box kpi" style="margin-bottom:18px"><span>Present</span><b>${att.present}</b><small>days this semester</small></div>
+<div class="box kpi" style="margin-bottom:18px"><span>Absent · Tardy</span><b>${att.absent} · ${att.tardy}</b><small>1 excused absence (Oct 9)</small></div>
+<div class="box"><h3>Need a report?</h3><div class="sub">Request a certified report card or transcript.</div><button class="sbtn gold" onclick="go('doc')">Request document</button></div></div></div>`;
+},
+doc(){
+return `<div class="grid2">
+<div class="box"><h3>Request a document</h3><div class="sub">Issued by the school office, usually within 1–2 business days.</div>
+<label>Document type</label><select id="rqType">${S.docTypes.map(d=>`<option>${d}</option>`).join('')}</select>
+<div class="row2"><div><label>Purpose</label><input id="rqPurpose" placeholder="e.g. Visa renewal, scholarship"></div>
+<div><label>Copies</label><select id="rqCopies"><option>1</option><option>2</option><option>3</option></select></div></div>
+<div class="row2"><div><label>Language</label><select id="rqLang"><option>English</option><option>English + Korean translation</option></select></div>
+<div><label>Delivery</label><select id="rqDel"><option>Digital (PDF in portal)</option><option>Pick up at front office</option><option>Mail sealed copy</option></select></div></div>
+<label>Notes for the office</label><textarea id="rqNote" placeholder="Anything we should know?"></textarea>
+<button class="sbtn pri" style="margin-top:18px;padding:13px 22px" onclick="submitReq()">Submit request</button>
+</div>
+<div class="box"><h3>My requests</h3><div class="sub">Track status and download when ready</div>
+${S.requests.filter(r=>r.by==='The Kim Family').slice().reverse().map(r=>`<div class="req"><div><h4>${r.type}</h4><small>#${r.id} · ${r.date} · ${esc(r.purpose)} · ${r.copies} cop${r.copies>1?'ies':'y'}</small>
+<div class="track">${STEPS.map((s,i)=>`<i class="${i<=r.status?'on':''}"></i>`).join('')}</div><small>${STEPS[r.status]}</small></div>
+<div>${r.status===2?`<button class="sbtn gold" onclick="openDoc(${r.id})">Download</button>`:`<span class="tag">${STEPS[r.status]}</span>`}</div></div>`).join('')||'<div class="empty">No requests yet</div>'}
+</div></div>`;
+},
+cal(){return `<div class="box"><h3>School calendar</h3><div class="sub">2026–2027 · Fall & Spring</div><div class="cal">${S.events.concat([{d:'05',m:'JAN',t:'Spring semester begins',s:'All grades'},{d:'17',m:'MAR',t:'Spring break',s:'No school Mar 16–20'},{d:'22',m:'MAY',t:'Commencement',s:'Class of 2027'}]).map(e=>`<p><span class="dd">${e.d}<small>${e.m}</small></span><span style="flex:1"><b style="font-weight:600">${e.t}</b><br><small style="color:var(--muted)">${e.s}</small></span><button class="sbtn" onclick="toast('Added to your calendar')">Add</button></p>`).join('')}</div></div>`}
+};
+function annRow(a,full){return `<div class="ann"><div class="t"><span class="tag ${tagCls(a.tag)}">${a.tag}</span>${a.date} · ${a.aud}${!a.read&&!full?' · <b style="color:var(--gold)">New</b>':''}</div><h4>${esc(a.title)}</h4>${full?`<p>${esc(a.body)}</p>`:''}</div>`}
+function submitReq(){
+const type=document.getElementById('rqType').value, purpose=document.getElementById('rqPurpose').value.trim()||'General',
+copies=+document.getElementById('rqCopies').value, lang=document.getElementById('rqLang').value;
+const id=Math.max(...S.requests.map(r=>r.id))+1;
+S.requests.push({id,type,purpose,lang,copies,date:'Nov 20',status:0,by:'The Kim Family'});
+toast('Request submitted — the office has been notified');render();
+}
+
+const T={
+home(){
+const pend=S.requests.filter(r=>r.status<2), um=S.threads.filter(t=>t.unreadT).length;
+return `<div class="welcome"><div class="img" style="background-image:url(img/8.jpg)"></div>
+<div class="eyebrow">Staff dashboard</div><h2>Good afternoon, Mrs. Taylor.</h2><p>Here is what needs your attention today.</p>
+<div class="qa"><button onclick="go('ann')">Post a notice</button><button onclick="go('doc')">Review requests</button><button onclick="go('msg')">Open messages</button></div></div>
+<div class="grid3" style="margin-bottom:24px">
+<div class="box kpi"><span>Pending requests</span><b>${pend.length}</b><small>Certificates & records</small></div>
+<div class="box kpi"><span>Unread messages</span><b>${um}</b><small>From families</small></div>
+<div class="box kpi"><span>Notices posted</span><b>${S.announcements.length}</b><small>This month</small></div>
+</div>
+<div class="box"><h3>Request queue</h3><div class="sub">Approve and issue documents</div>${reqQueue()}</div>`;
+},
+ann(){
+return `<div class="grid2"><div class="box"><h3>New notice</h3><div class="sub">Families are notified instantly in the portal.</div>
+<label>Title</label><input id="anT" placeholder="e.g. Field trip permission forms due Friday">
+<div class="row2"><div><label>Audience</label><select id="anA"><option>All Families</option><option>Lower School</option><option>Middle School</option><option>Upper School</option><option>International Families</option></select></div>
+<div><label>Category</label><select id="anC"><option>Academics</option><option>Event</option><option>Urgent</option><option>Community</option></select></div></div>
+<label>Message</label><textarea id="anB" placeholder="Write your notice…"></textarea>
+<button class="sbtn pri" style="margin-top:18px;padding:13px 22px" onclick="postAnn()">Publish notice</button></div>
+<div class="box"><h3>Published</h3><div class="sub">Most recent first</div>${S.announcements.map(a=>annRow(a,true)).join('')}</div></div>`;
+},
+msg(){return msgView('teacher')},
+doc(){return `<div class="box"><h3>All document requests</h3><div class="sub">Move each request forward — families see status changes immediately.</div>${reqQueue(true)}</div>`},
+acad(){return `<div class="box"><h3>English II (Honors) · Period 2</h3><div class="sub">Gradebook preview</div><div class="tbl-wrap"><table><tr><th>Student</th><th>Essay: Hebrews 11</th><th>Unit 3 Test</th><th>Average</th></tr>
+${[['Grace Kim',98,95,96],['Daniel Park',91,88,90],['Emma Johnson',94,90,92],['Noah Williams',86,84,85],['Hannah Lee',97,93,95]].map(s=>`<tr><td><b style="font-weight:600">${s[0]}</b></td><td>${s[1]}</td><td>${s[2]}</td><td class="grade">${s[3]}%</td></tr>`).join('')}</table></div></div>`}
+};
+function reqQueue(all){
+const list=S.requests.filter(r=>all||r.status<2).slice().reverse();
+if(!list.length)return '<div class="empty">All caught up ✦</div>';
+return list.map(r=>`<div class="req"><div><h4>${r.type}</h4><small>#${r.id} · ${r.by} · ${S.student.name} · ${esc(r.purpose)} · ${r.lang}</small>
+<div class="track">${STEPS.map((s,i)=>`<i class="${i<=r.status?'on':''}"></i>`).join('')}</div><small>${STEPS[r.status]}</small></div>
+<div style="display:flex;gap:8px">${r.status===0?`<button class="sbtn" onclick="adv(${r.id})">Start review</button>`:r.status===1?`<button class="sbtn gold" onclick="adv(${r.id})">Approve & issue</button>`:`<button class="sbtn" onclick="openDoc(${r.id})">Preview</button><span class="tag green" style="align-self:center">Issued</span>`}</div></div>`).join('');
+}
+function adv(id){const r=S.requests.find(x=>x.id===id);r.status=Math.min(2,r.status+1);toast(r.status===2?'Issued — the family can now download it':'Marked as in review');render()}
+function postAnn(){
+const t=document.getElementById('anT').value.trim(),body=document.getElementById('anB').value.trim();
+if(!t||!body){toast('Please add a title and message');return}
+S.announcements.unshift({id:Date.now(),title:t,body,date:'Nov 20',tag:document.getElementById('anC').value,aud:document.getElementById('anA').value,read:false});
+toast('Notice published to families');render();
+}
+
+function msgView(role){
+const th=S.threads[S.thread];
+if(role==='parent')th.unreadP=false;else th.unreadT=false;
+setTimeout(()=>{renderNav();const cb=document.getElementById('cb');if(cb)cb.scrollTop=cb.scrollHeight},0);
+const name=t=>role==='parent'?t.with:'The Kim Family';
+const sub=t=>role==='parent'?t.role:'re: Grace Kim · '+t.with;
+return `<div class="msgs"><div class="th-list">${S.threads.map((t,i)=>`<div class="th ${i===S.thread?'on':''}" onclick="S.thread=${i};render()"><div class="av" style="background:${role==='parent'?'var(--navy3)':'var(--gold)'}">${role==='parent'?t.ini:'KF'}</div><div style="min-width:0"><b>${name(t)}</b><small>${esc(t.msgs[t.msgs.length-1].text)}</small></div>${(role==='parent'?t.unreadP:t.unreadT)?'<span class="dot"></span>':''}</div>`).join('')}</div>
+<div class="conv"><div class="conv-h"><div class="av" style="background:${role==='parent'?'var(--navy3)':'var(--gold)'}">${role==='parent'?th.ini:'KF'}</div><div><b>${name(th)}</b><br><small style="color:var(--muted)">${sub(th)}</small></div></div>
+<div class="conv-b" id="cb">${th.msgs.map(m=>`<div class="bub ${m.from===role?'me':''}">${esc(m.text)}<small>${m.time}</small></div>`).join('')}</div>
+<div class="conv-f"><input id="mIn" placeholder="Write a message…" onkeydown="if(event.key==='Enter')send()"><button class="sbtn pri" onclick="send()">Send</button></div></div></div>`;
+}
+function send(){
+const v=document.getElementById('mIn').value.trim(); if(!v)return;
+const th=S.threads[S.thread], d=new Date();
+th.msgs.push({from:S.role,text:v,time:'Today · '+d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})});
+if(S.role==='parent')th.unreadT=true;else th.unreadP=true;
+render(); toast(S.role==='parent'?'Sent — switch to Teacher to see it arrive':'Reply sent to the family');
+}
+
+function openDoc(id){
+const r=S.requests.find(x=>x.id===id); r.dl=true; const s=S.student;
+const bodies={
+'Enrollment Verification Letter':`<p>This letter certifies that <b>${s.name}</b> (Date of Birth: ${s.dob}; Student ID: ${s.id}) is currently enrolled as a full-time student in <b>${s.grade}</b> at Brazos Valley Cornerstone Christian Academy for the 2026–2027 academic year.</p><p>${s.name} has been enrolled continuously since ${s.entered} and is in good academic and disciplinary standing.</p>`,
+'Certificate of Attendance':`<p>This is to certify that <b>${s.name}</b> (Student ID: ${s.id}) has attended Brazos Valley Cornerstone Christian Academy in ${s.grade} during the Fall Semester 2026, with an attendance rate of 98%.</p>`,
+'Letter of Good Standing':`<p>This letter confirms that <b>${s.name}</b>, a ${s.grade} student (Student ID: ${s.id}), is a student in good standing academically, spiritually and behaviorally at Brazos Valley Cornerstone Christian Academy.</p>`
+};
+const body=bodies[r.type]||`<p>This document certifies the requested record — <b>${r.type}</b> — for <b>${s.name}</b> (Student ID: ${s.id}), ${s.grade}, issued by the Office of the Registrar of Brazos Valley Cornerstone Christian Academy.</p>`;
+document.getElementById('doc').innerHTML=`
+<div class="doc-actions"><button onclick="document.getElementById('docModal').classList.remove('open')">Close</button><button class="pri" onclick="window.print()">Print / Save PDF</button></div>
+<div class="lh"><svg viewBox="0 0 44 52"><use href="#crest"/></svg>
+<div><b>Brazos Valley Cornerstone Christian Academy</b><small>3200 Cavitt Avenue · Bryan, Texas 77801 · (979) 694-8200</small></div></div>
+<p style="text-align:right">November 20, 2026<br><small style="color:#888">Ref. CCA-${r.id}</small></p>
+<h2>${r.type.toUpperCase()}</h2>
+<p>To Whom It May Concern:</p>${body}
+<p>Should you require further information, please contact the school office at (979) 694-8200.</p>
+<div class="sig"><div><p style="margin:0">Sincerely,</p><div style="font-family:var(--serif);font-style:italic;font-size:30px;margin:18px 0 4px;color:var(--navy)">Head of School</div><p style="margin:0;border-top:1px solid #ccc;padding-top:6px;font-size:12px">Head of School · Brazos Valley Cornerstone Christian Academy</p></div>
+<div class="seal">Official<br>Cornerstone<br>Seal<br>· 2002 ·</div></div>
+<p style="margin-top:40px;font-size:11px;color:#999;text-align:center">Demo document — layout preview only. Not an official record.</p>`;
+document.getElementById('docModal').classList.add('open');
+}
+</script>
+</body>
+</html>

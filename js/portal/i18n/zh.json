@@ -320,5 +320,10 @@
   "em.doc.p2": "请在家长门户的“文件”中下载。下载链接仅限您的账户使用。",
   "em.doc.cta": "下载",
   "em.footer": "Cornerstone Christian Academy · 3200 Cavitt Avenue, Bryan, Texas 77801",
-  "em.why": "您收到此邮件是因为您拥有家长门户账户。"
+  "em.why": "您收到此邮件是因为您拥有家长门户账户。",
+  "docm.pdf": "下载 PDF",
+  "docm.pdfDone": "PDF 已下载",
+  "docm.pdfFail": "无法生成 PDF — 请改用打印",
+  "pwa.install": "安装应用",
+  "pwa.ios": "iPhone：点击“分享”，再选“添加到主屏幕”。"
 }

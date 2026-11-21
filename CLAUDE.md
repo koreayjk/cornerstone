@@ -23,14 +23,14 @@
 | File | Content | Used in |
 |---|---|---|
 | img/0.jpg | Brick church-school at golden hour, students walking | Hero poster |
-| img/1.jpg | Chapel with crucifix (**do not use**: not appropriate for a Church of Christ school) | Faith & Service tile; replace with 8.jpg |
+| ~~img/1.jpg~~ | Removed: chapel with crucifix, not appropriate for a Church of Christ school. Do not reintroduce. | — |
 | img/2.jpg | Hands underlining a Bible | Upper School tile, portal |
 | img/3.jpg | Teacher helping a student in a small classroom | Middle School tile, portal welcome |
 | img/4.jpg | Girls' basketball, black and gold uniform | Athletics poster |
 | img/5.jpg | Graduation caps at sunset | "Sent." section |
 | img/6.jpg | Teacher and young child reading | Lower School tile |
 | img/7.jpg | International students laughing on campus steps | International section |
-| img/8.jpg | Plain Protestant chapel with a pulpit and an open Bible, light rays | Chapel scroll scene |
+| img/8.jpg | Plain Protestant chapel with a pulpit and an open Bible, light rays | Chapel scroll scene, Faith & Service tile, teacher portal welcome |
 
 ⚠️ All images and videos are AI-generated placeholders. Before the official launch, replace them with **real school photography** shot to the same compositions. Never present AI images as real students of the school.
 

@@ -3,7 +3,7 @@ const { test, expect } = require('@playwright/test');
 const fs = require('fs');
 const { LANGS, open, layoutIssues, axe } = require('./helpers');
 
-const VIEWS = { parent: ['home', 'ann', 'msg', 'acad', 'doc', 'cal'], teacher: ['home', 'ann', 'msg', 'acad', 'cal'], admin: ['home', 'doc', 'ann', 'msg', 'cal'] };
+const VIEWS = { parent: ['home', 'ann', 'msg', 'acad', 'doc', 'cal'], teacher: ['home', 'ann', 'msg', 'acad', 'att', 'cal'], admin: ['home', 'doc', 'ann', 'msg', 'cal'] };
 
 for (const lang of LANGS) {
   test(`portal [${lang}]: every role, view and child renders cleanly`, async ({ page }, info) => {
@@ -26,7 +26,7 @@ for (const lang of LANGS) {
 test('mobile tab bar shows every item for each role', async ({ page }, info) => {
   test.skip(info.project.name !== 'mobile', 'mobile only');
   await open(page, 'portal/', 'en');
-  for (const [role, n] of [['parent', 6], ['teacher', 5], ['admin', 5]]) {
+  for (const [role, n] of [['parent', 6], ['teacher', 6], ['admin', 5]]) {
     await page.evaluate(r => enter(r), role);
     await expect(page.locator('#mtab button')).toHaveCount(n);
   }
@@ -76,4 +76,52 @@ test('calendar exports a valid .ics file', async ({ page }, info) => {
   expect(txt).toContain('DTEND;VALUE=DATE:20270321'); // spring break Mar 16–20, end is exclusive
   const g = await page.locator('.evx a').first().getAttribute('href');
   expect(g).toMatch(/^https:\/\/calendar\.google\.com\/calendar\/render\?action=TEMPLATE/);
+});
+
+test('teacher edits a grade and the family sees the new average', async ({ page }) => {
+  await open(page, 'portal/', 'en');
+  await page.evaluate(() => { enter('parent'); pickChild(0); go('acad') });
+  const englishRow = page.locator('tr', { hasText: 'English II (Honors)' });
+  await expect(englishRow.locator('.grade')).toHaveText('A');           // (98 + 95) / 2 = 97
+  await page.evaluate(() => { enter('teacher'); go('acad') });
+  const cell = page.getByLabel('Grace Kim — Unit 3 Test');
+  await cell.fill('71');
+  await expect(page.locator('#gbavg-grace')).toHaveText('85% · B');      // live while typing
+  await expect(page.locator('#gbDirty')).toBeVisible();
+  await page.getByRole('button', { name: 'Save grades' }).click();
+  await page.evaluate(() => { enter('parent'); pickChild(0); go('acad') });
+  await expect(englishRow.locator('.grade')).toHaveText('B');
+  await expect(englishRow).toContainText('85%');
+  await expect(englishRow.locator('.tag')).toHaveText('Updated');
+});
+
+test('gradebook rejects scores outside 0–100 and can add an assignment', async ({ page }) => {
+  await open(page, 'portal/', 'en');
+  await page.evaluate(() => { enter('teacher'); go('acad') });
+  const cell = page.getByLabel('Daniel Park — Essay: Hebrews 11');
+  await cell.fill('140');
+  await expect(cell).toHaveAttribute('aria-invalid', 'true');
+  await page.getByRole('button', { name: 'Save grades' }).click();
+  expect(await page.evaluate(() => S.gradebook.students.find(s => s.key === 'daniel').scores.a1)).toBe(91); // not saved
+  await cell.fill('93');
+  await page.fill('#gbNew', 'Quiz 4');
+  await page.getByRole('button', { name: 'Add assignment' }).click();
+  await expect(page.locator('table.gb th', { hasText: 'Quiz 4' })).toBeVisible();
+  await page.getByLabel('Daniel Park — Quiz 4').fill('100');
+  await page.getByRole('button', { name: 'Save grades' }).click();
+  expect(await page.evaluate(() => S.gradebook.assignments.map(a => a.name))).toEqual(['Essay: Hebrews 11', 'Unit 3 Test', 'Quiz 4']);
+  await expect(page.locator('#gbavg-daniel')).toHaveText('94% · A');   // (93 + 88 + 100) / 3
+});
+
+test('teacher takes attendance and the family sees it', async ({ page }) => {
+  await open(page, 'portal/', 'en');
+  await page.evaluate(() => { enter('teacher'); go('att') });
+  await page.locator('fieldset', { hasText: 'Grace Kim' }).getByText('Absent').click();
+  await expect(page.locator('#attSum')).toHaveText('4 present · 1 absent · 0 tardy · 0 excused');
+  await page.getByRole('button', { name: 'Save attendance' }).click();
+  await page.evaluate(() => { enter('parent'); pickChild(0); go('acad') });
+  await expect(page.locator('.kpi', { hasText: 'Absent · Tardy' }).locator('b')).toHaveText('2 · 0');  // was 1 · 0
+  await expect(page.locator('.kpi small.today')).toHaveText('Today: Absent');
+  await page.evaluate(() => pickChild(1));                                  // Joshua is not in this class
+  await expect(page.locator('.kpi small.today')).toHaveCount(0);
 });

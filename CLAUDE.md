@@ -48,6 +48,8 @@
   /css/portal.css        portal styles
   /js/common.js          shared helpers ($, $$, toast)
   /js/site.js            scroll effects, reveal, video handling
+  /js/i18n.js            shared i18n engine (site + portal; dictionary folder via data-dict)
+  /js/i18n/              public-site dictionaries (en/ko/zh/es .json)
   /js/portal/*.js        portal modules (auth, notices, messages, grades, documents, i18n)
   /js/supabase.js        client init (URL + anon key only)
   /img/                  images and videos
@@ -71,13 +73,13 @@
 - **Components**: pill buttons, 22–28px radius tiles, a horizontal snap scroller for school divisions, and a thin translucent fixed nav (52px).
 - **Logo**: the school's seal is a black shield with a gold budded (botonnée) cross. The site currently uses an SVG redraw (`#crest` symbol). Swap in the official logo file when the school provides it.
 - **Mobile first**: test at 390px. Nothing may overflow horizontally. The portal uses a bottom tab bar on mobile.
-- **Language**: the public site is in English. The portal supports **English / Korean / Chinese (Simplified) / Spanish** (`en`, `ko`, `zh`, `es`). Many international families are Korean; Spanish serves local Texas families.
+- **Language**: the public site and the portal both support **English / Korean / Chinese (Simplified) / Spanish** (`en`, `ko`, `zh`, `es`), with a picker in the site nav and the portal top bar. The choice is shared (localStorage `cca.lang`). English stays in the HTML as the default; translations live in `js/i18n/<lang>.json` (site) and `js/portal/i18n/<lang>.json` (portal), and every dictionary must keep the same keys as its `en.json`. Proper names (school name, Cognia, SACS, TCAL, Blinn College, Texas A&M…) stay in English. Many international families are Korean; Spanish serves local Texas families.
 
 ## 5. School facts (verified from the old site; re-confirm before launch)
 
 - Full name: Brazos Valley Cornerstone Christian Academy. Mascot: **Cougars**. Colors: black and gold.
 - 3200 Cavitt Avenue, Bryan, TX 77801 (meets in the Cavitt Church of Christ building) · (979) 694-8200 · office@bvcca.com
-- Mission: students "grow in wisdom and stature, and in favor with God and man." The site uses **Luke 2:52 ESV** wording: "And Jesus increased in wisdom and in stature and in favor with God and man." Use the **ESV** for all Scripture.
+- Mission: students "grow in wisdom and stature, and in favor with God and man." The site uses **Luke 2:52 ESV** wording: "And Jesus increased in wisdom and in stature and in favor with God and man." Use the **ESV** for all Scripture in English. In translations use: Korean 개역개정, Chinese 和合本 (CUV), Spanish RVR1960 <!-- VERIFY: confirm versions with the school -->.
 - History:
   - July 2001: about 40 Christians met to start the school.
   - August 18, 2002: opened with 11 kindergarten and pre-K students.

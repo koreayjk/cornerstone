@@ -1,4 +1,8 @@
-// Portal i18n: JSON dictionaries in js/portal/i18n/<lang>.json.
+// Shared i18n engine for the public site and the portal.
+// Each page loads it with data-dict pointing at its own dictionaries:
+//   <script src="js/i18n.js" data-dict="js/i18n/">               (site)
+//   <script src="../js/i18n.js" data-dict="../js/portal/i18n/">  (portal)
+// The language choice is shared across both pages (localStorage 'cca.lang').
 // t(key, vars) looks up a string, fills {placeholders}, and picks a plural
 // form when the entry is an object ({one, other, ...}) and vars.n is set.
 // Missing keys fall back to English, then to the key itself.
@@ -9,14 +13,14 @@ const I18N = (() => {
     zh: { name: '中文', locale: 'zh-CN' },
     es: { name: 'Español', locale: 'es-US' }
   };
-  const KEY = 'cca.portal.lang';
-  const base = document.currentScript.src.replace(/i18n\.js(\?.*)?$/, 'i18n/');
+  const KEY = 'cca.lang', LEGACY = 'cca.portal.lang';
+  const base = new URL(document.currentScript.dataset.dict, document.baseURI).href;
   const dicts = {};
   let lang = 'en';
   const listeners = [];
 
   function detect() {
-    try { const s = localStorage.getItem(KEY); if (s && LANGS[s]) return s; } catch (e) {}
+    try { const s = localStorage.getItem(KEY) || localStorage.getItem(LEGACY); if (s && LANGS[s]) return s; } catch (e) {}
     for (const l of navigator.languages || [navigator.language || 'en']) {
       const k = String(l).slice(0, 2).toLowerCase();
       if (LANGS[k]) return k;
@@ -37,9 +41,11 @@ const I18N = (() => {
     }
     return vars ? String(v).replace(/\{(\w+)\}/g, (m, k) => (k in vars ? vars[k] : m)) : v;
   }
-  // Fill static markup: data-i18n (text), data-i18n-ph (placeholder), data-i18n-aria (aria-label).
+  // Fill static markup: data-i18n (text), data-i18n-html (trusted markup from our own
+  // dictionaries, e.g. <br>/<em>), data-i18n-ph (placeholder), data-i18n-aria (aria-label).
   function apply(root = document) {
     root.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+    root.querySelectorAll('[data-i18n-html]').forEach(el => { el.innerHTML = t(el.dataset.i18nHtml); });
     root.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
     root.querySelectorAll('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
     root.querySelectorAll('select.lang').forEach(s => { s.value = lang; });

@@ -171,3 +171,16 @@ footer .wrap{border-top:1px solid #d2d2d7;padding-top:24px}
 .ath .athin{align-items:flex-end;padding-bottom:12vh}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.hero h1 span,.hero .sub{opacity:1;transform:none}}
+/* i18n */
+html.i18n-pending body{visibility:hidden}
+:lang(ko) body{word-break:keep-all}
+:lang(ko) .d,:lang(zh-Hans) .d,:lang(ko) .tile .t h4,:lang(zh-Hans) .tile .t h4,:lang(ko) .statement p,:lang(zh-Hans) .statement p{letter-spacing:-.02em}
+:lang(ko) .hero h1,:lang(zh-Hans) .hero h1{line-height:1.08}
+@media (max-width:640px){
+.nr .lang-pick select{width:36px;padding:6px 0 6px 34px;background-image:none;color:transparent}
+.nr .lang-pick svg{left:10px;color:#fff}
+}
+:lang(ko) .d,:lang(zh-Hans) .d,:lang(ko) .tile .t h4,:lang(zh-Hans) .tile .t h4{text-wrap:balance}
+:lang(ko) .hero h1,:lang(zh-Hans) .hero h1{font-size:clamp(44px,10vw,150px)}
+.btn{white-space:nowrap}
+.hero .ctas{flex-wrap:wrap}

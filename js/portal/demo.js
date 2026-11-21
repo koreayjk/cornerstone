@@ -85,6 +85,41 @@ threads: [
   { from: 'parent', text: 'Hello — could the attendance certificate for Joshua include a Korean translation? We will pick it up at the office.', at: '2026-11-19T08:45' }] }
 ]
 };
+// Mrs. Taylor's class (English II, Period 2) — the teacher edits it; Grace's English II
+// grade in the parent view is computed from it, so both views always agree.
+S.gradebook = { course: 'English II (Honors)', period: 2,
+  assignments: [{ id: 'a1', name: 'Essay: Hebrews 11' }, { id: 'a2', name: 'Unit 3 Test' }],
+  students: [
+  { key: 'grace', name: 'Grace Kim', scores: { a1: 98, a2: 95 } }, { key: 'daniel', name: 'Daniel Park', scores: { a1: 91, a2: 88 } },
+  { key: 'emma', name: 'Emma Johnson', scores: { a1: 94, a2: 90 } }, { key: 'noah', name: 'Noah Williams', scores: { a1: 86, a2: 84 } },
+  { key: 'hannah', name: 'Hannah Lee', scores: { a1: 97, a2: 93 } }] };
+S.attLog = {};      // { 'YYYY-MM-DD': { studentKey: 'present' | 'absent' | 'tardy' | 'excused' } }
+S.updated = {};     // what the family should see flagged as new
+S.gbDraft = null; S.attDraft = null;
+const ATT = ['present', 'absent', 'tardy', 'excused'];
+// common US scale (verify with the school)
+const LETTERS = [[93, 'A'], [90, 'A-'], [87, 'B+'], [83, 'B'], [80, 'B-'], [77, 'C+'], [73, 'C'], [70, 'C-'], [67, 'D+'], [63, 'D'], [60, 'D-'], [0, 'F']];
+const letter = p => LETTERS.find(([m]) => p >= m)[1];
+const gbAvg = (gb, st) => { const v = gb.assignments.map(a => st.scores[a.id]).filter(x => typeof x === 'number'); return v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length) : null };
+const today = () => localISO().slice(0, 10);
+// a child's courses with the teacher's live gradebook applied
+function gradesOf(c) {
+  return c.grades.map(g => {
+    if (g.c !== S.gradebook.course) return g;
+    const st = S.gradebook.students.find(x => x.key === c.key), p = st && gbAvg(S.gradebook, st);
+    return p == null ? g : { ...g, p, g: letter(p), updated: !!(S.updated.grades && S.updated.grades[c.key]) };
+  });
+}
+// semester totals plus today's entry from the teacher (tardy counts as present; excused as absent)
+function attendanceOf(c) {
+  const a = { ...c.attendance }, s = (S.attLog[today()] || {})[c.key];
+  if (s === 'present') a.present++;
+  else if (s === 'tardy') { a.present++; a.tardy++ }
+  else if (s === 'absent') a.absent++;
+  else if (s === 'excused') { a.absent++; a.excused++; a.excusedOn = today() }
+  a.today = s;
+  return a;
+}
 const ROLES = ['parent', 'teacher', 'admin'];
 const STAFF_OWNER = { teacher: 'taylor', admin: 'office' };
 const STEPS = ['submitted', 'review', 'ready'];
@@ -98,7 +133,8 @@ msg: '<path d="M4 5h16v11H8l-4 4z"/>',
 acad: '<path d="M2 9l10-5 10 5-10 5zM6 11v5c3 2 9 2 12 0v-5"/>',
 doc: '<path d="M6 3h9l4 4v14H6zM14 3v5h5M9 13h7M9 17h5"/>',
 cal: '<path d="M4 6h16v15H4zM4 10h16M8 3v5M16 3v5"/>',
-inbox: '<path d="M3 13l3-8h12l3 8v6H3zM3 13h5l1 2h6l1-2h5"/>'
+inbox: '<path d="M3 13l3-8h12l3 8v6H3zM3 13h5l1 2h6l1-2h5"/>',
+check: '<path d="M9 4h6v3H9zM7 5H5v16h14V5h-2M8.5 14l2.5 2.5 5-5"/>'
 };
 const ic = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">${ICON[k]}</svg>`;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -125,7 +161,7 @@ const ua = parentAnns().filter(a => !a.read).length, um = S.threads.filter(x => 
 return [['home', 'home', 'home'], ['ann', 'announcements', 'ann', ua], ['msg', 'messages', 'msg', um], ['acad', 'academics', 'acad'], ['doc', 'documents', 'doc', rd], ['cal', 'calendar', 'cal']];
 }
 const um = myThreads().filter(x => x.unreadT).length;
-if (S.role === 'teacher') return [['home', 'dashboard', 'home'], ['ann', 'postNotice', 'ann'], ['msg', 'messages', 'msg', um], ['acad', 'gradebook', 'acad'], ['cal', 'calendar', 'cal']];
+if (S.role === 'teacher') return [['home', 'dashboard', 'home'], ['ann', 'postNotice', 'ann'], ['msg', 'messages', 'msg', um], ['acad', 'gradebook', 'acad'], ['att', 'attendance', 'check'], ['cal', 'calendar', 'cal']];
 const pend = S.requests.filter(r => r.status < 2).length;
 return [['home', 'dashboard', 'home'], ['doc', 'requests', 'inbox', pend], ['ann', 'postNotice', 'ann'], ['msg', 'messages', 'msg', um], ['cal', 'calendar', 'cal']];
 }
@@ -142,7 +178,8 @@ av.textContent = ini; av.style.background = bg; av.style.color = fg;
 document.getElementById('meName').textContent = t('me.' + S.role + 'Name');
 document.getElementById('meRole').textContent = t('me.' + S.role + 'Role');
 }
-function go(v) { S.view = v; S.rejecting = null; render(); document.getElementById('pmain').scrollTop = 0 }
+// leaving a view discards unsaved gradebook/attendance drafts
+function go(v) { S.view = v; S.rejecting = null; S.gbDraft = null; S.attDraft = null; render(); document.getElementById('pmain').scrollTop = 0 }
 function closeLogin() { document.getElementById('login').classList.remove('open') }
 function enter(r) {
 S.role = r; S.view = 'home'; S.rejecting = null;
@@ -159,7 +196,7 @@ if (!S.role) return;
 renderMe(); renderNav();
 const titles = {
   parent: { home: 'home', ann: 'announcements', msg: 'messages', acad: 'academics', doc: 'documents', cal: 'calendar' },
-  teacher: { home: 'dashboard', ann: 'postNotice', msg: 'messages', acad: 'gradebook', cal: 'calendar' },
+  teacher: { home: 'dashboard', ann: 'postNotice', msg: 'messages', acad: 'gradebook', att: 'attendance', cal: 'calendar' },
   admin: { home: 'dashboard', ann: 'postNotice', msg: 'messages', doc: 'requests', cal: 'calendar' } }[S.role];
 if (!titles[S.view]) S.view = 'home';
 document.getElementById('ptitle').textContent = t('title.' + titles[S.view]);
@@ -236,16 +273,16 @@ ${TR_LANGS.map(l => `<label for="anT_${l}">${esc(t('post.trTitle', { lang: name(
 // ---------- parent ----------
 const P = {
 home() {
-const c = kid(), ua = parentAnns().filter(a => !a.read).length;
-const avg = Math.round(c.grades.reduce((a, g) => a + g.p, 0) / c.grades.length);
-const att = c.attendance; const pct = (att.present / (att.present + att.absent) * 100).toFixed(0);
+const c = kid(), ua = parentAnns().filter(a => !a.read).length, gr = gradesOf(c);
+const avg = Math.round(gr.reduce((a, g) => a + g.p, 0) / gr.length);
+const att = attendanceOf(c); const pct = (att.present / (att.present + att.absent) * 100).toFixed(0);
 return `${kidBar()}
 <div class="welcome"><div class="img" style="background-image:url(../img/${c.division === 'lower' ? '6' : '3'}-800.webp)"></div>
 <div class="eyebrow">${esc(t('greet.afternoon'))}</div><h2>${esc(t('home.welcomeParent'))}</h2>
 <p>${esc(t('home.studentLine', { name: c.name, grade: gradeTxt(c), id: c.id }))}</p>
 <div class="qa"><button onclick="go('doc')">${esc(t('qa.requestCert'))}</button><button onclick="go('msg')">${esc(t('qa.messageTeacher'))}</button><button onclick="go('acad')">${esc(t('qa.viewGrades'))}</button></div></div>
 <div class="grid3" style="margin-bottom:24px">
-<div class="box kpi"><span>${esc(t('kpi.average'))}</span><b>${avg}%</b><small>${esc(t('kpi.acrossCourses', { n: c.grades.length }))}</small></div>
+<div class="box kpi"><span>${esc(t('kpi.average'))}</span><b>${avg}%</b><small>${esc(t('kpi.acrossCourses', { n: gr.length }))}</small></div>
 <div class="box kpi"><span>${esc(t('kpi.attendance'))}</span><b>${pct}%</b><small>${esc(t('kpi.absences', { n: att.absent }))}</small></div>
 <div class="box kpi"><span>${esc(t('kpi.unread'))}</span><b>${ua}</b><small><a href="#" onclick="go('ann');return false">${esc(t('kpi.readNow'))}</a></small></div>
 </div>
@@ -257,13 +294,13 @@ return `${kidBar()}
 ann() { return `<div class="box"><h2 class="sr">${esc(t('title.announcements'))}</h2>${parentAnns().map(a => { a.read = true; return annRow(a, true) }).join('') || `<div class="empty">${esc(t('ann.empty'))}</div>`}</div>` },
 msg() { return kidBar() + msgView() },
 acad() {
-const c = kid(), att = c.attendance;
+const c = kid(), att = attendanceOf(c);
 return `${kidBar()}<div class="grid2"><div class="box"><h2>${esc(t('acad.semester'))}</h2><div class="sub">${esc(t('acad.sub', { name: c.name, grade: gradeTxt(c) }))}</div>
-<div class="tbl-wrap"><table><tr><th>${esc(t('th.course'))}</th><th>${esc(t('th.teacher'))}</th><th>${esc(t('th.progress'))}</th><th>${esc(t('th.grade'))}</th></tr>
-${c.grades.map(g => `<tr><td><b style="font-weight:600">${g.c}</b></td><td style="color:var(--muted)">${g.t}</td><td><div class="bar2"><i style="width:${g.p}%"></i></div><small style="color:var(--muted)">${g.p}%</small></td><td class="grade">${g.g}</td></tr>`).join('')}
+<div class="tbl-wrap"><table class="acadt"><tr><th>${esc(t('th.course'))}</th><th class="col-t">${esc(t('th.teacher'))}</th><th>${esc(t('th.progress'))}</th><th>${esc(t('th.grade'))}</th></tr>
+${gradesOf(c).map(g => `<tr><td><b style="font-weight:600">${g.c}</b>${g.updated ? ` <span class="tag green">${esc(t('acad.updated'))}</span>` : ''}</td><td class="col-t" style="color:var(--muted)">${g.t}</td><td><div class="bar2"><i style="width:${g.p}%"></i></div><small style="color:var(--muted)">${g.p}%</small></td><td class="grade">${g.g}</td></tr>`).join('')}
 </table></div></div>
 <div><div class="box kpi" style="margin-bottom:18px"><span>${esc(t('kpi.present'))}</span><b>${att.present}</b><small>${esc(t('kpi.daysSemester'))}</small></div>
-<div class="box kpi" style="margin-bottom:18px"><span>${esc(t('kpi.absentTardy'))}</span><b>${att.absent} · ${att.tardy}</b><small>${esc(t('kpi.excused', { n: att.excused, date: fmt.day(att.excusedOn) }))}</small></div>
+<div class="box kpi" style="margin-bottom:18px"><span>${esc(t('kpi.absentTardy'))}</span><b>${att.absent} · ${att.tardy}</b><small>${esc(t('kpi.excused', { n: att.excused, date: fmt.day(att.excusedOn) }))}</small>${att.today ? `<small class="today">${esc(t('att.today', { status: t('att.s.' + att.today) }))}</small>` : ''}</div>
 <div class="box"><h2>${esc(t('acad.needReport'))}</h2><div class="sub">${esc(t('acad.needReportSub'))}</div><button class="sbtn gold" onclick="go('doc')">${esc(t('acad.requestDoc'))}</button></div></div></div>`;
 },
 doc() {
@@ -295,15 +332,14 @@ toast(t('toast.reqSubmitted')); render();
 }
 
 // ---------- teacher ----------
-const GRADEBOOK = [['Grace Kim', 98, 95, 96], ['Daniel Park', 91, 88, 90], ['Emma Johnson', 94, 90, 92], ['Noah Williams', 86, 84, 85], ['Hannah Lee', 97, 93, 95]];
 const T = {
 home() {
 const um = myThreads().filter(x => x.unreadT).length;
 return `<div class="welcome"><div class="img" style="background-image:url(../img/2-800.webp)"></div>
 <div class="eyebrow">${esc(t('t.eyebrow'))}</div><h2>${esc(t('t.welcome'))}</h2><p>${esc(t('t.welcomeSub'))}</p>
-<div class="qa"><button onclick="go('ann')">${esc(t('qa.postNotice'))}</button><button onclick="go('msg')">${esc(t('qa.openMessages'))}</button><button onclick="go('acad')">${esc(t('qa.gradebook'))}</button></div></div>
+<div class="qa"><button onclick="go('att')">${esc(t('qa.attendance'))}</button><button onclick="go('acad')">${esc(t('qa.gradebook'))}</button><button onclick="go('ann')">${esc(t('qa.postNotice'))}</button><button onclick="go('msg')">${esc(t('qa.openMessages'))}</button></div></div>
 <div class="grid3" style="margin-bottom:24px">
-<div class="box kpi"><span>${esc(t('kpi.students'))}</span><b>${GRADEBOOK.length}</b><small>${esc(t('t.period', { course: 'English II (Honors)', n: 2 }))}</small></div>
+<div class="box kpi"><span>${esc(t('kpi.students'))}</span><b>${S.gradebook.students.length}</b><small>${esc(t('t.period', { course: S.gradebook.course, n: S.gradebook.period }))}</small></div>
 <div class="box kpi"><span>${esc(t('kpi.unreadMsgs'))}</span><b>${um}</b><small>${esc(t('kpi.unreadMsgsSub'))}</small></div>
 <div class="box kpi"><span>${esc(t('kpi.noticesPosted'))}</span><b>${S.announcements.length}</b><small>${esc(t('kpi.thisMonth'))}</small></div>
 </div>
@@ -311,10 +347,63 @@ return `<div class="welcome"><div class="img" style="background-image:url(../img
 },
 ann: postForm,
 msg() { return msgView() },
-acad() { return `<div class="box"><h2>${esc(t('t.period', { course: 'English II (Honors)', n: 2 }))}</h2><div class="sub">${esc(t('t.gradebookSub'))}</div><div class="tbl-wrap"><table><tr><th>${esc(t('th.student'))}</th><th>Essay: Hebrews 11</th><th>Unit 3 Test</th><th>${esc(t('th.average'))}</th></tr>
-${GRADEBOOK.map(s => `<tr><td><b style="font-weight:600">${s[0]}</b></td><td>${s[1]}</td><td>${s[2]}</td><td class="grade">${s[3]}%</td></tr>`).join('')}</table></div></div>` },
+acad: gradebookView,
+att: attendanceView,
 cal: calView
 };
+
+// gradebook: edits go to a draft; Save publishes them to families
+const gb = () => S.gbDraft || S.gradebook;
+function gradebookView() {
+const g = gb();
+return `<div class="box"><div class="boxh"><div><h2>${esc(t('t.period', { course: g.course, n: g.period }))}</h2><div class="sub">${esc(t('gb.hint'))}</div></div>
+<div class="gbact"><span class="tag" id="gbDirty"${S.gbDraft ? '' : ' hidden'}>${esc(t('gb.unsaved'))}</span><button class="sbtn pri" onclick="saveGrades()">${esc(t('gb.save'))}</button></div></div>
+<div class="tbl-wrap"><table class="gb"><tr><th>${esc(t('th.student'))}</th>${g.assignments.map(a => `<th>${esc(a.name)}</th>`).join('')}<th>${esc(t('th.average'))}</th></tr>
+${g.students.map(st => { const p = gbAvg(g, st); return `<tr><td><b style="font-weight:600">${esc(st.name)}</b></td>${g.assignments.map(a => `<td><input class="gbin" type="number" inputmode="numeric" min="0" max="100" step="1" value="${st.scores[a.id] ?? ''}" aria-label="${esc(t('gb.cell', { student: st.name, assignment: a.name }))}" oninput="gbInput(this,'${st.key}','${a.id}')"></td>`).join('')}<td class="grade" id="gbavg-${st.key}">${p == null ? '—' : `${p}% · ${letter(p)}`}</td></tr>` }).join('')}
+</table></div>
+<div class="gbadd"><label class="sr" for="gbNew">${esc(t('gb.addPh'))}</label><input id="gbNew" placeholder="${esc(t('gb.addPh'))}" onkeydown="if(event.key==='Enter'&&!event.isComposing)addAssignment()"><button class="sbtn" onclick="addAssignment()">${esc(t('gb.add'))}</button></div></div>`;
+}
+function gbDraft() { if (!S.gbDraft) S.gbDraft = JSON.parse(JSON.stringify(S.gradebook)); return S.gbDraft }
+function gbInput(el, key, aid) {
+const d = gbDraft(), st = d.students.find(x => x.key === key), raw = el.value.trim(), n = Number(raw);
+const ok = raw === '' || (Number.isFinite(n) && n >= 0 && n <= 100);
+el.setAttribute('aria-invalid', String(!ok)); el.classList.toggle('bad', !ok);
+if (raw === '') delete st.scores[aid]; else st.scores[aid] = ok ? Math.round(n) : NaN;
+const p = ok ? gbAvg(d, st) : null, cell = document.getElementById('gbavg-' + key);
+if (cell) cell.textContent = !ok ? '—' : p == null ? '—' : `${p}% · ${letter(p)}`;
+const dirty = document.getElementById('gbDirty'); if (dirty) dirty.hidden = false;
+}
+function saveGrades() {
+if (!S.gbDraft) { toast(t('gb.saved')); return }
+if (S.gbDraft.students.some(st => Object.values(st.scores).some(v => Number.isNaN(v)))) { toast(t('gb.invalid')); return }
+const before = Object.fromEntries(S.gradebook.students.map(st => [st.key, gbAvg(S.gradebook, st)]));
+S.gradebook = S.gbDraft; S.gbDraft = null;
+S.updated.grades = S.updated.grades || {};
+S.gradebook.students.forEach(st => { if (gbAvg(S.gradebook, st) !== before[st.key]) S.updated.grades[st.key] = true });
+toast(t('gb.saved')); render();
+}
+function addAssignment() {
+const i = document.getElementById('gbNew'), name = i.value.trim();
+if (!name) { toast(t('gb.needName')); i.focus(); return }
+gbDraft().assignments.push({ id: 'a' + Date.now(), name }); render();
+}
+// attendance for today: one radio group per student
+function attendanceView() {
+const g = S.gradebook, saved = S.attLog[today()], d = S.attDraft || (S.attDraft = { ...Object.fromEntries(g.students.map(st => [st.key, 'present'])), ...(saved || {}) });
+const n = s => Object.values(d).filter(v => v === s).length;
+return `<div class="box"><div class="boxh"><div><h2>${esc(t('att.title'))}</h2><div class="sub">${esc(t('att.sub', { course: t('t.period', { course: g.course, n: g.period }), date: fmt.long(today()) }))}</div></div>
+<div class="gbact">${saved ? `<span class="tag green">${esc(t('att.savedTag'))}</span>` : ''}<button class="sbtn" onclick="attAll()">${esc(t('att.all'))}</button><button class="sbtn pri" onclick="saveAtt()">${esc(t('att.save'))}</button></div></div>
+<p class="attsum" id="attSum">${esc(t('att.summary', { p: n('present'), a: n('absent'), t: n('tardy'), e: n('excused') }))}</p>
+${g.students.map(st => `<fieldset class="attrow"><legend><b>${esc(st.name)}</b></legend><div class="seg">${ATT.map(s => `<label class="s-${s}"><input type="radio" name="att-${st.key}" value="${s}"${d[st.key] === s ? ' checked' : ''} onchange="attSet('${st.key}','${s}')"><span>${esc(t('att.s.' + s))}</span></label>`).join('')}</div></fieldset>`).join('')}
+</div>`;
+}
+function attSet(key, s) {
+S.attDraft[key] = s;
+const d = S.attDraft, n = x => Object.values(d).filter(v => v === x).length, el = document.getElementById('attSum');
+if (el) el.textContent = t('att.summary', { p: n('present'), a: n('absent'), t: n('tardy'), e: n('excused') });
+}
+function attAll() { Object.keys(S.attDraft).forEach(k => S.attDraft[k] = 'present'); render() }
+function saveAtt() { S.attLog[today()] = { ...S.attDraft }; S.attDraft = null; toast(t('att.saved')); render() }
 
 // ---------- admin (front office) ----------
 const A = {

@@ -71,7 +71,7 @@
 - **Components**: pill buttons, 22–28px radius tiles, a horizontal snap scroller for school divisions, and a thin translucent fixed nav (52px).
 - **Logo**: the school's seal is a black shield with a gold budded (botonnée) cross. The site currently uses an SVG redraw (`#crest` symbol). Swap in the official logo file when the school provides it.
 - **Mobile first**: test at 390px. Nothing may overflow horizontally. The portal uses a bottom tab bar on mobile.
-- **Language**: the public site is in English. The portal must support **English / Korean** (many international families are Korean).
+- **Language**: the public site is in English. The portal supports **English / Korean / Chinese (Simplified) / Spanish** (`en`, `ko`, `zh`, `es`). Many international families are Korean; Spanish serves local Texas families.
 
 ## 5. School facts (verified from the old site; re-confirm before launch)
 
@@ -117,7 +117,7 @@ Roles: `parent`, `teacher`, `admin` (office staff). One parent account can link 
    - The admin approves and issues a PDF from a letterhead template, stored in Supabase Storage in a private bucket.
    - Parents download through **signed URLs**.
 6. **Calendar**: school events, with an option to export to Google or Apple Calendar (.ics).
-7. **i18n**: an EN/KO toggle for every portal UI string (JSON dictionaries). Announcements may have optional Korean text.
+7. **i18n**: a language picker (EN / KO / ZH / ES) for every portal UI string. Dictionaries live in `js/portal/i18n/<lang>.json` and must keep identical keys; `js/portal/i18n.js` handles lookup, plurals and date formatting (`Intl`). Store enumerations as codes (category, audience, doc type, status) and translate at render time. Announcements and events may carry optional per-language translations; people's free text (messages, purposes) is shown as written. Issued official documents stay in English.
 8. **Notifications** (later): email on new announcements, messages and documents ready.
 
 ### Data model (starting point)
@@ -127,7 +127,7 @@ students(id, first_name, last_name, grade, student_code, dob, entered_on, is_int
 guardians(parent_id → profiles, student_id → students)            -- parent ↔ child
 classes(id, name, division, teacher_id → profiles)
 enrollments(student_id, class_id)
-announcements(id, author_id, title, body, title_ko, body_ko, audience, category, created_at)
+announcements(id, author_id, title, body, translations jsonb default '{}', audience, category, created_at)  -- translations: {"ko":{"title","body"},"zh":{...},"es":{...}}
 announcement_reads(announcement_id, user_id, read_at)
 threads(id, student_id, parent_id, teacher_id, created_at)
 messages(id, thread_id, sender_id, body, created_at, read_at)
@@ -150,7 +150,7 @@ events(id, title, starts_at, ends_at, location, audience)
 3. **Supabase setup**: schema and RLS migrations in `/supabase/migrations`, seed data (demo students, a parent, a teacher), and `js/supabase.js`.
 4. **Auth and roles**: login, logout, a role-based nav, and invitation flow documentation.
 5. **Announcements**, then **Messages**, then **Grades & Attendance**, then **Document requests + PDF**.
-6. **EN/KO i18n** across the portal.
+6. **EN/KO/ZH/ES i18n** across the portal. ✅ done for the demo (dictionaries + picker).
 7. **Polish**:
    - Accessibility: focus states, alt text, contrast.
    - Performance: lazy-load images, compress videos.

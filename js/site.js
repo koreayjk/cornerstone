@@ -5,8 +5,22 @@ $$('[data-bg]').forEach(el => bgo.observe(el));
 // reveal
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.18});
 $$('.rv').forEach(el=>io.observe(el));
-// statement word split
-$$('.lit').forEach(p=>{const g=(p.dataset.g||'').split(',');p.innerHTML=p.textContent.trim().split(/\s+/).map(w=>`<span class="w${g.some(x=>x&&w.toLowerCase().startsWith(x))?' g':''}">${w}</span>`).join(' ')});
+// statement: split into words that light up on scroll; data-g lists the gold words
+// (per language via data-i18n-g). Chinese has no spaces, so it is split with
+// Intl.Segmenter, falling back to single characters.
+$$('.lit').forEach(p=>{p.dataset.gEn=p.dataset.g||''});
+function splitLit(){
+const lang=typeof I18N!=='undefined'?I18N.lang:'en', zh=lang==='zh';
+$$('.lit').forEach(p=>{
+const g=(lang!=='en'&&p.dataset.i18nG?t(p.dataset.i18nG):p.dataset.gEn).split(',').map(x=>x.trim().toLowerCase()).filter(Boolean);
+const txt=p.textContent.trim();
+const seg=s=>typeof Intl.Segmenter==='function'?[...new Intl.Segmenter('zh',{granularity:'word'}).segment(s)].map(x=>x.segment):[...s];
+// zh: keep each gold word whole (the segmenter may split it), segment the rest
+const words=zh?txt.split(new RegExp(`(${g.map(x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')||'$^'})`)).flatMap(part=>g.includes(part)?[part]:seg(part)).filter(Boolean):txt.split(/\s+/);
+const esc=w=>w.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+p.innerHTML=words.map(w=>`<span class="w${g.some(x=>w.toLowerCase().startsWith(x))?' g':''}">${esc(w)}</span>`).join(zh?'':' ')});
+}
+splitLit();
 function onScroll(){
 const vh=innerHeight;
 $('#nav').classList.toggle('solid',scrollY>40);
@@ -28,3 +42,5 @@ $$('video').forEach(v=>{if(reduceMotion){v.autoplay=false;v.pause();v.preload='n
 function openMenu(){const m=$('#mnav');m._back=document.activeElement;m.classList.add('open');$('.burger').setAttribute('aria-expanded','true');m.querySelector('.mclose').focus()}
 function closeMenu(){const m=$('#mnav');if(!m.classList.contains('open'))return;m.classList.remove('open');$('.burger').setAttribute('aria-expanded','false');if(m._back&&m._back.focus)m._back.focus()}
 addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
+// language change: re-split the statement and refresh scroll-driven state
+if(typeof I18N!=='undefined')I18N.onChange(()=>{splitLit();onScroll()});

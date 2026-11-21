@@ -169,7 +169,7 @@ events(id, title, starts_at, ends_at, location, audience)
 1. **Split files**: extract CSS and JS from `index.html` into `/css` and `/js` without changing the look. Replace the `img/1.jpg` usage with an appropriate image.
 2. **Portal page**: move the portal demo to `/portal/`. The public site's "Family Portal" buttons link there.
 3. **Supabase setup**: schema and RLS migrations in `/supabase/migrations`, seed data (demo students, a parent, a teacher), and `js/supabase.js`. ✅ files done and tested (`supabase/tests/run.sh`, also in CI); **not yet applied to a live project** — see `supabase/README.md` for the setup steps (disable public sign-up, invitations via an Edge Function setting `app_metadata.role`).
-4. **Auth and roles**: login, logout, a role-based nav, and invitation flow documentation.
+4. **Auth and roles**: login, logout, a role-based nav, and invitation flow documentation. Ready: `supabase/functions/invite-user` (Edge Function, type-checked), Auth email templates in four languages (`supabase/templates`), `supabase/config.toml` with sign-up disabled. Remaining: wire the portal UI to Supabase once a project exists.
 5. **Announcements**, then **Messages**, then **Grades & Attendance**, then **Document requests + PDF**.
 6. **EN/KO/ZH/ES i18n** across the portal. ✅ done for the demo (dictionaries + picker).
 7. **Polish**: ✅ done (axe-core: 0 violations on the site and every portal view).

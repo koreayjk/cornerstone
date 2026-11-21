@@ -1,0 +1,49 @@
+<!-- Supabase Auth email template: magic_link. One template per type, so the language is chosen
+     from the invitee's user_metadata.lang (set by the invite-user Edge Function): en, ko, zh, es.
+     Variables: .ConfirmationURL, .Data (user_metadata). Configured in supabase/config.toml. -->
+<!doctype html>
+<html><body style="margin:0;padding:0;background:#F5F5F7;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,'Apple SD Gothic Neo','PingFang SC',sans-serif;color:#1d1d1f">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F5F5F7"><tr><td align="center" style="padding:32px 16px">
+<table role="presentation" width="560" cellpadding="0" cellspacing="0" style="width:100%;max-width:560px;background:#ffffff;border-radius:16px"><tr><td style="padding:36px 36px 30px">
+<p style="margin:0 0 26px;font-size:14px;font-weight:600;color:#1d1d1f">Cornerstone Christian Academy</p>
+{{ if eq .Data.lang "ko" }}
+<div lang="ko">
+<h1 style="margin:0 0 18px;font-size:24px;line-height:1.25;letter-spacing:-0.01em;color:#1d1d1f">로그인 링크</h1>
+<p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#3a3a3c">안녕하세요.</p>
+<p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#3a3a3c">이 링크로 코너스톤 학부모 포털에 로그인하세요. 한 번만 사용할 수 있고 곧 만료됩니다.</p><p style="margin:26px 0"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#1d1d1f;color:#ffffff;text-decoration:none;font-weight:600;font-size:15px;padding:13px 24px;border-radius:999px">로그인</a></p>
+<p style="margin:0 0 6px;font-size:12.5px;color:#6e6e73">또는 이 링크를 브라우저에 붙여 넣으세요:</p>
+<p style="margin:0 0 22px;font-size:12.5px;color:#6e6e73;word-break:break-all">{{ .ConfirmationURL }}</p>
+<p style="margin:0;font-size:12.5px;color:#6e6e73">이 이메일을 예상하지 못하셨다면 무시하셔도 됩니다.</p>
+</div>
+{{ else if eq .Data.lang "zh" }}
+<div lang="zh-Hans">
+<h1 style="margin:0 0 18px;font-size:24px;line-height:1.25;letter-spacing:-0.01em;color:#1d1d1f">您的登录链接</h1>
+<p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#3a3a3c">您好：</p>
+<p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#3a3a3c">请使用此链接登录基石家长门户。该链接只能使用一次，并会很快过期。</p><p style="margin:26px 0"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#1d1d1f;color:#ffffff;text-decoration:none;font-weight:600;font-size:15px;padding:13px 24px;border-radius:999px">登录</a></p>
+<p style="margin:0 0 6px;font-size:12.5px;color:#6e6e73">或将此链接粘贴到浏览器中：</p>
+<p style="margin:0 0 22px;font-size:12.5px;color:#6e6e73;word-break:break-all">{{ .ConfirmationURL }}</p>
+<p style="margin:0;font-size:12.5px;color:#6e6e73">如果您没有预料到这封邮件，可以忽略它。</p>
+</div>
+{{ else if eq .Data.lang "es" }}
+<div lang="es">
+<h1 style="margin:0 0 18px;font-size:24px;line-height:1.25;letter-spacing:-0.01em;color:#1d1d1f">Su enlace para iniciar sesión</h1>
+<p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#3a3a3c">Hola:</p>
+<p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#3a3a3c">Use este enlace para iniciar sesión en el Portal Familiar de Cornerstone. Funciona una sola vez y vence pronto.</p><p style="margin:26px 0"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#1d1d1f;color:#ffffff;text-decoration:none;font-weight:600;font-size:15px;padding:13px 24px;border-radius:999px">Iniciar sesión</a></p>
+<p style="margin:0 0 6px;font-size:12.5px;color:#6e6e73">O pegue este enlace en su navegador:</p>
+<p style="margin:0 0 22px;font-size:12.5px;color:#6e6e73;word-break:break-all">{{ .ConfirmationURL }}</p>
+<p style="margin:0;font-size:12.5px;color:#6e6e73">Si no esperaba este correo, puede ignorarlo.</p>
+</div>
+{{ else }}
+<div lang="en">
+<h1 style="margin:0 0 18px;font-size:24px;line-height:1.25;letter-spacing:-0.01em;color:#1d1d1f">Your sign-in link</h1>
+<p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#3a3a3c">Hello,</p>
+<p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#3a3a3c">Use this link to sign in to the Cornerstone Family Portal. It works once and expires soon.</p><p style="margin:26px 0"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#1d1d1f;color:#ffffff;text-decoration:none;font-weight:600;font-size:15px;padding:13px 24px;border-radius:999px">Sign in</a></p>
+<p style="margin:0 0 6px;font-size:12.5px;color:#6e6e73">Or paste this link into your browser:</p>
+<p style="margin:0 0 22px;font-size:12.5px;color:#6e6e73;word-break:break-all">{{ .ConfirmationURL }}</p>
+<p style="margin:0;font-size:12.5px;color:#6e6e73">If you did not expect this email, you can ignore it.</p>
+</div>
+{{ end }}
+</td></tr></table>
+<p style="margin:18px 0 0;font-size:11.5px;color:#86868b">Cornerstone Christian Academy · 3200 Cavitt Avenue, Bryan, Texas 77801</p>
+</td></tr></table>
+</body></html>

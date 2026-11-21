@@ -116,7 +116,7 @@ ${mob}<div class="mg"><a class="mgt" href="${root}portal/" style="color:var(--go
 <div><h2 data-i18n="foot.explore">Explore</h2><ul>${explore}</ul></div>
 <div><h2 data-i18n="foot.families">Families</h2><ul><li><a href="${root}portal/" data-i18n="nav.portal">Family Portal</a></li><li><a href="${root}portal/" data-i18n="foot.docs">Request documents</a></li><li><a href="${root}about/#pack">PACK</a></li><li><a href="#" onclick="toast(t('foot.giveToast'));return false" data-i18n="foot.give">Give</a></li></ul></div>
 </div>
-<div class="fb"><span data-i18n="foot.copy">© 2026 Brazos Valley Cornerstone Christian Academy. All rights reserved.</span><span data-i18n="foot.acc">Accredited by Cognia · SEVP Certified · Go Cougars</span></div>
+<div class="fb"><span data-i18n="foot.copy">© 2026 Brazos Valley Cornerstone Christian Academy. All rights reserved.</span><span><span data-i18n="foot.acc">Accredited by Cognia · SEVP Certified · Go Cougars</span><span class="legal-links"><a href="${root}privacy/" data-i18n="foot.privacy">Privacy</a><a href="${root}terms/" data-i18n="foot.terms">Terms</a></span></span></div>
 </div></footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>`;
   }

@@ -30,7 +30,7 @@ test.describe('dictionaries', () => {
   test('every static data-i18n key used by the site exists', () => {
     const en = load('js/i18n', 'en');
     const files = ['index.html', '404.html', 'js/layout.js', 'js/search.js', 'js/site.js']
-      .concat(['about', 'academics', 'enrichment', 'admissions', 'student-life'].map(p => p + '/index.html'));
+      .concat(['about', 'academics', 'enrichment', 'admissions', 'student-life', 'privacy', 'terms'].map(p => p + '/index.html'));
     const used = new Set();
     for (const f of files) {
       const s = fs.readFileSync(path.join(ROOT, f), 'utf8');

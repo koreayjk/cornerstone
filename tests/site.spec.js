@@ -1,6 +1,6 @@
 // Public site: every page in every language, on desktop and mobile.
 const { test, expect } = require('@playwright/test');
-const { LANGS, PAGES, open, scrollThrough, layoutIssues, axe } = require('./helpers');
+const { LANGS, PAGES, MENU_PAGES, open, scrollThrough, layoutIssues, axe } = require('./helpers');
 
 for (const pg of PAGES.concat(['404.html'])) {
   for (const lang of LANGS) {
@@ -9,7 +9,7 @@ for (const pg of PAGES.concat(['404.html'])) {
       await scrollThrough(page);
       problems.push(...await layoutIssues(page));
       expect(await page.evaluate(() => document.documentElement.lang)).toBe(lang === 'zh' ? 'zh-Hans' : lang);
-      if (pg && pg !== '404.html') {
+      if (MENU_PAGES.includes(pg)) {
         const chips = await page.locator('#subnav a').count();
         expect(chips, 'sub-nav has section links').toBeGreaterThan(0);
       }

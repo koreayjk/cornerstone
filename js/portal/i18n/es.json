@@ -330,5 +330,7 @@
   "docm.pdfDone": "PDF descargado",
   "docm.pdfFail": "No se pudo crear el PDF — use Imprimir",
   "pwa.install": "Instalar la app",
-  "pwa.ios": "En iPhone: toque Compartir y luego “Agregar a pantalla de inicio”."
+  "pwa.ios": "En iPhone: toque Compartir y luego “Agregar a pantalla de inicio”.",
+  "login.privacy": "Política de privacidad",
+  "login.terms": "Términos de uso"
 }

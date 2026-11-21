@@ -270,3 +270,4 @@ html.i18n-pending .login-card,html.i18n-pending .portal{visibility:hidden}
 .acc-act{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
 .pwa-row{margin-top:14px}.pwa-row .hint{margin:0}
 .doc-actions{flex-wrap:wrap}
+.legal-links a{text-decoration:underline;text-underline-offset:2px}

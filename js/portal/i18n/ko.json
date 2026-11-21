@@ -325,5 +325,7 @@
   "docm.pdfDone": "PDF를 내려받았습니다",
   "docm.pdfFail": "PDF를 만들지 못했습니다 — 인쇄 기능을 이용해 주세요",
   "pwa.install": "앱 설치",
-  "pwa.ios": "아이폰: 공유 버튼 → “홈 화면에 추가”를 누르세요."
+  "pwa.ios": "아이폰: 공유 버튼 → “홈 화면에 추가”를 누르세요.",
+  "login.privacy": "개인정보처리방침",
+  "login.terms": "이용약관"
 }

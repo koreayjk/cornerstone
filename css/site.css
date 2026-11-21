@@ -140,7 +140,8 @@ footer{background:#F5F5F7;color:#6e6e73;font-size:12.5px;padding:0 0 76px} /* ex
 footer .wrap{border-top:1px solid #d2d2d7;padding-top:24px}
 .fg{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:30px;padding:20px 0 30px;border-bottom:1px solid #d2d2d7}
 .fg :is(h2,h4){font-size:12.5px;color:#1d1d1f;font-weight:600;margin-bottom:10px}
-.fg li{list-style:none;margin-bottom:8px}
+.fg li{list-style:none;margin-bottom:4px}
+.fg li a{display:inline-block;padding:4px 0;min-height:24px} /* WCAG 2.2 target size */
 .fg a:hover{color:#1d1d1f;text-decoration:underline}
 .fb{display:flex;justify-content:space-between;gap:20px;padding-top:16px;flex-wrap:wrap}
 

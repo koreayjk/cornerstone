@@ -1,28 +1,25 @@
 {
   "meta.title": "학부모 포털 (데모) — 코너스톤 크리스천 아카데미",
   "lang.label": "언어",
-
   "login.quote": "“가족은 이곳의 손님이 아니라, 꼭 필요한 한 식구입니다.”",
   "login.eyebrow": "학부모 포털 · 데모",
   "login.title": "환영합니다.",
-  "login.lead": "학부모 또는 교사로 포털을 미리 살펴보세요. 언제든 역할을 바꿔 메시지와 신청이 어떻게 오가는지 확인할 수 있습니다.",
+  "login.lead": "학부모, 교사, 행정실로 포털을 미리 살펴보세요. 언제든 역할을 바꿔 메시지와 신청이 어떻게 오가는지 확인할 수 있습니다.",
   "login.parent": "학부모로 계속",
-  "login.parentSub": "김 가족 · Grace, 10학년",
+  "login.parentSub": "김 가족 · Grace(10학년) & Joshua(4학년)",
   "login.teacher": "교사 / 교직원으로 계속",
   "login.teacherSub": "Sarah Taylor 선생님 · 고등부",
   "login.back": "← 웹사이트로 돌아가기",
-
   "brand.portal": "학부모 포털",
   "top.demo": "데모 데이터",
   "top.switch": "역할 전환",
   "top.exit": "나가기",
   "me.parentName": "김 가족",
-  "me.parentRole": "학부모 · Grace, 10학년",
+  "me.parentRole": "학부모 · Grace & Joshua",
   "me.teacherName": "Sarah Taylor 선생님",
   "me.teacherRole": "교사 · 고등부",
   "toast.signedParent": "학부모로 로그인했습니다 (데모)",
   "toast.signedTeacher": "교사로 로그인했습니다 (데모)",
-
   "nav.home": "홈",
   "nav.dashboard": "대시보드",
   "nav.announcements": "공지사항",
@@ -42,7 +39,6 @@
   "tab.gradebook": "성적부",
   "tab.documents": "증명서",
   "tab.requests": "신청",
-
   "title.home": "홈",
   "title.dashboard": "대시보드",
   "title.announcements": "공지사항",
@@ -53,7 +49,6 @@
   "title.documents": "서류 및 증명서",
   "title.requests": "서류 신청 관리",
   "title.calendar": "학사 일정",
-
   "greet.afternoon": "안녕하세요",
   "grade.n": "{n}학년",
   "home.welcomeParent": "김 가족님, 다시 오신 것을 환영합니다.",
@@ -62,16 +57,19 @@
   "qa.messageTeacher": "선생님께 메시지",
   "qa.viewGrades": "성적 보기",
   "kpi.average": "평균",
-  "kpi.acrossCourses": { "other": "{n}개 과목 기준" },
+  "kpi.acrossCourses": {
+    "other": "{n}개 과목 기준"
+  },
   "kpi.attendance": "출석률",
-  "kpi.absences": { "other": "이번 학기 결석 {n}회" },
+  "kpi.absences": {
+    "other": "이번 학기 결석 {n}회"
+  },
   "kpi.unread": "읽지 않은 공지",
   "kpi.readNow": "지금 읽기 →",
   "home.latestAnn": "최근 공지",
   "home.latestAnnSub": "학교 행정실과 선생님들의 소식",
   "home.upcoming": "다가오는 일정",
   "home.upcomingSub": "학사 일정",
-
   "ann.empty": "공지가 없습니다",
   "ann.new": "새 글",
   "cat.academics": "학업",
@@ -83,7 +81,6 @@
   "aud.middle": "중등부",
   "aud.upper": "고등부",
   "aud.intl": "국제학생 가정",
-
   "acad.semester": "2026 가을 학기",
   "acad.sub": "{name} · {grade} · 매일 업데이트",
   "th.course": "과목",
@@ -95,11 +92,12 @@
   "kpi.present": "출석",
   "kpi.daysSemester": "이번 학기 출석 일수",
   "kpi.absentTardy": "결석 · 지각",
-  "kpi.excused": { "other": "사유 결석 {n}회 ({date})" },
+  "kpi.excused": {
+    "other": "사유 결석 {n}회 ({date})"
+  },
   "acad.needReport": "성적표가 필요하신가요?",
   "acad.needReportSub": "공인 성적표나 성적증명서를 신청하세요.",
   "acad.requestDoc": "서류 신청",
-
   "doc.requestTitle": "서류 신청",
   "doc.requestSub": "행정실에서 발급하며, 보통 영업일 기준 1–2일 소요됩니다.",
   "doc.type": "서류 종류",
@@ -113,7 +111,9 @@
   "doc.submit": "신청하기",
   "doc.mine": "내 신청 내역",
   "doc.mineSub": "진행 상황을 확인하고 준비되면 내려받으세요",
-  "doc.copiesN": { "other": "{n}부" },
+  "doc.copiesN": {
+    "other": "{n}부"
+  },
   "doc.download": "내려받기",
   "doc.emptyMine": "아직 신청 내역이 없습니다",
   "doc.general": "일반",
@@ -136,12 +136,8 @@
   "status.review": "검토 중",
   "status.ready": "발급 완료",
   "toast.reqSubmitted": "신청이 접수되었습니다 — 행정실에 알림이 전달되었습니다",
-
   "cal.title": "학사 일정",
   "cal.sub": "2026–2027 · 가을 및 봄 학기",
-  "cal.add": "추가",
-  "toast.calAdded": "내 캘린더에 추가했습니다",
-
   "t.eyebrow": "교직원 대시보드",
   "t.welcome": "Taylor 선생님, 안녕하세요.",
   "t.welcomeSub": "오늘 확인이 필요한 일들입니다.",
@@ -156,7 +152,6 @@
   "kpi.thisMonth": "이번 달",
   "t.queue": "신청 대기열",
   "t.queueSub": "서류를 승인하고 발급하세요",
-
   "post.title": "새 공지",
   "post.sub": "포털을 통해 가정에 즉시 알림이 전달됩니다.",
   "post.fTitle": "제목",
@@ -174,7 +169,6 @@
   "post.publishedSub": "최신순",
   "toast.needTitle": "제목과 내용을 입력해 주세요",
   "toast.published": "공지를 가정에 게시했습니다",
-
   "t.allRequests": "전체 서류 신청",
   "t.allRequestsSub": "각 신청을 다음 단계로 진행하세요 — 상태 변경은 가정에 바로 표시됩니다.",
   "t.period": "{course} · {n}교시",
@@ -186,7 +180,6 @@
   "t.issued": "발급됨",
   "toast.issued": "발급 완료 — 이제 가정에서 내려받을 수 있습니다",
   "toast.inReview": "검토 중으로 변경했습니다",
-
   "msg.office": "행정실",
   "msg.admin": "행정",
   "msg.homeroom": "담임",
@@ -196,7 +189,36 @@
   "msg.send": "보내기",
   "toast.sentParent": "전송했습니다 — 교사로 전환하면 도착한 메시지를 볼 수 있습니다",
   "toast.sentTeacher": "가정에 답장을 보냈습니다",
-
   "docm.close": "닫기",
-  "docm.print": "인쇄 / PDF 저장"
+  "docm.print": "인쇄 / PDF 저장",
+  "login.admin": "행정실로 계속",
+  "login.adminSub": "행정 직원 · 관리자",
+  "me.adminName": "행정실",
+  "me.adminRole": "관리자 · 행정 직원",
+  "toast.signedAdmin": "행정실로 로그인했습니다 (데모)",
+  "tab.calendar": "일정",
+  "child.viewing": "보는 중",
+  "child.choose": "자녀 선택",
+  "doc.requestFor": "{name} 학생",
+  "doc.reason": "사유: {reason}",
+  "status.rejected": "반려됨",
+  "a.eyebrow": "행정실 대시보드",
+  "a.welcome": "행정실 여러분, 안녕하세요.",
+  "a.reject": "반려",
+  "a.rejectPh": "가정에 표시될 반려 사유",
+  "a.rejectConfirm": "반려 확정",
+  "a.cancel": "취소",
+  "toast.rejected": "신청을 반려했습니다 — 가정에서 사유를 볼 수 있습니다",
+  "toast.needReason": "반려 사유를 입력해 주세요",
+  "kpi.issued": "발급 완료",
+  "kpi.issuedSub": "가정에서 내려받을 수 있음",
+  "kpi.students": "학생 수",
+  "qa.gradebook": "성적부 열기",
+  "msg.none": "아직 대화가 없습니다",
+  "cal.exportSub": "구글 캘린더, 애플 캘린더, Outlook에 일정을 추가하세요",
+  "cal.icsAll": "전체 내려받기 (.ics)",
+  "cal.google": "구글",
+  "cal.addGoogle": "{title} 일정을 구글 캘린더에 추가",
+  "cal.addIcs": "{title} 일정을 캘린더 파일(.ics)로 내려받기",
+  "toast.icsDone": "캘린더 파일을 내려받았습니다 — 파일을 열면 일정이 추가됩니다"
 }

@@ -178,3 +178,28 @@ html.i18n-pending .login-card,html.i18n-pending .portal{visibility:hidden}
 .th{width:100%;text-align:left;font:inherit;color:inherit;background:none;border:0;border-bottom:1px solid var(--line)}
 .ann .new{color:var(--gold-ink)}
 .kpi a{color:var(--gold-ink)}
+
+/* demo additions: child switcher, calendar export, request rejection */
+.kids{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:18px;font-size:12px;color:var(--muted)}
+.kids span{margin-right:4px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:11px}
+.kids button{padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:12.5px;font-weight:600;color:var(--ink)}
+.kids button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.boxh{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.evx{display:flex;gap:6px;flex:none}
+.evx .sbtn{padding:8px 12px}
+.reason{margin-top:8px;font-size:12.5px;color:#9B3B2A;line-height:1.5}
+.rq-track.rej i{background:#F1D7D1}
+.reqa{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.rejf{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:flex-end;max-width:420px}
+.rejf input{flex:1;min-width:180px}
+.sbtn.danger{background:#9B3B2A;border-color:#9B3B2A;color:#fff}
+@media (max-width:640px){
+.req{grid-template-columns:1fr}
+.reqa,.rejf{justify-content:flex-start}
+.cal p{flex-wrap:wrap}
+.evx{width:100%;padding-left:68px}
+}
+@media (max-width:640px){
+.mtab button{flex:1 1 0;min-width:0;padding:4px 2px}
+.mtab button span:not(.ct){max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+}

@@ -233,3 +233,38 @@ html.i18n-pending .login-card,html.i18n-pending .portal{visibility:hidden}
 .acadt .bar2{width:64px}
 .acadt td,.acadt th{padding-left:6px;padding-right:6px}
 }
+
+/* accounts, invitations and email previews (admin) */
+.inq-err{background:#F6E1DC;color:#7A2E20;border-radius:8px;padding:11px 14px;font-size:13px;margin:6px 0 4px}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0 0;letter-spacing:0;text-transform:none;font-size:13.5px;font-weight:400;color:var(--ink);cursor:pointer}
+.chk input{width:17px;height:17px;margin-top:1px;accent-color:var(--navy);flex:none}
+.invkids{border:0;margin-top:14px;padding:0}
+.invkids legend{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--muted);margin-bottom:2px}
+.acct{display:flex;justify-content:space-between;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);align-items:center;flex-wrap:wrap}
+.acct:last-child{border-bottom:0}
+.acct-m{min-width:0;flex:1 1 220px}
+.acct-m b{display:block;font-size:14px}
+.acct-m small{display:block;color:var(--muted);font-size:12px;margin-top:3px;overflow-wrap:anywhere}
+.acct-a{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.mailctl{display:flex;gap:8px;flex-wrap:wrap}
+.mailctl select{width:auto;padding:9px 12px;font-size:13px}
+.mailprev{margin-top:18px}
+.mail{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;max-width:640px}
+.mail-h{margin:0;padding:14px 18px;background:#F7F7F9;border-bottom:1px solid var(--line);font-size:12.5px;display:grid;gap:4px}
+.mail-h div{display:flex;gap:10px;min-width:0}
+.mail-h dt{width:58px;flex:none;color:var(--muted)}
+.mail-h dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.mail-b{padding:26px 26px 22px}
+.mail-b p{font-size:14.5px;line-height:1.6;margin:0 0 12px;overflow-wrap:anywhere}
+.mail-brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;margin-bottom:20px}
+.mail-brand svg{width:24px;height:28px}
+.mail-cta{display:inline-block;background:#1d1d1f;color:#fff;border-radius:999px;padding:11px 20px;font-size:13.5px;font-weight:600;margin:6px 0 18px}
+.mail-f{font-size:11.5px !important;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;margin:0 !important}
+#accModal{align-items:center}
+.acc-card{background:#fff;width:min(440px,100%);border-radius:16px;padding:30px 28px;box-shadow:0 30px 80px rgba(0,0,0,.35);color:var(--ink)}
+.acc-brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;font-size:14px;color:var(--muted)}
+.acc-brand svg{width:22px;height:26px}
+.acc-card h2{font-family:var(--serif);font-size:28px;letter-spacing:-.03em;font-weight:600;margin:16px 0 6px}
+.acc-lead{color:var(--muted);font-size:14px;line-height:1.6}
+.acc-card input[readonly]{background:#F3F3F5;color:var(--muted)}
+.acc-act{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}

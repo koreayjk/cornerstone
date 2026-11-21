@@ -3,7 +3,7 @@ const { test, expect } = require('@playwright/test');
 const fs = require('fs');
 const { LANGS, open, layoutIssues, axe } = require('./helpers');
 
-const VIEWS = { parent: ['home', 'ann', 'msg', 'acad', 'doc', 'cal'], teacher: ['home', 'ann', 'msg', 'acad', 'att', 'cal'], admin: ['home', 'doc', 'ann', 'msg', 'cal'] };
+const VIEWS = { parent: ['home', 'ann', 'msg', 'acad', 'doc', 'cal'], teacher: ['home', 'ann', 'msg', 'acad', 'att', 'cal'], admin: ['home', 'doc', 'people', 'ann', 'msg', 'cal'] };
 
 for (const lang of LANGS) {
   test(`portal [${lang}]: every role, view and child renders cleanly`, async ({ page }, info) => {
@@ -26,7 +26,7 @@ for (const lang of LANGS) {
 test('mobile tab bar shows every item for each role', async ({ page }, info) => {
   test.skip(info.project.name !== 'mobile', 'mobile only');
   await open(page, 'portal/', 'en');
-  for (const [role, n] of [['parent', 6], ['teacher', 6], ['admin', 5]]) {
+  for (const [role, n] of [['parent', 6], ['teacher', 6], ['admin', 6]]) {
     await page.evaluate(r => enter(r), role);
     await expect(page.locator('#mtab button')).toHaveCount(n);
   }
@@ -124,4 +124,57 @@ test('teacher takes attendance and the family sees it', async ({ page }) => {
   await expect(page.locator('.kpi small.today')).toHaveText('Today: Absent');
   await page.evaluate(() => pickChild(1));                                  // Joshua is not in this class
   await expect(page.locator('.kpi small.today')).toHaveCount(0);
+});
+
+test('office invites a parent, previews the email in their language, and the parent activates', async ({ page }) => {
+  await open(page, 'portal/', 'en');
+  await expect(page.locator('.login-card')).toContainText('Invitation only');
+  await page.evaluate(() => { enter('admin'); go('people') });
+  // validation: a parent needs a linked student
+  await page.fill('#invName', 'The Lee Family');
+  await page.fill('#invEmail', 'lee.family@example.com');
+  await page.selectOption('#invLang', 'es');
+  await page.getByRole('button', { name: 'Send invitation' }).click();
+  await expect(page.locator('#invErr')).toHaveText('Link at least one student.');
+  await page.locator('#invKids label', { hasText: 'Hannah Lee' }).click();
+  await page.getByRole('button', { name: 'Send invitation' }).click();
+  const row = page.locator('.acct', { hasText: 'The Lee Family' });
+  await expect(row.locator('.tag')).toHaveText('Invited');
+  // the preview follows the recipient's language (Spanish), not the UI language (English)
+  await expect(page.locator('.mail-h')).toContainText('Está invitado(a) al Portal Familiar de Cornerstone');
+  await expect(page.locator('.mail-b')).toContainText('Hola, The Lee Family:');
+  // a duplicate email is refused
+  await page.fill('#invName', 'Someone');
+  await page.fill('#invEmail', 'LEE.family@example.com');
+  await page.locator('#invKids label', { hasText: 'Hannah Lee' }).click();
+  await page.getByRole('button', { name: 'Send invitation' }).click();
+  await expect(page.locator('#invErr')).toHaveText('This email already has an account.');
+  // accept: password rules, then active
+  await row.getByRole('button', { name: 'Accept (demo)' }).click();
+  await expect(page.locator('#accModal')).toBeVisible();
+  await page.fill('#accPw', 'short');
+  await page.getByRole('button', { name: 'Activate account' }).click();
+  await expect(page.locator('#accErr')).toHaveText('Use at least 8 characters.');
+  await page.fill('#accPw', 'correct horse');
+  await page.fill('#accPw2', 'correct house');
+  await page.getByRole('button', { name: 'Activate account' }).click();
+  await expect(page.locator('#accErr')).toHaveText('The passwords don’t match.');
+  await page.fill('#accPw2', 'correct horse');
+  await page.getByRole('button', { name: 'Activate account' }).click();
+  await expect(page.locator('#accModal')).toBeHidden();
+  await expect(row.locator('.tag')).toHaveText('Active');
+});
+
+test('email templates render in each language', async ({ page }) => {
+  await open(page, 'portal/', 'en');
+  await page.evaluate(() => { enter('admin'); go('people') });
+  const expectSubject = async (tpl, lang, text) => {
+    await page.selectOption('#mailTpl', tpl);
+    await page.selectOption('#mailLang', lang);
+    await expect(page.locator('.mail-h')).toContainText(text);
+  };
+  await expectSubject('doc', 'ko', '서류가 준비되었습니다: 재학 증명서');
+  await expectSubject('ann', 'zh', '新通知：圣诞节目暨读经与颂歌');
+  await expectSubject('msg', 'es', 'Nuevo mensaje de Mrs. Sarah Taylor');
+  await expectSubject('invite', 'en', 'You’re invited to the Cornerstone Family Portal');
 });

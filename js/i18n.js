@@ -33,14 +33,16 @@ const I18N = (() => {
     if (!r.ok) throw new Error('i18n: cannot load ' + l);
     return (dicts[l] = await r.json());
   }
-  function t(key, vars) {
-    let v = (dicts[lang] && dicts[lang][key]) ?? (dicts.en && dicts.en[key]) ?? key;
+  // tIn: look a key up in a given language (its dictionary must be loaded, see loadLang)
+  function tIn(l, key, vars) {
+    let v = (dicts[l] && dicts[l][key]) ?? (dicts.en && dicts.en[key]) ?? key;
     if (v && typeof v === 'object') {
       const n = vars && vars.n != null ? vars.n : 0;
-      v = v[new Intl.PluralRules(LANGS[lang].locale).select(n)] ?? v.other;
+      v = v[new Intl.PluralRules(LANGS[l].locale).select(n)] ?? v.other;
     }
     return vars ? String(v).replace(/\{(\w+)\}/g, (m, k) => (k in vars ? vars[k] : m)) : v;
   }
+  function t(key, vars) { return tIn(lang, key, vars) }
   // Fill static markup: data-i18n (text), data-i18n-html (trusted markup from our own
   // dictionaries, e.g. <br>/<em>), data-i18n-ph (placeholder), data-i18n-aria (aria-label).
   function apply(root = document) {
@@ -100,7 +102,8 @@ const I18N = (() => {
   const tr = (rec, field) => (rec.i18n && rec.i18n[lang] && rec.i18n[lang][field]) || rec[field];
 
   return {
-    LANGS, t, apply, set, init, fmt, tr,
+    LANGS, t, tIn, apply, set, init, fmt, tr,
+    loadLang: l => load(LANGS[l] ? l : 'en'),
     en: key => (dicts.en && dicts.en[key]) || key,
     get lang() { return lang; },
     onChange: fn => listeners.push(fn)

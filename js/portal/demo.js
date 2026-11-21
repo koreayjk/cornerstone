@@ -240,7 +240,7 @@ const c = kid(), ua = parentAnns().filter(a => !a.read).length;
 const avg = Math.round(c.grades.reduce((a, g) => a + g.p, 0) / c.grades.length);
 const att = c.attendance; const pct = (att.present / (att.present + att.absent) * 100).toFixed(0);
 return `${kidBar()}
-<div class="welcome"><div class="img" style="background-image:url(../img/${c.division === 'lower' ? '6' : '3'}.jpg)"></div>
+<div class="welcome"><div class="img" style="background-image:url(../img/${c.division === 'lower' ? '6' : '3'}-800.webp)"></div>
 <div class="eyebrow">${esc(t('greet.afternoon'))}</div><h2>${esc(t('home.welcomeParent'))}</h2>
 <p>${esc(t('home.studentLine', { name: c.name, grade: gradeTxt(c), id: c.id }))}</p>
 <div class="qa"><button onclick="go('doc')">${esc(t('qa.requestCert'))}</button><button onclick="go('msg')">${esc(t('qa.messageTeacher'))}</button><button onclick="go('acad')">${esc(t('qa.viewGrades'))}</button></div></div>
@@ -299,7 +299,7 @@ const GRADEBOOK = [['Grace Kim', 98, 95, 96], ['Daniel Park', 91, 88, 90], ['Emm
 const T = {
 home() {
 const um = myThreads().filter(x => x.unreadT).length;
-return `<div class="welcome"><div class="img" style="background-image:url(../img/2.jpg)"></div>
+return `<div class="welcome"><div class="img" style="background-image:url(../img/2-800.webp)"></div>
 <div class="eyebrow">${esc(t('t.eyebrow'))}</div><h2>${esc(t('t.welcome'))}</h2><p>${esc(t('t.welcomeSub'))}</p>
 <div class="qa"><button onclick="go('ann')">${esc(t('qa.postNotice'))}</button><button onclick="go('msg')">${esc(t('qa.openMessages'))}</button><button onclick="go('acad')">${esc(t('qa.gradebook'))}</button></div></div>
 <div class="grid3" style="margin-bottom:24px">
@@ -320,7 +320,7 @@ cal: calView
 const A = {
 home() {
 const pend = S.requests.filter(r => r.status < 2).length, issued = S.requests.filter(r => r.status === 2).length;
-return `<div class="welcome"><div class="img" style="background-image:url(../img/0.jpg)"></div>
+return `<div class="welcome"><div class="img" style="background-image:url(../img/0-800.webp)"></div>
 <div class="eyebrow">${esc(t('a.eyebrow'))}</div><h2>${esc(t('a.welcome'))}</h2><p>${esc(t('t.welcomeSub'))}</p>
 <div class="qa"><button onclick="go('doc')">${esc(t('qa.reviewRequests'))}</button><button onclick="go('ann')">${esc(t('qa.postNotice'))}</button><button onclick="go('msg')">${esc(t('qa.openMessages'))}</button></div></div>
 <div class="grid3" style="margin-bottom:24px">

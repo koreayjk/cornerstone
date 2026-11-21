@@ -1,7 +1,14 @@
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-// lazy background images: <div class="img" data-bg="img/x.jpg">
-const bgo = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { const el = e.target; el.style.backgroundImage = `url(${el.dataset.bg})`; bgo.unobserve(el) } }), { rootMargin: '600px 600px 600px 600px' });
-$$('[data-bg]').forEach(el => bgo.observe(el));
+// lazy background images: <div class="img" data-bg="img/x.jpg"> loads the WebP variant
+// sized for the element (x-800.webp or x-1344.webp, generated from the JPEG original)
+// background-size:cover scales by height on tall boxes, so the rendered width is
+// max(box width, box height x image ratio); density is capped at 2x (photos sit under overlays)
+const IMG_RATIO = 1344 / 752;
+let bgExt = '.webp';
+const avifCheck = new Promise(res => { const i = new Image(); i.onload = () => { if (i.width > 0) bgExt = '.avif'; res() }; i.onerror = () => res(); i.src = 'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADrbWV0YQAAAAAAAAAhaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAAAAAAAOcGl0bQAAAAAAAQAAAB5pbG9jAAAAAEQAAAEAAQAAAAEAAAETAAAAIQAAAChpaW5mAAAAAAABAAAAGmluZmUCAAAAAAEAAGF2MDFDb2xvcgAAAABqaXBycAAAAEtpcGNvAAAAFGlzcGUAAAAAAAAAAgAAAAIAAAAQcGl4aQAAAAADCAgIAAAADGF2MUOBAAwAAAAAE2NvbHJuY2x4AAEADQAGgAAAABdpcG1hAAAAAAAAAAEAAQQBAoMEAAAAKW1kYXQSAAoIGAA2iAhoNCAyExlHh4Yhh5555oAAAJBAyRxhQr4='; setTimeout(res, 400) });
+const bgUrl = el => { const r = el.getBoundingClientRect(); const w = Math.max(r.width || innerWidth, r.height * IMG_RATIO) * Math.min(devicePixelRatio || 1, 2); return el.dataset.bg.replace(/\.jpg$/, (w <= 800 ? '-800' : '-1344') + bgExt) };
+const bgo = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { const el = e.target; el.style.backgroundImage = `url(${bgUrl(el)})`; bgo.unobserve(el) } }), { rootMargin: '600px 600px 600px 600px' });
+avifCheck.then(() => $$('[data-bg]').forEach(el => bgo.observe(el)));
 // reveal
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.18});
 $$('.rv').forEach(el=>io.observe(el));

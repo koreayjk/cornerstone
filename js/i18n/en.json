@@ -275,5 +275,17 @@
   "nf.title": "Page not found — Cornerstone Christian Academy",
   "nf.h": "This page isn’t here.",
   "nf.p": "The link may be old, or the page may have moved. Let’s get you back on the path.",
-  "nf.home": "Back to home"
+  "nf.home": "Back to home",
+  "search.open": "Search",
+  "search.ph": "Search Cornerstone",
+  "search.close": "Close search",
+  "search.count": {
+    "one": "{n} result",
+    "other": "{n} results"
+  },
+  "search.none": "No results for “{q}”",
+  "search.home": "Home",
+  "search.hint": "Try “chapel”, “I-20” or “dual credit”.",
+  "search.loading": "Loading…",
+  "search.error": "Search is unavailable right now."
 }

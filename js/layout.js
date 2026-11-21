@@ -54,6 +54,17 @@ const Layout = (() => {
   const href = (m, i) => root + m.id + '/' + (i ? '#' + i.id : '');
   const lbl = (key, text) => `<span data-i18n="${key}">${esc(text)}</span>`;
   const globe = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9s1.3-6.4 3.8-9z"/></svg>';
+  const mag = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>';
+  // search code is loaded on first use; "/" opens it when not typing in a field
+  let searchLoading = null;
+  function openSearch() {
+    if (typeof Search !== 'undefined') return Search.open();
+    if (!searchLoading) searchLoading = new Promise((res, rej) => { const s = document.createElement('script'); s.src = root + 'js/search.js'; s.onload = res; s.onerror = rej; document.body.appendChild(s) });
+    searchLoading.then(() => Search.open());
+  }
+  addEventListener('keydown', e => {
+    if (e.key === '/' && !e.metaKey && !e.ctrlKey && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName) && !document.activeElement.isContentEditable) { e.preventDefault(); openSearch() }
+  });
   const crest = `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="crest" viewBox="0 0 44 52"><path d="M3 4 H41 V22 C41 36 32 45 22 50 C12 45 3 36 3 22 Z" fill="#111113" stroke="#E3C46E" stroke-width="1.8"/><g fill="#E3C46E"><rect x="20.2" y="9" width="3.6" height="33"/><rect x="11" y="17.2" width="22" height="3.6"/><circle cx="22" cy="8.6" r="2.6"/><circle cx="19.6" cy="11" r="1.7"/><circle cx="24.4" cy="11" r="1.7"/><circle cx="10.6" cy="19" r="2.6"/><circle cx="13" cy="16.6" r="1.7"/><circle cx="13" cy="21.4" r="1.7"/><circle cx="33.4" cy="19" r="2.6"/><circle cx="31" cy="16.6" r="1.7"/><circle cx="31" cy="21.4" r="1.7"/><circle cx="22" cy="42.4" r="2.6"/><circle cx="19.6" cy="40" r="1.7"/><circle cx="24.4" cy="40" r="1.7"/></g></symbol></defs></svg>`;
 
   function top() {
@@ -65,11 +76,12 @@ const Layout = (() => {
 <header class="nav" id="nav"><div class="wrap">
 <a class="brand" href="${root}"><svg><use href="#crest"/></svg>Cornerstone</a>
 <nav class="menu" aria-label="Main">${menu}</nav>
-<div class="nr"><label class="lang-pick dark">${globe}<select class="lang" aria-label="Language" data-i18n-aria="lang.label" onchange="I18N.set(this.value)"><option value="en">English</option><option value="ko">한국어</option><option value="zh">中文</option><option value="es">Español</option></select></label><a class="lnk" href="${root}portal/" data-i18n="nav.portal">Family Portal</a><a class="pill gold" href="${root}admissions/" data-i18n="nav.visit">Visit</a>
+<div class="nr"><button class="sbtn-ic" type="button" onclick="Layout.openSearch()" aria-label="Search" data-i18n-aria="search.open">${mag}</button><label class="lang-pick dark">${globe}<select class="lang" aria-label="Language" data-i18n-aria="lang.label" onchange="I18N.set(this.value)"><option value="en">English</option><option value="ko">한국어</option><option value="zh">中文</option><option value="es">Español</option></select></label><a class="lnk" href="${root}portal/" data-i18n="nav.portal">Family Portal</a><a class="pill gold" href="${root}admissions/" data-i18n="nav.visit">Visit</a>
 <button class="burger" onclick="openMenu()" aria-label="Menu" data-i18n-aria="a11y.menu" aria-expanded="false" aria-controls="mnav"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><path d="M4 9h16M4 15h16"/></svg></button></div>
 </div></header>
 <div class="mnav" id="mnav" role="dialog" aria-modal="true" aria-label="Menu" data-i18n-aria="a11y.menu" onclick="if(event.target.tagName==='A'||event.target.closest('a')||event.target===this)closeMenu()">
 <button class="mclose" onclick="closeMenu()" aria-label="Close menu" data-i18n-aria="a11y.closeMenu">✕</button>
+<button class="msearch" type="button" onclick="closeMenu();Layout.openSearch()">${mag}<span data-i18n="search.open">Search</span></button>
 ${mob}<div class="mg"><a class="mgt" href="${root}portal/" style="color:var(--gold2)" data-i18n="nav.portal">Family Portal</a></div>
 </div>`;
     // sub-nav for section pages: one chip per visible section, highlighted while in view
@@ -106,5 +118,5 @@ ${mob}<div class="mg"><a class="mgt" href="${root}portal/" style="color:var(--go
 </div></footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>`;
   }
-  return { top, bottom, MENU, root };
+  return { top, bottom, MENU, root, openSearch };
 })();

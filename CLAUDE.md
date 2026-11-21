@@ -60,11 +60,21 @@
   /supabase/migrations/  SQL schema + RLS policies (source of truth)
   ```
 - If the build grows, Vite with `base: '/cornerstone/'` deployed to Pages through GitHub Actions is acceptable. Ask Moses before adding a framework.
-- **Large media**: the videos are about 5 MB each. Keep the total repo size reasonable, compress new videos (H.264, `-preset veryfast`, CRF 26–28, 720p), and always set a `poster`.
+- **Large media**: the videos are about 5 MB each. Keep the total repo size reasonable, compress new videos (H.264, `-preset veryfast`, CRF 26–28, 720p), and always give a video a poster image. The background videos sit on top of a `<picture>` (or a lazy `.img` background) that acts as the poster; don't add a `poster` attribute as well, because it can't offer AVIF and would download the same photo twice.
+- **Images**: originals are `img/N.jpg` (1344×752). Pages use generated `img/N-800|1344.avif` and `.webp` variants (AVIF q55, WebP q80; the hero `0-1344.webp` is q72). Heroes use `<picture>` with `sizes` that account for `cover` on tall screens; other photos use `data-bg="img/N.jpg"`, and `js/site.js` picks the format and size. When adding or replacing a photo, regenerate all four variants.
 
 ### Section pages and the old site menu
 The public site mirrors the old WordPress menu (About, Academics, Enrichment, Admissions, Student Life) as five pages; each sub-menu item is a section (`#id`) on that page. `MENU` in `js/layout.js` drives the nav dropdowns, the mobile menu and each page's sticky sub-nav.
 Items marked `ready: false` have no source content yet and are hidden: Faculty and Staff, Board of Directors, Employment Opportunities, Kindergarten, Grades 1-5 Curriculum, Curriculum – Upper Grades, Art, Computer Lab, Tuition, Parent and Student Handbook, 2026-27 School Supply Lists, Uniforms and Dress Code, Field Trips / Field Studies, Fundraisers. To add one: get the original text/files from the school or Moses (the old site blocks cloud fetches), add the `<section class="sec" id="…">` to the page, add its keys to all four dictionaries, and remove `ready: false`. Never invent tuition amounts, staff names or dates.
+
+### Automated checks
+`npx playwright test` (after `npm install`) starts a static server and checks, on desktop 1440px and mobile 390px:
+- every public page and the 404 page in all four languages: no JS errors, no 404s, no horizontal overflow, no untranslated keys, and an axe-core accessibility audit;
+- every internal link and `#anchor`, and that photos load as AVIF/WebP;
+- the portal: every role, view and child in all four languages; rejection flow; per-child and per-staff threads; `.ics` export;
+- search in all four languages;
+- dictionaries: identical keys, HTML tags and `{placeholders}` across languages, and that every key the code uses exists.
+`.github/workflows/ci.yml` runs the same on every pull request and on pushes to `main`. Run it before merging; add a test when you add a feature. The Playwright version is pinned to match the browser pre-installed in the cloud environment.
 
 ## 4. Design system (do not drift)
 

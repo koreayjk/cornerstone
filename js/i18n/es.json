@@ -275,5 +275,17 @@
   "nf.title": "Página no encontrada — Cornerstone Christian Academy",
   "nf.h": "Esta página no está aquí.",
   "nf.p": "Es posible que el enlace sea antiguo o que la página se haya movido. Le ayudamos a volver al camino.",
-  "nf.home": "Volver al inicio"
+  "nf.home": "Volver al inicio",
+  "search.open": "Buscar",
+  "search.ph": "Buscar en Cornerstone",
+  "search.close": "Cerrar búsqueda",
+  "search.count": {
+    "one": "{n} resultado",
+    "other": "{n} resultados"
+  },
+  "search.none": "No hay resultados para “{q}”",
+  "search.home": "Inicio",
+  "search.hint": "Pruebe “capilla”, “I-20” o “crédito dual”.",
+  "search.loading": "Cargando…",
+  "search.error": "La búsqueda no está disponible en este momento."
 }

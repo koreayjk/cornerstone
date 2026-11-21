@@ -271,5 +271,9 @@
   "m.student-life.fundraisers": "Fundraisers",
   "statement.gold": "wisdom,stature,favor",
   "foot.giveToast": "Giving page — next build",
-  "enr.aft.spanish": "Spanish"
+  "enr.aft.spanish": "Spanish",
+  "nf.title": "Page not found — Cornerstone Christian Academy",
+  "nf.h": "This page isn’t here.",
+  "nf.p": "The link may be old, or the page may have moved. Let’s get you back on the path.",
+  "nf.home": "Back to home"
 }

@@ -1,28 +1,25 @@
 {
   "meta.title": "Family Portal (Demo) — Cornerstone Christian Academy",
   "lang.label": "Language",
-
   "login.quote": "“Families are not visitors here; they are essential.”",
   "login.eyebrow": "Family Portal · Demo",
   "login.title": "Welcome home.",
-  "login.lead": "Preview the portal as a parent or a teacher. Switch roles anytime to see how messages and requests flow between them.",
+  "login.lead": "Preview the portal as a parent, a teacher or the front office. Switch roles anytime to see how messages and requests flow between them.",
   "login.parent": "Continue as Parent",
-  "login.parentSub": "The Kim Family · Grace, Grade 10",
+  "login.parentSub": "The Kim Family · Grace (Gr. 10) & Joshua (Gr. 4)",
   "login.teacher": "Continue as Teacher / Staff",
   "login.teacherSub": "Mrs. Sarah Taylor · Upper School",
   "login.back": "← Back to website",
-
   "brand.portal": "Family Portal",
   "top.demo": "Demo data",
   "top.switch": "Switch role",
   "top.exit": "Exit",
   "me.parentName": "The Kim Family",
-  "me.parentRole": "Parent · Grace, Gr. 10",
+  "me.parentRole": "Parent · Grace & Joshua",
   "me.teacherName": "Mrs. Sarah Taylor",
   "me.teacherRole": "Teacher · Upper School",
   "toast.signedParent": "Signed in as Parent (demo)",
   "toast.signedTeacher": "Signed in as Teacher (demo)",
-
   "nav.home": "Home",
   "nav.dashboard": "Dashboard",
   "nav.announcements": "Announcements",
@@ -35,14 +32,13 @@
   "nav.calendar": "Calendar",
   "tab.home": "Home",
   "tab.dashboard": "Dashboard",
-  "tab.announcements": "Announcements",
+  "tab.announcements": "Notices",
   "tab.postNotice": "Post",
   "tab.messages": "Messages",
   "tab.academics": "Academics",
   "tab.gradebook": "Gradebook",
   "tab.documents": "Documents",
   "tab.requests": "Requests",
-
   "title.home": "Home",
   "title.dashboard": "Dashboard",
   "title.announcements": "Announcements",
@@ -53,7 +49,6 @@
   "title.documents": "Documents & Certificates",
   "title.requests": "Document Requests",
   "title.calendar": "Calendar",
-
   "greet.afternoon": "Good afternoon",
   "grade.n": "Grade {n}",
   "home.welcomeParent": "Welcome back, Kim Family.",
@@ -62,16 +57,21 @@
   "qa.messageTeacher": "Message a teacher",
   "qa.viewGrades": "View grades",
   "kpi.average": "Average",
-  "kpi.acrossCourses": { "one": "Across {n} course", "other": "Across {n} courses" },
+  "kpi.acrossCourses": {
+    "one": "Across {n} course",
+    "other": "Across {n} courses"
+  },
   "kpi.attendance": "Attendance",
-  "kpi.absences": { "one": "{n} absence this semester", "other": "{n} absences this semester" },
+  "kpi.absences": {
+    "one": "{n} absence this semester",
+    "other": "{n} absences this semester"
+  },
   "kpi.unread": "Unread notices",
   "kpi.readNow": "Read now →",
   "home.latestAnn": "Latest announcements",
   "home.latestAnnSub": "From the school office and teachers",
   "home.upcoming": "Upcoming",
   "home.upcomingSub": "School calendar",
-
   "ann.empty": "No announcements",
   "ann.new": "New",
   "cat.academics": "Academics",
@@ -83,7 +83,6 @@
   "aud.middle": "Middle School",
   "aud.upper": "Upper School",
   "aud.intl": "International Families",
-
   "acad.semester": "Fall Semester 2026",
   "acad.sub": "{name} · {grade} · Updated daily",
   "th.course": "Course",
@@ -95,11 +94,13 @@
   "kpi.present": "Present",
   "kpi.daysSemester": "days this semester",
   "kpi.absentTardy": "Absent · Tardy",
-  "kpi.excused": { "one": "{n} excused absence ({date})", "other": "{n} excused absences ({date})" },
+  "kpi.excused": {
+    "one": "{n} excused absence ({date})",
+    "other": "{n} excused absences ({date})"
+  },
   "acad.needReport": "Need a report?",
   "acad.needReportSub": "Request a certified report card or transcript.",
   "acad.requestDoc": "Request document",
-
   "doc.requestTitle": "Request a document",
   "doc.requestSub": "Issued by the school office, usually within 1–2 business days.",
   "doc.type": "Document type",
@@ -113,7 +114,10 @@
   "doc.submit": "Submit request",
   "doc.mine": "My requests",
   "doc.mineSub": "Track status and download when ready",
-  "doc.copiesN": { "one": "{n} copy", "other": "{n} copies" },
+  "doc.copiesN": {
+    "one": "{n} copy",
+    "other": "{n} copies"
+  },
   "doc.download": "Download",
   "doc.emptyMine": "No requests yet",
   "doc.general": "General",
@@ -136,12 +140,8 @@
   "status.review": "In review",
   "status.ready": "Ready",
   "toast.reqSubmitted": "Request submitted — the office has been notified",
-
   "cal.title": "School calendar",
   "cal.sub": "2026–2027 · Fall & Spring",
-  "cal.add": "Add",
-  "toast.calAdded": "Added to your calendar",
-
   "t.eyebrow": "Staff dashboard",
   "t.welcome": "Good afternoon, Mrs. Taylor.",
   "t.welcomeSub": "Here is what needs your attention today.",
@@ -156,7 +156,6 @@
   "kpi.thisMonth": "This month",
   "t.queue": "Request queue",
   "t.queueSub": "Approve and issue documents",
-
   "post.title": "New notice",
   "post.sub": "Families are notified instantly in the portal.",
   "post.fTitle": "Title",
@@ -174,7 +173,6 @@
   "post.publishedSub": "Most recent first",
   "toast.needTitle": "Please add a title and message",
   "toast.published": "Notice published to families",
-
   "t.allRequests": "All document requests",
   "t.allRequestsSub": "Move each request forward — families see status changes immediately.",
   "t.period": "{course} · Period {n}",
@@ -186,7 +184,6 @@
   "t.issued": "Issued",
   "toast.issued": "Issued — the family can now download it",
   "toast.inReview": "Marked as in review",
-
   "msg.office": "Front Office",
   "msg.admin": "Administration",
   "msg.homeroom": "Homeroom",
@@ -196,7 +193,36 @@
   "msg.send": "Send",
   "toast.sentParent": "Sent — switch to Teacher to see it arrive",
   "toast.sentTeacher": "Reply sent to the family",
-
   "docm.close": "Close",
-  "docm.print": "Print / Save PDF"
+  "docm.print": "Print / Save PDF",
+  "login.admin": "Continue as Front Office",
+  "login.adminSub": "Office staff · Admin",
+  "me.adminName": "Front Office",
+  "me.adminRole": "Admin · Office staff",
+  "toast.signedAdmin": "Signed in as Front Office (demo)",
+  "tab.calendar": "Calendar",
+  "child.viewing": "Viewing",
+  "child.choose": "Choose a child",
+  "doc.requestFor": "For {name}",
+  "doc.reason": "Reason: {reason}",
+  "status.rejected": "Rejected",
+  "a.eyebrow": "Office dashboard",
+  "a.welcome": "Good afternoon, Front Office.",
+  "a.reject": "Reject",
+  "a.rejectPh": "Reason the family will see",
+  "a.rejectConfirm": "Confirm rejection",
+  "a.cancel": "Cancel",
+  "toast.rejected": "Request rejected — the family can see the reason",
+  "toast.needReason": "Please give a reason",
+  "kpi.issued": "Issued",
+  "kpi.issuedSub": "Ready for families to download",
+  "kpi.students": "Students",
+  "qa.gradebook": "Open gradebook",
+  "msg.none": "No conversations yet",
+  "cal.exportSub": "Add events to Google Calendar, Apple Calendar or Outlook",
+  "cal.icsAll": "Download all (.ics)",
+  "cal.google": "Google",
+  "cal.addGoogle": "Add {title} to Google Calendar",
+  "cal.addIcs": "Download {title} as a calendar file (.ics)",
+  "toast.icsDone": "Calendar file downloaded — open it to add the events"
 }

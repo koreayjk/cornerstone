@@ -1,28 +1,25 @@
 {
   "meta.title": "Portal Familiar (Demo) — Cornerstone Christian Academy",
   "lang.label": "Idioma",
-
   "login.quote": "“Las familias no son visitas aquí; son esenciales.”",
   "login.eyebrow": "Portal Familiar · Demo",
   "login.title": "Bienvenidos a casa.",
-  "login.lead": "Explore el portal como padre o como maestro. Cambie de rol en cualquier momento para ver cómo fluyen los mensajes y las solicitudes entre ambos.",
+  "login.lead": "Explore el portal como padre, maestro u oficina escolar. Cambie de rol en cualquier momento para ver cómo fluyen los mensajes y las solicitudes entre ellos.",
   "login.parent": "Continuar como padre/madre",
-  "login.parentSub": "Familia Kim · Grace, 10.º grado",
+  "login.parentSub": "Familia Kim · Grace (10.º) y Joshua (4.º)",
   "login.teacher": "Continuar como maestro / personal",
   "login.teacherSub": "Sra. Sarah Taylor · Escuela Superior",
   "login.back": "← Volver al sitio web",
-
   "brand.portal": "Portal Familiar",
   "top.demo": "Datos de demo",
   "top.switch": "Cambiar rol",
   "top.exit": "Salir",
   "me.parentName": "Familia Kim",
-  "me.parentRole": "Padre/Madre · Grace, 10.º",
+  "me.parentRole": "Padre/Madre · Grace y Joshua",
   "me.teacherName": "Sra. Sarah Taylor",
   "me.teacherRole": "Maestra · Escuela Superior",
   "toast.signedParent": "Sesión iniciada como padre/madre (demo)",
   "toast.signedTeacher": "Sesión iniciada como maestro (demo)",
-
   "nav.home": "Inicio",
   "nav.dashboard": "Panel",
   "nav.announcements": "Anuncios",
@@ -40,9 +37,8 @@
   "tab.messages": "Mensajes",
   "tab.academics": "Académico",
   "tab.gradebook": "Notas",
-  "tab.documents": "Documentos",
+  "tab.documents": "Docs",
   "tab.requests": "Solicitudes",
-
   "title.home": "Inicio",
   "title.dashboard": "Panel",
   "title.announcements": "Anuncios",
@@ -53,7 +49,6 @@
   "title.documents": "Documentos y certificados",
   "title.requests": "Solicitudes de documentos",
   "title.calendar": "Calendario",
-
   "greet.afternoon": "Buenas tardes",
   "grade.n": "{n}.º grado",
   "home.welcomeParent": "Bienvenida de nuevo, familia Kim.",
@@ -62,16 +57,21 @@
   "qa.messageTeacher": "Escribir a un maestro",
   "qa.viewGrades": "Ver calificaciones",
   "kpi.average": "Promedio",
-  "kpi.acrossCourses": { "one": "En {n} materia", "other": "En {n} materias" },
+  "kpi.acrossCourses": {
+    "one": "En {n} materia",
+    "other": "En {n} materias"
+  },
   "kpi.attendance": "Asistencia",
-  "kpi.absences": { "one": "{n} ausencia este semestre", "other": "{n} ausencias este semestre" },
+  "kpi.absences": {
+    "one": "{n} ausencia este semestre",
+    "other": "{n} ausencias este semestre"
+  },
   "kpi.unread": "Avisos sin leer",
   "kpi.readNow": "Leer ahora →",
   "home.latestAnn": "Últimos anuncios",
   "home.latestAnnSub": "De la oficina escolar y los maestros",
   "home.upcoming": "Próximamente",
   "home.upcomingSub": "Calendario escolar",
-
   "ann.empty": "No hay anuncios",
   "ann.new": "Nuevo",
   "cat.academics": "Académico",
@@ -83,7 +83,6 @@
   "aud.middle": "Escuela Intermedia",
   "aud.upper": "Escuela Superior",
   "aud.intl": "Familias internacionales",
-
   "acad.semester": "Semestre de otoño 2026",
   "acad.sub": "{name} · {grade} · Actualizado a diario",
   "th.course": "Materia",
@@ -95,11 +94,13 @@
   "kpi.present": "Presente",
   "kpi.daysSemester": "días este semestre",
   "kpi.absentTardy": "Ausencias · Tardanzas",
-  "kpi.excused": { "one": "{n} ausencia justificada ({date})", "other": "{n} ausencias justificadas ({date})" },
+  "kpi.excused": {
+    "one": "{n} ausencia justificada ({date})",
+    "other": "{n} ausencias justificadas ({date})"
+  },
   "acad.needReport": "¿Necesita un reporte?",
   "acad.needReportSub": "Solicite una boleta de calificaciones certificada o un expediente académico.",
   "acad.requestDoc": "Solicitar documento",
-
   "doc.requestTitle": "Solicitar un documento",
   "doc.requestSub": "Lo emite la oficina escolar, normalmente en 1–2 días hábiles.",
   "doc.type": "Tipo de documento",
@@ -113,7 +114,10 @@
   "doc.submit": "Enviar solicitud",
   "doc.mine": "Mis solicitudes",
   "doc.mineSub": "Siga el estado y descargue cuando esté listo",
-  "doc.copiesN": { "one": "{n} copia", "other": "{n} copias" },
+  "doc.copiesN": {
+    "one": "{n} copia",
+    "other": "{n} copias"
+  },
   "doc.download": "Descargar",
   "doc.emptyMine": "Aún no hay solicitudes",
   "doc.general": "General",
@@ -136,12 +140,8 @@
   "status.review": "En revisión",
   "status.ready": "Lista",
   "toast.reqSubmitted": "Solicitud enviada — se notificó a la oficina",
-
   "cal.title": "Calendario escolar",
   "cal.sub": "2026–2027 · Otoño y primavera",
-  "cal.add": "Agregar",
-  "toast.calAdded": "Agregado a su calendario",
-
   "t.eyebrow": "Panel del personal",
   "t.welcome": "Buenas tardes, Sra. Taylor.",
   "t.welcomeSub": "Esto es lo que requiere su atención hoy.",
@@ -156,7 +156,6 @@
   "kpi.thisMonth": "Este mes",
   "t.queue": "Cola de solicitudes",
   "t.queueSub": "Apruebe y emita documentos",
-
   "post.title": "Nuevo aviso",
   "post.sub": "Las familias reciben la notificación al instante en el portal.",
   "post.fTitle": "Título",
@@ -174,7 +173,6 @@
   "post.publishedSub": "Los más recientes primero",
   "toast.needTitle": "Agregue un título y un mensaje",
   "toast.published": "Aviso publicado para las familias",
-
   "t.allRequests": "Todas las solicitudes de documentos",
   "t.allRequestsSub": "Avance cada solicitud — las familias ven los cambios de estado al instante.",
   "t.period": "{course} · Período {n}",
@@ -186,7 +184,6 @@
   "t.issued": "Emitido",
   "toast.issued": "Emitido — la familia ya puede descargarlo",
   "toast.inReview": "Marcado como en revisión",
-
   "msg.office": "Oficina principal",
   "msg.admin": "Administración",
   "msg.homeroom": "Tutora de grupo",
@@ -196,7 +193,36 @@
   "msg.send": "Enviar",
   "toast.sentParent": "Enviado — cambie a Maestro para verlo llegar",
   "toast.sentTeacher": "Respuesta enviada a la familia",
-
   "docm.close": "Cerrar",
-  "docm.print": "Imprimir / Guardar PDF"
+  "docm.print": "Imprimir / Guardar PDF",
+  "login.admin": "Continuar como oficina escolar",
+  "login.adminSub": "Personal de oficina · Administración",
+  "me.adminName": "Oficina escolar",
+  "me.adminRole": "Administración · Personal de oficina",
+  "toast.signedAdmin": "Sesión iniciada como oficina escolar (demo)",
+  "tab.calendar": "Calendario",
+  "child.viewing": "Viendo",
+  "child.choose": "Elegir un hijo",
+  "doc.requestFor": "Para {name}",
+  "doc.reason": "Motivo: {reason}",
+  "status.rejected": "Rechazada",
+  "a.eyebrow": "Panel de la oficina",
+  "a.welcome": "Buenas tardes, oficina escolar.",
+  "a.reject": "Rechazar",
+  "a.rejectPh": "Motivo que verá la familia",
+  "a.rejectConfirm": "Confirmar rechazo",
+  "a.cancel": "Cancelar",
+  "toast.rejected": "Solicitud rechazada — la familia puede ver el motivo",
+  "toast.needReason": "Indique un motivo",
+  "kpi.issued": "Emitidos",
+  "kpi.issuedSub": "Listos para que las familias los descarguen",
+  "kpi.students": "Estudiantes",
+  "qa.gradebook": "Abrir calificaciones",
+  "msg.none": "Aún no hay conversaciones",
+  "cal.exportSub": "Agregue los eventos a Google Calendar, Apple Calendar u Outlook",
+  "cal.icsAll": "Descargar todo (.ics)",
+  "cal.google": "Google",
+  "cal.addGoogle": "Agregar {title} a Google Calendar",
+  "cal.addIcs": "Descargar {title} como archivo de calendario (.ics)",
+  "toast.icsDone": "Archivo de calendario descargado — ábralo para agregar los eventos"
 }

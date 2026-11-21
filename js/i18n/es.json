@@ -271,5 +271,9 @@
   "m.student-life.fundraisers": "Recaudación de fondos",
   "statement.gold": "sabiduría,estatura,gracia",
   "foot.giveToast": "Página de donaciones — próxima etapa",
-  "enr.aft.spanish": "Español"
+  "enr.aft.spanish": "Español",
+  "nf.title": "Página no encontrada — Cornerstone Christian Academy",
+  "nf.h": "Esta página no está aquí.",
+  "nf.p": "Es posible que el enlace sea antiguo o que la página se haya movido. Le ayudamos a volver al camino.",
+  "nf.home": "Volver al inicio"
 }

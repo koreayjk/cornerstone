@@ -1,28 +1,25 @@
 {
   "meta.title": "家长门户（演示）— 基石基督教学校",
   "lang.label": "语言",
-
   "login.quote": "“家庭在这里不是访客，而是不可或缺的一员。”",
   "login.eyebrow": "家长门户 · 演示",
   "login.title": "欢迎回家。",
-  "login.lead": "以家长或教师身份预览门户。可随时切换角色，查看消息和申请如何在双方之间流转。",
+  "login.lead": "以家长、教师或学校办公室的身份预览门户。可随时切换角色，查看消息和申请如何在各方之间流转。",
   "login.parent": "以家长身份继续",
-  "login.parentSub": "金氏家庭 · Grace，十年级",
+  "login.parentSub": "金氏家庭 · Grace（十年级）和 Joshua（四年级）",
   "login.teacher": "以教师 / 职员身份继续",
   "login.teacherSub": "Sarah Taylor 老师 · 高中部",
   "login.back": "← 返回网站",
-
   "brand.portal": "家长门户",
   "top.demo": "演示数据",
   "top.switch": "切换角色",
   "top.exit": "退出",
   "me.parentName": "金氏家庭",
-  "me.parentRole": "家长 · Grace，十年级",
+  "me.parentRole": "家长 · Grace 和 Joshua",
   "me.teacherName": "Sarah Taylor 老师",
   "me.teacherRole": "教师 · 高中部",
   "toast.signedParent": "已以家长身份登录（演示）",
   "toast.signedTeacher": "已以教师身份登录（演示）",
-
   "nav.home": "首页",
   "nav.dashboard": "工作台",
   "nav.announcements": "通知公告",
@@ -42,7 +39,6 @@
   "tab.gradebook": "成绩册",
   "tab.documents": "文件",
   "tab.requests": "申请",
-
   "title.home": "首页",
   "title.dashboard": "工作台",
   "title.announcements": "通知公告",
@@ -53,7 +49,6 @@
   "title.documents": "文件与证明",
   "title.requests": "文件申请管理",
   "title.calendar": "校历",
-
   "greet.afternoon": "下午好",
   "grade.n": "{n}年级",
   "home.welcomeParent": "金氏家庭，欢迎回来。",
@@ -62,16 +57,19 @@
   "qa.messageTeacher": "给老师留言",
   "qa.viewGrades": "查看成绩",
   "kpi.average": "平均分",
-  "kpi.acrossCourses": { "other": "共 {n} 门课程" },
+  "kpi.acrossCourses": {
+    "other": "共 {n} 门课程"
+  },
   "kpi.attendance": "出勤率",
-  "kpi.absences": { "other": "本学期缺勤 {n} 次" },
+  "kpi.absences": {
+    "other": "本学期缺勤 {n} 次"
+  },
   "kpi.unread": "未读通知",
   "kpi.readNow": "立即阅读 →",
   "home.latestAnn": "最新通知",
   "home.latestAnnSub": "来自学校办公室和老师",
   "home.upcoming": "近期安排",
   "home.upcomingSub": "校历",
-
   "ann.empty": "暂无通知",
   "ann.new": "新",
   "cat.academics": "学业",
@@ -83,7 +81,6 @@
   "aud.middle": "初中部",
   "aud.upper": "高中部",
   "aud.intl": "国际学生家庭",
-
   "acad.semester": "2026 秋季学期",
   "acad.sub": "{name} · {grade} · 每日更新",
   "th.course": "课程",
@@ -95,11 +92,12 @@
   "kpi.present": "出勤",
   "kpi.daysSemester": "本学期出勤天数",
   "kpi.absentTardy": "缺勤 · 迟到",
-  "kpi.excused": { "other": "请假缺勤 {n} 次（{date}）" },
+  "kpi.excused": {
+    "other": "请假缺勤 {n} 次（{date}）"
+  },
   "acad.needReport": "需要成绩单吗？",
   "acad.needReportSub": "申请经认证的成绩报告单或正式成绩单。",
   "acad.requestDoc": "申请文件",
-
   "doc.requestTitle": "申请文件",
   "doc.requestSub": "由学校办公室签发，通常需要 1–2 个工作日。",
   "doc.type": "文件类型",
@@ -113,7 +111,9 @@
   "doc.submit": "提交申请",
   "doc.mine": "我的申请",
   "doc.mineSub": "跟踪进度，就绪后即可下载",
-  "doc.copiesN": { "other": "{n} 份" },
+  "doc.copiesN": {
+    "other": "{n} 份"
+  },
   "doc.download": "下载",
   "doc.emptyMine": "暂无申请",
   "doc.general": "一般用途",
@@ -136,12 +136,8 @@
   "status.review": "审核中",
   "status.ready": "已就绪",
   "toast.reqSubmitted": "申请已提交 — 已通知学校办公室",
-
   "cal.title": "校历",
   "cal.sub": "2026–2027 · 秋季与春季学期",
-  "cal.add": "添加",
-  "toast.calAdded": "已添加到您的日历",
-
   "t.eyebrow": "教职员工作台",
   "t.welcome": "Taylor 老师，下午好。",
   "t.welcomeSub": "以下是今天需要您处理的事项。",
@@ -156,7 +152,6 @@
   "kpi.thisMonth": "本月",
   "t.queue": "申请队列",
   "t.queueSub": "审批并签发文件",
-
   "post.title": "新通知",
   "post.sub": "家长会立即在门户中收到通知。",
   "post.fTitle": "标题",
@@ -174,7 +169,6 @@
   "post.publishedSub": "按时间倒序",
   "toast.needTitle": "请填写标题和内容",
   "toast.published": "通知已发布给家长",
-
   "t.allRequests": "全部文件申请",
   "t.allRequestsSub": "逐项推进申请 — 家长会立即看到状态变化。",
   "t.period": "{course} · 第 {n} 节",
@@ -186,7 +180,6 @@
   "t.issued": "已签发",
   "toast.issued": "已签发 — 家长现在可以下载",
   "toast.inReview": "已标记为审核中",
-
   "msg.office": "学校办公室",
   "msg.admin": "行政",
   "msg.homeroom": "班主任",
@@ -196,7 +189,36 @@
   "msg.send": "发送",
   "toast.sentParent": "已发送 — 切换到教师身份即可看到消息到达",
   "toast.sentTeacher": "已回复家长",
-
   "docm.close": "关闭",
-  "docm.print": "打印 / 保存 PDF"
+  "docm.print": "打印 / 保存 PDF",
+  "login.admin": "以学校办公室身份继续",
+  "login.adminSub": "行政人员 · 管理员",
+  "me.adminName": "学校办公室",
+  "me.adminRole": "管理员 · 行政人员",
+  "toast.signedAdmin": "已以学校办公室身份登录（演示）",
+  "tab.calendar": "校历",
+  "child.viewing": "当前查看",
+  "child.choose": "选择孩子",
+  "doc.requestFor": "学生：{name}",
+  "doc.reason": "原因：{reason}",
+  "status.rejected": "已退回",
+  "a.eyebrow": "办公室工作台",
+  "a.welcome": "学校办公室，下午好。",
+  "a.reject": "退回",
+  "a.rejectPh": "家长将看到的退回原因",
+  "a.rejectConfirm": "确认退回",
+  "a.cancel": "取消",
+  "toast.rejected": "申请已退回 — 家长可以看到原因",
+  "toast.needReason": "请填写退回原因",
+  "kpi.issued": "已签发",
+  "kpi.issuedSub": "家长可下载",
+  "kpi.students": "学生",
+  "qa.gradebook": "打开成绩册",
+  "msg.none": "暂无对话",
+  "cal.exportSub": "可添加到 Google 日历、Apple 日历或 Outlook",
+  "cal.icsAll": "全部下载（.ics）",
+  "cal.google": "Google",
+  "cal.addGoogle": "将“{title}”添加到 Google 日历",
+  "cal.addIcs": "将“{title}”下载为日历文件（.ics）",
+  "toast.icsDone": "日历文件已下载 — 打开即可添加日程"
 }

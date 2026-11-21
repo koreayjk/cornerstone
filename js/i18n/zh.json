@@ -275,5 +275,16 @@
   "nf.title": "页面未找到 — 基石基督教学校",
   "nf.h": "这个页面不在这里。",
   "nf.p": "链接可能已过期，或页面已移动。让我们带您回到正路。",
-  "nf.home": "返回首页"
+  "nf.home": "返回首页",
+  "search.open": "搜索",
+  "search.ph": "搜索基石",
+  "search.close": "关闭搜索",
+  "search.count": {
+    "other": "{n} 条结果"
+  },
+  "search.none": "没有找到与“{q}”相关的结果",
+  "search.home": "首页",
+  "search.hint": "试试搜索“礼拜”“I-20”或“双学分”。",
+  "search.loading": "加载中…",
+  "search.error": "搜索暂时不可用。"
 }

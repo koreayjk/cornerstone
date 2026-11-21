@@ -42,7 +42,9 @@ const Layout = (() => {
       { id: 'handbook', label: 'Parent and Student Handbook', ready: false },
       { id: 'supplies', label: '2026-27 School Supply Lists', ready: false },
       { id: 'uniforms', label: 'Uniforms and Dress Code', ready: false },
-      { id: 'international', label: 'International Students' }] },
+      { id: 'international', label: 'International Students' },
+      { id: 'inquire', label: 'Inquiry Form' },
+      { id: 'visit', label: 'Visit Us' }] },
     { id: 'student-life', label: 'Student Life', items: [
       { id: 'chapel', label: 'Chapel' },
       { id: 'character', label: 'Cougar of the Week & The Bee Kind People' },
@@ -110,7 +112,7 @@ ${mob}<div class="mg"><a class="mgt" href="${root}portal/" style="color:var(--go
     document.getElementById('layout-bottom').outerHTML = `<footer><div class="wrap">
 <div class="fg">
 <div><a class="brand" href="${root}" style="color:#1d1d1f"><svg><use href="#crest"/></svg>Cornerstone Christian Academy</a><p style="margin-top:12px;line-height:1.6">Brazos Valley Cornerstone Christian Academy<br><span data-i18n="foot.tagline">Christ-centered · Biblically based · K–12</span></p></div>
-<div><h2 data-i18n="foot.visit">Visit</h2><ul><li>3200 Cavitt Avenue</li><li>Bryan, Texas 77801</li><li><a href="tel:9796948200">(979) 694-8200</a></li><li><a href="mailto:office@bvcca.com">office@bvcca.com</a></li></ul></div>
+<div><h2 data-i18n="foot.visit">Visit</h2><ul><li><a href="https://www.google.com/maps/dir/?api=1&amp;destination=3200+Cavitt+Avenue%2C+Bryan%2C+TX+77801" target="_blank" rel="noopener">3200 Cavitt Avenue<br>Bryan, Texas 77801</a></li><li><a href="tel:9796948200">(979) 694-8200</a></li><li><a href="mailto:office@bvcca.com">office@bvcca.com</a></li></ul></div>
 <div><h2 data-i18n="foot.explore">Explore</h2><ul>${explore}</ul></div>
 <div><h2 data-i18n="foot.families">Families</h2><ul><li><a href="${root}portal/" data-i18n="nav.portal">Family Portal</a></li><li><a href="${root}portal/" data-i18n="foot.docs">Request documents</a></li><li><a href="${root}about/#pack">PACK</a></li><li><a href="#" onclick="toast(t('foot.giveToast'));return false" data-i18n="foot.give">Give</a></li></ul></div>
 </div>

@@ -64,12 +64,47 @@
 <div class="list rv dl3"><div><span>Form I-20</span><span data-i18n="intl.i20">Issued by the school</span></div><div><span data-i18n="intl.res">Residential care</span><span data-i18n="intl.resV">On-site coordinators</span></div><div><span data-i18n="intl.eng">English support</span><span data-i18n="intl.engV">Personal coaching</span></div><div><span data-i18n="intl.college">College pathway</span><span data-i18n="intl.collegeV">Dual credit · Blinn</span></div></div>
 </div>
 </div></section>
+<section class="sec lt" id="inquire"><div class="wrap">
+<div class="eyebrow rv" data-i18n="inq.eyebrow">Inquiry Form</div>
+<h2 class="d rv dl1" data-i18n="inq.h">Start the conversation.</h2>
+<p class="lead rv dl2" data-i18n="inq.lead">Tell us a little about your family. Your email app opens with the message ready to send to the school office — nothing is stored on this website.</p>
+<form class="inq" id="inqForm" novalidate>
+<div class="inq-err" id="inqErr" role="alert" hidden></div>
+<div class="inq-grid">
+<div class="fld"><label for="inqName"><span data-i18n="inq.f.name">Parent or guardian name</span> <em aria-hidden="true">*</em></label><input id="inqName" name="name" autocomplete="name" required aria-describedby="inqName-e"><small class="fe" id="inqName-e"></small></div>
+<div class="fld"><label for="inqEmail"><span data-i18n="inq.f.email">Email</span> <em aria-hidden="true">*</em></label><input id="inqEmail" name="email" type="email" autocomplete="email" required aria-describedby="inqEmail-e"><small class="fe" id="inqEmail-e"></small></div>
+<div class="fld"><label for="inqPhone"><span data-i18n="inq.f.phone">Phone</span> <small data-i18n="inq.optional">(optional)</small></label><input id="inqPhone" name="phone" type="tel" autocomplete="tel"></div>
+<div class="fld"><label for="inqGrade"><span data-i18n="inq.f.grade">Grade your child would enter</span> <em aria-hidden="true">*</em></label><select id="inqGrade" name="grade" required aria-describedby="inqGrade-e"></select><small class="fe" id="inqGrade-e"></small></div>
+<div class="fld"><label for="inqStart" data-i18n="inq.f.start">When would you like to start?</label><select id="inqStart" name="start"></select></div>
+<div class="fld"><label for="inqLang" data-i18n="inq.f.lang">Preferred language for replies</label><select id="inqLang" name="lang"><option value="English">English</option><option value="Korean (한국어)">한국어</option><option value="Chinese (中文)">中文</option><option value="Spanish (Español)">Español</option></select></div>
+</div>
+<div class="inq-checks">
+<label class="chk"><input type="checkbox" id="inqTrial" name="trial"><span data-i18n="inq.f.trial">We’d like to schedule the free 3-day trial</span></label>
+<label class="chk"><input type="checkbox" id="inqIntl" name="intl"><span data-i18n="inq.f.intl">We need a Form I-20 (F-1 student)</span></label>
+</div>
+<div class="fld"><label for="inqMsg" data-i18n="inq.f.msg">Anything you’d like us to know?</label><textarea id="inqMsg" name="msg" rows="4"></textarea></div>
+<div class="inq-foot"><button class="btn k" type="submit" data-i18n="inq.send">Open email to the office</button><span class="inq-note" data-i18n="inq.req">* Required</span></div>
+<p class="inq-done" id="inqDone" role="status" hidden data-i18n="inq.done">Your email app should now be open with your message. If nothing happened, write to office@bvcca.com or call (979) 694-8200.</p>
+</form>
+</div></section>
+<section class="sec dk" id="visit"><div class="wrap">
+<div class="eyebrow rv" data-i18n="visit.eyebrow">Visit Us</div>
+<h2 class="d rv dl1" data-i18n="visit.h">Come see the campus.</h2>
+<p class="lead rv dl2" data-i18n="visit.lead">Cornerstone meets in the Cavitt Church of Christ building in Bryan, Texas.</p>
+<div class="cards">
+<div class="rv"><b class="gd">3200</b><h3 data-i18n="visit.addr">Address</h3><p>3200 Cavitt Avenue<br>Bryan, Texas 77801</p></div>
+<div class="rv dl1"><b data-i18n="visit.call">Call</b><h3 data-i18n="visit.phone">Phone</h3><p><a href="tel:9796948200">(979) 694-8200</a></p></div>
+<div class="rv dl2"><b data-i18n="visit.write">Write</b><h3 data-i18n="visit.email">Email</h3><p><a href="mailto:office@bvcca.com">office@bvcca.com</a></p></div>
+</div>
+<div class="cta rv"><a class="btn w" href="https://www.google.com/maps/dir/?api=1&amp;destination=3200+Cavitt+Avenue%2C+Bryan%2C+TX+77801" target="_blank" rel="noopener" data-i18n="visit.google">Directions in Google Maps</a><a class="btn o" href="https://maps.apple.com/?daddr=3200+Cavitt+Avenue,+Bryan,+TX+77801" target="_blank" rel="noopener" data-i18n="visit.apple">Apple Maps</a></div>
+</div></section>
 <!-- Hidden until the school provides content: #tuition (Tuition), #handbook (Parent and Student Handbook), #supplies (2026-27 School Supply Lists), #uniforms (Uniforms and Dress Code) -->
 </main>
 <div id="layout-bottom"></div><script>Layout.bottom()</script>
 <script src="../js/common.js"></script>
 <script src="../js/i18n.js" data-dict="../js/i18n/"></script>
 <script src="../js/site.js"></script>
+<script src="../js/inquiry.js"></script>
 <script>I18N.init()</script>
 </body>
 </html>

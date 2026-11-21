@@ -277,3 +277,25 @@ html.i18n-pending body{visibility:hidden}
 .sr-list span{display:block;font-size:13.5px;line-height:1.5;color:#a1a1a6}
 .sr-list mark{background:none;color:#f5f5f7;font-weight:600;text-decoration:underline;text-decoration-color:var(--gold2);text-underline-offset:3px}
 @media (max-width:640px){.nr .sbtn-ic{display:none}.search{padding-top:12px}.sr-panel{max-height:calc(100svh - 24px)}}
+/* ---- admissions inquiry form ---- */
+.inq{margin-top:7vh;max-width:860px;background:#fff;border-radius:28px;padding:clamp(24px,4vw,44px)}
+.inq-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 22px}
+.inq .fld{display:flex;flex-direction:column;gap:7px;margin-top:0}
+.inq .fld+.fld{margin-top:0}
+.inq>.fld{margin-top:20px}
+.inq label{font-size:13px;font-weight:600;color:#1d1d1f}
+.inq label em{color:#9B3B2A;font-style:normal}
+.inq label small{font-weight:400;color:#6e6e73}
+.inq input:not([type=checkbox]),.inq select,.inq textarea{width:100%;font:inherit;font-size:16px;padding:13px 15px;border:1px solid #d2d2d7;border-radius:12px;background:#fbfbfd;color:#1d1d1f}
+.inq input:focus,.inq select:focus,.inq textarea:focus{outline:none;border-color:var(--gold-ink);box-shadow:0 0 0 3px rgba(201,161,59,.3)}
+.inq [aria-invalid=true]{border-color:#9B3B2A;box-shadow:0 0 0 3px rgba(155,59,42,.15)}
+.inq .fe{color:#9B3B2A;font-size:12.5px;min-height:0}
+.inq-checks{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;font-weight:400 !important;cursor:pointer}
+.chk input{width:18px;height:18px;margin-top:1px;accent-color:#1d1d1f;flex:none}
+.inq-err{background:#F6E1DC;color:#7A2E20;border-radius:12px;padding:12px 16px;font-size:14px;margin-bottom:20px}
+.inq-foot{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px}
+.inq-note{font-size:12.5px;color:#6e6e73}
+.inq-done{margin-top:16px;font-size:14px;color:#2D6A42;background:#DFEEE3;border-radius:12px;padding:12px 16px}
+.sec.dk .cards a{color:#f5f5f7;text-decoration:underline;text-decoration-color:rgba(255,255,255,.35);text-underline-offset:3px}
+@media (max-width:640px){.inq-grid{grid-template-columns:1fr}.inq{border-radius:22px}}

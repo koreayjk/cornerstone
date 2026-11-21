@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/site.css">
 </head>
 <body>
@@ -24,13 +25,13 @@
 <header class="nav" id="nav"><div class="wrap">
 <a class="brand" href="#top"><svg><use href="#crest"/></svg>Cornerstone</a>
 <nav class="menu"><a href="#story">Our Story</a><a href="#academics">Academics</a><a href="#athletics">Athletics</a><a href="#international">International</a><a href="#heritage">Heritage</a><a href="#admissions">Admissions</a></nav>
-<div class="nr"><a class="lnk" href="#" onclick="openLogin();return false">Family Portal</a><a class="pill gold" href="#admissions">Visit</a>
+<div class="nr"><a class="lnk" href="portal/">Family Portal</a><a class="pill gold" href="#admissions">Visit</a>
 <button class="burger" onclick="document.getElementById('mnav').classList.add('open')" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><path d="M4 9h16M4 15h16"/></svg></button></div>
 </div></header>
 <div class="mnav" id="mnav" onclick="if(event.target.tagName==='A'||event.target===this)this.classList.remove('open')">
 <button class="mclose" onclick="this.parentElement.classList.remove('open')">✕</button>
 <a href="#story">Our Story</a><a href="#academics">Academics</a><a href="#athletics">Athletics</a><a href="#international">International</a><a href="#heritage">Heritage</a><a href="#admissions">Admissions</a>
-<a href="#" onclick="openLogin();return false" style="color:var(--gold2)">Family Portal</a>
+<a href="portal/" style="color:var(--gold2)">Family Portal</a>
 </div>
 <!-- HERO -->
 <section class="hero" id="top">
@@ -141,7 +142,7 @@
 <div class="eyebrow rv" style="color:var(--gold)">Family Portal</div>
 <h3 class="d rv dl1" style="margin-top:12px">Your family.<br>Your school. One place.</h3>
 <p class="lead rv dl2">Announcements, grades, private messages with teachers, and official school documents — requested in seconds and issued digitally.</p>
-<button class="btn k rv dl3" onclick="openLogin()">Open Family Portal</button>
+<a class="btn k rv dl3" href="portal/">Open Family Portal</a>
 <div class="feat4">
 <div class="rv"><i>01</i><b>Announcements</b><span>Every notice from school and class, in one feed.</span></div>
 <div class="rv dl1"><i>02</i><b>Teacher messages</b><span>Direct, private conversations with every teacher.</span></div>
@@ -154,48 +155,12 @@
 <div><a class="brand" href="#top" style="color:#1d1d1f"><svg><use href="#crest"/></svg>Cornerstone Christian Academy</a><p style="margin-top:12px;line-height:1.6">Brazos Valley Cornerstone Christian Academy<br>Christ-centered · Biblically based · K–12</p></div>
 <div><h6>Visit</h6><ul><li>3200 Cavitt Avenue</li><li>Bryan, Texas 77801</li><li><a href="tel:9796948200">(979) 694-8200</a></li><li><a href="mailto:office@bvcca.com">office@bvcca.com</a></li></ul></div>
 <div><h6>Explore</h6><ul><li><a href="#academics">Academics</a></li><li><a href="#athletics">Athletics</a></li><li><a href="#international">International</a></li><li><a href="#admissions">Admissions</a></li></ul></div>
-<div><h6>Families</h6><ul><li><a href="#" onclick="openLogin();return false">Family Portal</a></li><li><a href="#" onclick="openLogin();return false">Request documents</a></li><li><a href="#" onclick="toast('PACK — Parents Association for Cornerstone Kids');return false">PACK</a></li><li><a href="#" onclick="toast('Giving page — next build');return false">Give</a></li></ul></div>
+<div><h6>Families</h6><ul><li><a href="portal/">Family Portal</a></li><li><a href="portal/">Request documents</a></li><li><a href="#" onclick="toast('PACK — Parents Association for Cornerstone Kids');return false">PACK</a></li><li><a href="#" onclick="toast('Giving page — next build');return false">Give</a></li></ul></div>
 </div>
 <div class="fb"><span>© 2026 Brazos Valley Cornerstone Christian Academy. All rights reserved.</span><span>Accredited by Cognia · SEVP Certified · Go Cougars</span></div>
 </div></footer>
-<!-- LOGIN -->
-<div class="login" id="login" onclick="if(event.target===this)closeLogin()">
-<div class="login-card">
-<div class="img" style="background-image:url(img/2.jpg)"><div>“Families are not visitors here; they are essential.”</div></div>
-<div class="f">
-<div class="eyebrow">Family Portal · Demo</div>
-<h2>Welcome home.</h2>
-<p style="color:var(--muted);font-size:14px;line-height:1.7">Preview the portal as a parent or a teacher. Switch roles anytime to see how messages and requests flow between them.</p>
-<button class="role" onclick="enter('parent')"><div class="av">KF</div><div><b>Continue as Parent</b><small>The Kim Family · Grace, Grade 10</small></div></button>
-<button class="role" onclick="enter('teacher')"><div class="av" style="background:var(--navy)">ST</div><div><b>Continue as Teacher / Staff</b><small>Mrs. Sarah Taylor · Upper School</small></div></button>
-<button style="margin-top:22px;font-size:12px;color:var(--muted)" onclick="closeLogin()">← Back to website</button>
-</div>
-</div>
-</div>
-<!-- PORTAL -->
-<div class="portal" id="portal">
-<aside class="p-side">
-<a class="brand" href="#" onclick="exitPortal();return false"><svg><use href="#crest"/></svg><span><b>Cornerstone</b><small>Family Portal</small></span></a>
-<nav class="p-nav" id="pnav"></nav>
-<div class="p-me"><div class="av" id="meAv">KF</div><div><b id="meName">The Kim Family</b><small id="meRole">Parent</small></div>
-<button title="Switch role" onclick="switchRole()" style="color:var(--gold2)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 7h11l-3-3M17 17H6l3 3"/></svg></button></div>
-</aside>
-<div class="p-main" id="pmain">
-<div class="p-top">
-<h1 id="ptitle">Home</h1>
-<div class="r"><span class="demo">Demo data</span><button class="sbtn" onclick="switchRole()">Switch role</button><button class="sbtn pri" onclick="exitPortal()">Exit</button></div>
-</div>
-<div class="p-body" id="pbody"></div>
-</div>
-<nav class="mtab" id="mtab"></nav>
-</div>
-<!-- DOC MODAL -->
-<div class="modal" id="docModal" onclick="if(event.target===this)this.classList.remove('open')">
-<div style="position:relative;width:min(780px,100%);margin-top:52px">
-<div class="doc" id="doc"></div>
-</div>
-</div>
 <div class="toast" id="toast"></div>
+<script src="js/common.js"></script>
 <script src="js/site.js"></script>
 </body>
 </html>

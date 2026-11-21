@@ -43,8 +43,10 @@
   ```
   /index.html            public site
   /portal/index.html     Family Portal (login + app)
+  /css/base.css          shared tokens, reset, brand, toast (loaded by both pages)
   /css/site.css          public site styles
   /css/portal.css        portal styles
+  /js/common.js          shared helpers ($, $$, toast)
   /js/site.js            scroll effects, reveal, video handling
   /js/portal/*.js        portal modules (auth, notices, messages, grades, documents, i18n)
   /js/supabase.js        client init (URL + anon key only)

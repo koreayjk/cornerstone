@@ -120,6 +120,16 @@ function attendanceOf(c) {
   a.today = s;
   return a;
 }
+// accounts the office manages; the portal is invitation-only (no public sign-up)
+S.accounts = [
+{ id: 1, name: 'The Kim Family', email: 'kim.family@example.com', role: 'parent', students: ['grace', 'joshua'], lang: 'ko', status: 'active' },
+{ id: 2, name: 'Mrs. Sarah Taylor', email: 's.taylor@example.com', role: 'teacher', students: [], lang: 'en', status: 'active' },
+{ id: 3, name: 'Mrs. Allen', email: 'allen@example.com', role: 'teacher', students: [], lang: 'en', status: 'active' },
+{ id: 4, name: 'Mr. Collins', email: 'collins@example.com', role: 'teacher', students: [], lang: 'en', status: 'active' },
+{ id: 5, name: 'Front Office', email: 'office@example.com', role: 'admin', students: [], lang: 'en', status: 'active' },
+{ id: 6, name: 'The Park Family', email: 'park.family@example.com', role: 'parent', students: ['daniel'], lang: 'en', status: 'invited', invited: '2026-11-19' }
+];
+S.mail = { tpl: 'invite', acct: 6, lang: null };
 const ROLES = ['parent', 'teacher', 'admin'];
 const STAFF_OWNER = { teacher: 'taylor', admin: 'office' };
 const STEPS = ['submitted', 'review', 'ready'];
@@ -134,7 +144,8 @@ acad: '<path d="M2 9l10-5 10 5-10 5zM6 11v5c3 2 9 2 12 0v-5"/>',
 doc: '<path d="M6 3h9l4 4v14H6zM14 3v5h5M9 13h7M9 17h5"/>',
 cal: '<path d="M4 6h16v15H4zM4 10h16M8 3v5M16 3v5"/>',
 inbox: '<path d="M3 13l3-8h12l3 8v6H3zM3 13h5l1 2h6l1-2h5"/>',
-check: '<path d="M9 4h6v3H9zM7 5H5v16h14V5h-2M8.5 14l2.5 2.5 5-5"/>'
+check: '<path d="M9 4h6v3H9zM7 5H5v16h14V5h-2M8.5 14l2.5 2.5 5-5"/>',
+users: '<path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM2 21a7 7 0 0 1 14 0M16 3.5a4 4 0 0 1 0 7.5M22 21a7 7 0 0 0-5-6.7"/>'
 };
 const ic = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">${ICON[k]}</svg>`;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -163,7 +174,8 @@ return [['home', 'home', 'home'], ['ann', 'announcements', 'ann', ua], ['msg', '
 const um = myThreads().filter(x => x.unreadT).length;
 if (S.role === 'teacher') return [['home', 'dashboard', 'home'], ['ann', 'postNotice', 'ann'], ['msg', 'messages', 'msg', um], ['acad', 'gradebook', 'acad'], ['att', 'attendance', 'check'], ['cal', 'calendar', 'cal']];
 const pend = S.requests.filter(r => r.status < 2).length;
-return [['home', 'dashboard', 'home'], ['doc', 'requests', 'inbox', pend], ['ann', 'postNotice', 'ann'], ['msg', 'messages', 'msg', um], ['cal', 'calendar', 'cal']];
+const inv = S.accounts.filter(a => a.status === 'invited').length;
+return [['home', 'dashboard', 'home'], ['doc', 'requests', 'inbox', pend], ['people', 'accounts', 'users', inv], ['ann', 'postNotice', 'ann'], ['msg', 'messages', 'msg', um], ['cal', 'calendar', 'cal']];
 }
 function renderNav() {
 const items = navItems();
@@ -197,11 +209,12 @@ renderMe(); renderNav();
 const titles = {
   parent: { home: 'home', ann: 'announcements', msg: 'messages', acad: 'academics', doc: 'documents', cal: 'calendar' },
   teacher: { home: 'dashboard', ann: 'postNotice', msg: 'messages', acad: 'gradebook', att: 'attendance', cal: 'calendar' },
-  admin: { home: 'dashboard', ann: 'postNotice', msg: 'messages', doc: 'requests', cal: 'calendar' } }[S.role];
+  admin: { home: 'dashboard', ann: 'postNotice', msg: 'messages', doc: 'requests', people: 'accounts', cal: 'calendar' } }[S.role];
 if (!titles[S.view]) S.view = 'home';
 document.getElementById('ptitle').textContent = t('title.' + titles[S.view]);
 const V = { parent: P, teacher: T, admin: A }[S.role];
 document.getElementById('pbody').innerHTML = V[S.view]();
+if (S.view === 'people') renderMail();
 }
 // child switcher (parent only): shown above every child-specific view
 function kidBar() {
@@ -405,13 +418,125 @@ if (el) el.textContent = t('att.summary', { p: n('present'), a: n('absent'), t: 
 function attAll() { Object.keys(S.attDraft).forEach(k => S.attDraft[k] = 'present'); render() }
 function saveAtt() { S.attLog[today()] = { ...S.attDraft }; S.attDraft = null; toast(t('att.saved')); render() }
 
+// ---------- accounts & invitations (admin) ----------
+const ALL_STUDENTS = () => {
+  const m = new Map(S.children.map(c => [c.key, c.name]));
+  S.gradebook.students.forEach(s => { if (!m.has(s.key)) m.set(s.key, s.name) });
+  return [...m].map(([key, name]) => ({ key, name }));
+};
+const stuName = k => (ALL_STUDENTS().find(s => s.key === k) || { name: k }).name;
+const LANG_OPTS = () => Object.entries(I18N.LANGS).map(([k, v]) => `<option value="${k}">${esc(v.name)}</option>`).join('');
+function accountsView() {
+const roleSel = S.inviteRole || 'parent';
+const list = S.accounts.map(a => {
+  const st = `<span class="tag ${a.status === 'active' ? 'green' : a.status === 'invited' ? 'gold' : 'urgent'}">${esc(t('acct.status.' + a.status))}</span>`;
+  const acts = a.status === 'invited'
+    ? `<button class="sbtn" onclick="previewMail(${a.id},'invite')">${esc(t('acct.preview'))}</button><button class="sbtn gold" onclick="openAccept(${a.id})">${esc(t('acct.accept'))}</button><button class="sbtn" onclick="revokeInvite(${a.id})">${esc(t('acct.revoke'))}</button>` : '';
+  return `<div class="acct"><div class="acct-m"><b>${esc(a.name)}</b><small>${esc(a.email)} · ${esc(t('role.' + a.role))}${a.students.length ? ' · ' + esc(a.students.map(stuName).join(', ')) : ''}${a.invited ? ' · ' + esc(t('acct.sentOn', { date: fmt.day(a.invited) })) : ''}</small></div><div class="acct-a">${st}${acts}</div></div>`;
+}).join('');
+return `<div class="grid2">
+<div class="box"><h2>${esc(t('acct.inviteTitle'))}</h2><div class="sub">${esc(t('acct.inviteSub'))}</div>
+<div class="inq-err" id="invErr" role="alert" hidden></div>
+<label for="invName">${esc(t('acct.name'))}</label><input id="invName" autocomplete="off">
+<label for="invEmail">${esc(t('acct.email'))}</label><input id="invEmail" type="email" autocomplete="off">
+<div class="row2"><div><label for="invRole">${esc(t('acct.role'))}</label><select id="invRole" onchange="S.inviteRole=this.value;document.getElementById('invKids').hidden=this.value!=='parent'">${['parent', 'teacher', 'admin'].map(r => `<option value="${r}"${r === roleSel ? ' selected' : ''}>${esc(t('role.' + r))}</option>`).join('')}</select></div>
+<div><label for="invLang">${esc(t('acct.lang'))}</label><select id="invLang">${LANG_OPTS()}</select></div></div>
+<fieldset class="invkids" id="invKids"${roleSel === 'parent' ? '' : ' hidden'}><legend>${esc(t('acct.students'))}</legend>${ALL_STUDENTS().map(s => `<label class="chk"><input type="checkbox" value="${s.key}"><span>${esc(s.name)}</span></label>`).join('')}</fieldset>
+<button class="sbtn pri" style="margin-top:18px;padding:13px 22px" onclick="sendInvite()">${esc(t('acct.send'))}</button></div>
+<div class="box"><h2>${esc(t('acct.listTitle'))}</h2><div class="sub">${esc(t('acct.listSub', { n: S.accounts.length }))}</div>${list}</div></div>
+<div class="box" style="margin-top:24px"><div class="boxh"><div><h2>${esc(t('mail.title'))}</h2><div class="sub">${esc(t('mail.sub'))}</div></div>
+<div class="mailctl"><label for="mailTpl" class="sr">${esc(t('mail.tpl'))}</label><select id="mailTpl" onchange="previewMail(null,this.value)">${['invite', 'ann', 'msg', 'doc'].map(k => `<option value="${k}"${S.mail.tpl === k ? ' selected' : ''}>${esc(t('mail.t.' + k))}</option>`).join('')}</select>
+<label for="mailLang" class="sr">${esc(t('mail.lang'))}</label><select id="mailLang" onchange="S.mail.lang=this.value;renderMail()">${LANG_OPTS()}</select></div></div>
+<div id="mailPrev" class="mailprev" aria-live="polite"></div></div>`;
+}
+function sendInvite() {
+const v = id => document.getElementById(id).value.trim();
+const name = v('invName'), email = v('invEmail'), role = v('invRole'), lang = v('invLang');
+const kids = role === 'parent' ? [...document.querySelectorAll('#invKids input:checked')].map(i => i.value) : [];
+const errs = [];
+if (!name) errs.push(t('acct.e.name'));
+if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errs.push(t('acct.e.email'));
+else if (S.accounts.some(a => a.email.toLowerCase() === email.toLowerCase() && a.status !== 'revoked')) errs.push(t('acct.e.dup'));
+if (role === 'parent' && !kids.length) errs.push(t('acct.e.students'));
+const box = document.getElementById('invErr');
+if (errs.length) { box.hidden = false; box.textContent = errs.join(' '); return }
+const id = Math.max(...S.accounts.map(a => a.id)) + 1;
+S.accounts.push({ id, name, email, role, students: kids, lang, status: 'invited', invited: today() });
+S.mail = { tpl: 'invite', acct: id, lang: null }; S.inviteRole = null;
+toast(t('toast.invited', { email })); render();
+}
+function revokeInvite(id) { S.accounts.find(a => a.id === id).status = 'revoked'; toast(t('toast.revoked')); render() }
+function previewMail(id, tpl) {
+if (id) S.mail.acct = id;
+if (tpl) S.mail.tpl = tpl;
+S.mail.lang = null; // follow the recipient's language
+if (S.view !== 'people') go('people'); else render();
+document.getElementById('mailPrev').scrollIntoView({ block: 'nearest' });
+}
+// email preview in the RECIPIENT's language (independent of the UI language)
+async function renderMail() {
+const box = document.getElementById('mailPrev'); if (!box) return;
+const tpl = S.mail.tpl;
+const acct = (tpl === 'invite' ? S.accounts.find(a => a.id === S.mail.acct) : null) || S.accounts[0];
+const L = S.mail.lang || acct.lang || 'en';
+const sel = document.getElementById('mailLang'); if (sel) sel.value = L;
+await I18N.loadLang(L);
+const T = (k, v) => I18N.tIn(L, k, v), H = s => esc(s);
+const first = acct.name;
+let subject, lines, cta;
+if (tpl === 'invite') {
+  subject = T('em.invite.subject'); cta = T('em.invite.cta');
+  lines = [T('em.hello', { name: first }), T('em.invite.p1', { role: T('em.role.' + acct.role) }), T('em.invite.p2')];
+} else if (tpl === 'ann') {
+  const a = S.announcements[0], title = (a.i18n && a.i18n[L] && a.i18n[L].title) || a.title, body = (a.i18n && a.i18n[L] && a.i18n[L].body) || a.body;
+  subject = T('em.ann.subject', { title }); cta = T('em.ann.cta');
+  lines = [T('em.hello', { name: first }), T('em.ann.p1'), `“${title}” — ${body}`];
+} else if (tpl === 'msg') {
+  const th = S.threads[0], m = th.msgs[th.msgs.length - 1];
+  subject = T('em.msg.subject', { from: th.name }); cta = T('em.msg.cta');
+  lines = [T('em.hello', { name: first }), T('em.msg.p1', { from: th.name, student: stuName(th.student) }), `“${m.text}”`];
+} else {
+  const doc = T('docType.enrollment');
+  subject = T('em.doc.subject', { doc }); cta = T('em.doc.cta');
+  lines = [T('em.hello', { name: first }), T('em.doc.p1', { doc, student: stuName('grace') }), T('em.doc.p2')];
+}
+box.innerHTML = `<div class="mail" lang="${L === 'zh' ? 'zh-Hans' : L}">
+<dl class="mail-h"><div><dt>${esc(t('mail.from'))}</dt><dd>Cornerstone Christian Academy &lt;office@bvcca.com&gt;</dd></div><div><dt>${esc(t('mail.to'))}</dt><dd>${H(acct.name)} &lt;${H(acct.email)}&gt;</dd></div><div><dt>${esc(t('mail.subject'))}</dt><dd><b>${H(subject)}</b></dd></div></dl>
+<div class="mail-b"><div class="mail-brand"><svg viewBox="0 0 44 52" aria-hidden="true"><use href="#crest"/></svg><span>Cornerstone Christian Academy</span></div>
+${lines.map(l => `<p>${H(l)}</p>`).join('')}
+<span class="mail-cta">${H(cta)}</span>
+<p class="mail-f">${H(T('em.footer'))}<br>${H(T('em.why'))}</p></div></div>`;
+}
+// accept-invitation screen (what the invited person sees after clicking the email link)
+let accId = null;
+function openAccept(id) {
+accId = id; const a = S.accounts.find(x => x.id === id), m = document.getElementById('accModal');
+document.getElementById('accForm').innerHTML = `<div class="acc-brand"><svg viewBox="0 0 44 52" aria-hidden="true"><use href="#crest"/></svg><span>${esc(t('brand.portal'))}</span></div>
+<h2 id="accTitle">${esc(t('acc.title'))}</h2><p class="acc-lead">${esc(t('acc.welcome', { name: a.name }))} ${esc(t('acc.lead'))}</p>
+<div class="inq-err" id="accErr" role="alert" hidden></div>
+<label for="accEmail">${esc(t('acct.email'))}</label><input id="accEmail" value="${esc(a.email)}" readonly>
+<label for="accPw">${esc(t('acc.pw'))}</label><input id="accPw" type="password" autocomplete="new-password" aria-describedby="accHint"><small class="hint" id="accHint">${esc(t('acc.hint'))}</small>
+<label for="accPw2">${esc(t('acc.pw2'))}</label><input id="accPw2" type="password" autocomplete="new-password">
+<div class="acc-act"><button type="button" class="sbtn" onclick="closeAccept()">${esc(t('acc.cancel'))}</button><button type="submit" class="sbtn pri">${esc(t('acc.activate'))}</button></div>`;
+m._back = document.activeElement; m.classList.add('open'); document.getElementById('accPw').focus();
+}
+function closeAccept() { const m = document.getElementById('accModal'); m.classList.remove('open'); if (m._back && m._back.focus) m._back.focus() }
+function activateAccount(e) {
+e.preventDefault();
+const pw = document.getElementById('accPw').value, pw2 = document.getElementById('accPw2').value, box = document.getElementById('accErr');
+const err = pw.length < 8 ? t('acc.e.short') : pw !== pw2 ? t('acc.e.match') : '';
+if (err) { box.hidden = false; box.textContent = err; document.getElementById(pw.length < 8 ? 'accPw' : 'accPw2').focus(); return }
+const a = S.accounts.find(x => x.id === accId); a.status = 'active'; delete a.invited;
+closeAccept(); toast(t('toast.activated', { name: a.name })); render();
+}
+
 // ---------- admin (front office) ----------
 const A = {
 home() {
 const pend = S.requests.filter(r => r.status < 2).length, issued = S.requests.filter(r => r.status === 2).length;
 return `<div class="welcome"><div class="img" style="background-image:url(../img/0-800.webp)"></div>
 <div class="eyebrow">${esc(t('a.eyebrow'))}</div><h2>${esc(t('a.welcome'))}</h2><p>${esc(t('t.welcomeSub'))}</p>
-<div class="qa"><button onclick="go('doc')">${esc(t('qa.reviewRequests'))}</button><button onclick="go('ann')">${esc(t('qa.postNotice'))}</button><button onclick="go('msg')">${esc(t('qa.openMessages'))}</button></div></div>
+<div class="qa"><button onclick="go('doc')">${esc(t('qa.reviewRequests'))}</button><button onclick="go('people')">${esc(t('qa.invite'))}</button><button onclick="go('ann')">${esc(t('qa.postNotice'))}</button><button onclick="go('msg')">${esc(t('qa.openMessages'))}</button></div></div>
 <div class="grid3" style="margin-bottom:24px">
 <div class="box kpi"><span>${esc(t('kpi.pending'))}</span><b>${pend}</b><small>${esc(t('kpi.pendingSub'))}</small></div>
 <div class="box kpi"><span>${esc(t('kpi.issued'))}</span><b>${issued}</b><small>${esc(t('kpi.issuedSub'))}</small></div>
@@ -419,6 +544,7 @@ return `<div class="welcome"><div class="img" style="background-image:url(../img
 </div>
 <div class="box"><h2>${esc(t('t.queue'))}</h2><div class="sub">${esc(t('t.queueSub'))}</div>${reqQueue()}</div>`;
 },
+people: accountsView,
 doc() { return `<div class="box"><h2>${esc(t('t.allRequests'))}</h2><div class="sub">${esc(t('t.allRequestsSub'))}</div>${reqQueue(true)}</div>` },
 ann: postForm,
 msg() { return msgView() },
@@ -510,7 +636,11 @@ openModal();
 }
 function openModal() { const m = document.getElementById('docModal'); m._back = document.activeElement; m.classList.add('open'); m.querySelector('.doc-actions button').focus() }
 function closeModal() { const m = document.getElementById('docModal'); m.classList.remove('open'); if (m._back && m._back.focus) m._back.focus() }
-addEventListener('keydown', e => { if (e.key === 'Escape' && document.getElementById('docModal').classList.contains('open')) closeModal() });
+addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  if (document.getElementById('docModal').classList.contains('open')) closeModal();
+  if (document.getElementById('accModal').classList.contains('open')) closeAccept();
+});
 
 I18N.onChange(() => render());
 I18N.init();

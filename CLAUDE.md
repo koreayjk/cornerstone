@@ -18,7 +18,7 @@
 - Favicon (`img/favicon.svg`, `img/apple-touch-icon.png`) and share previews (Open Graph tags + `img/og.jpg`, 1200×630) are on every page.
 - `img/0.jpg`–`img/8.jpg`: AI-generated atmosphere images (Higgsfield, GPT Image).
 - `img/v0.mp4` (hero campus walk, golden hour) and `img/v1.mp4` (athletics slow-motion basketball): AI-generated videos (Higgsfield, Seedance 2.5, 10s, 720p, no audio).
-- The Family Portal exists only as a **front-end demo** with in-memory fake data (resets on reload). It demonstrates three roles (parent, teacher, admin), a parent with two children, teacher grade entry and daily attendance that the family sees immediately, the document-request flow including rejection, and calendar export (.ics / Google Calendar). Letter grades use a common US scale (A ≥ 93, A- ≥ 90, B+ ≥ 87 …) <!-- VERIFY: the school's grading scale -->. Supabase (build-plan steps 3–5) is not connected yet.
+- The Family Portal exists only as a **front-end demo** with in-memory fake data (resets on reload). It demonstrates three roles (parent, teacher, admin), a parent with two children, teacher grade entry and daily attendance that the family sees immediately, the office's invitation flow (invite → email → accept and set a password; there is no public sign-up), email notification previews in the recipient's language, the document-request flow including rejection, and calendar export (.ics / Google Calendar). Letter grades use a common US scale (A ≥ 93, A- ≥ 90, B+ ≥ 87 …) <!-- VERIFY: the school's grading scale -->. Supabase (build-plan steps 3–5) is not connected yet.
 - A gold bottom banner reads "Design proposal … not the official school website" and `<meta name="robots" content="noindex,nofollow">` is set. **Keep both until the school approves the official launch.**
 
 ### Image map
@@ -81,7 +81,7 @@ Items marked `ready: false` have no source content yet and are hidden: Faculty a
 - **Direction**: Apple-style cinematic. The page should feel like watching a film. Photos are part of the screen, not boxes on a page. Text is minimal.
 - **What to avoid**: anything that looks AI-made or templated, such as serif + gold + navy combinations, emoji icons, busy cards, or long paragraphs.
 - **Colors**: black `#000` / `#0A0A0B` and light gray `#F5F5F7` sections that alternate. Text `#F5F5F7` on dark and `#1D1D1F` on light. Muted `#6E6E73` / `#A1A1A6`. **School gold** `#C9A13B` / `#E3C46E` is used **only as an accent**.
-- **Type**: `Inter Tight` 600 for display (tight tracking, -0.035 to -0.05em). `Inter` for body. Load both from Google Fonts.
+- **Type**: `Inter Tight` 600 for display (tight tracking, -0.035 to -0.05em). `Inter` for body. Both are self-hosted in `fonts/` (variable 400–700, Latin subset, SIL OFL; `@font-face` in `css/base.css`, preloaded in each page head). This replaced the Google Fonts stylesheet, which blocked first paint.
   - Per language (stacks in `css/base.css` via `--serif`/`--sans`; never hard-code a family name): Korean uses **Pretendard** (jsDelivr, dynamic subset), Chinese uses **Noto Sans SC** (Google Fonts, variable 400–700). `js/i18n.js` loads a CJK font only when that language is selected; en/es download nothing extra.
 - **Motion**:
   - Hero: autoplay muted loop video with headline lines that rise in.

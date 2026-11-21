@@ -65,3 +65,33 @@ test('language choice is shared between the site and the portal', async ({ page 
   await page.waitForFunction(() => typeof I18N !== 'undefined' && I18N.lang === 'es');
   await expect(page.locator('.login-card h2')).toHaveText('Bienvenidos a casa.');
 });
+
+test('admissions inquiry: validates, then builds an email to the office', async ({ page }) => {
+  await open(page, 'admissions/', 'ko');
+  await page.locator('#inquire').scrollIntoViewIfNeeded();
+  await page.click('#inqForm button[type=submit]');
+  await expect(page.locator('#inqErr')).toHaveText('아래 3개 항목을 확인해 주세요.');
+  await expect(page.locator('#inqName')).toBeFocused();
+  await expect(page.locator('#inqName')).toHaveAttribute('aria-invalid', 'true');
+  await page.fill('#inqName', '김민준');
+  await page.fill('#inqEmail', 'family@example.com');
+  await page.selectOption('#inqGrade', 'Grade 3');
+  await page.check('#inqTrial');
+  await page.fill('#inqMsg', '방문 상담을 원합니다.');
+  await page.click('#inqForm button[type=submit]');
+  await expect(page.locator('#inqDone')).toBeVisible();
+  const href = await page.locator('#inqForm').getAttribute('data-mailto');
+  const u = new URL(href);
+  expect(u.protocol + u.pathname).toBe('mailto:office@bvcca.com');
+  expect(u.searchParams.get('subject')).toBe('Admissions inquiry — 김민준 (Grade 3)');
+  const body = u.searchParams.get('body');
+  expect(body).toContain('Grade of interest: Grade 3');   // labels stay English for the office
+  expect(body).toContain('Free 3-day trial: Yes');
+  expect(body).toContain('방문 상담을 원합니다.');          // the family's own words, as written
+});
+
+test('visit section links to map directions', async ({ page }) => {
+  await open(page, 'admissions/', 'en');
+  await expect(page.locator('#visit a[href^="https://www.google.com/maps/dir/"]')).toHaveCount(1);
+  await expect(page.locator('#visit a[href^="https://maps.apple.com/"]')).toHaveCount(1);
+});

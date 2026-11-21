@@ -20,9 +20,8 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Cornerstone Christian Academy — Grow in wisdom. Grow in grace.">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="../fonts/inter-tight-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../css/base.css">
 <link rel="stylesheet" href="../css/portal.css">
 </head>
@@ -48,7 +47,8 @@
 <button class="role" onclick="enter('parent')"><div class="av">KF</div><div><b data-i18n="login.parent">Continue as Parent</b><small data-i18n="login.parentSub">The Kim Family · Grace, Grade 10</small></div></button>
 <button class="role" onclick="enter('teacher')"><div class="av" style="background:var(--navy);color:#fff">ST</div><div><b data-i18n="login.teacher">Continue as Teacher / Staff</b><small data-i18n="login.teacherSub">Mrs. Sarah Taylor · Upper School</small></div></button>
 <button class="role" onclick="enter('admin')"><div class="av" style="background:#3a3a40;color:#fff">FO</div><div><b data-i18n="login.admin">Continue as Front Office</b><small data-i18n="login.adminSub">Office staff · Admin</small></div></button>
-<a href="../" style="margin-top:22px;font-size:12px;color:var(--muted)" data-i18n="login.back">← Back to website</a>
+<p class="hint" style="margin-top:16px" data-i18n="login.inviteOnly">Invitation only — accounts are created by the school office. There is no public sign-up.</p>
+<a href="../" style="margin-top:14px;font-size:12px;color:var(--muted)" data-i18n="login.back">← Back to website</a>
 </div>
 </div>
 </main>
@@ -74,6 +74,10 @@
 <div style="position:relative;width:min(780px,100%);margin-top:52px">
 <div class="doc" id="doc"></div>
 </div>
+</div>
+<!-- ACCEPT INVITATION (demo) -->
+<div class="modal" id="accModal" role="dialog" aria-modal="true" aria-labelledby="accTitle" onclick="if(event.target===this)closeAccept()">
+<form class="acc-card" id="accForm" novalidate onsubmit="activateAccount(event)"></form>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="../js/common.js"></script>

@@ -13,10 +13,12 @@
 
 ## 2. Current state
 
-- `index.html`: single-file static site (HTML + inline CSS + inline JS), Apple-style cinematic design.
+- Static multi-page site, Apple-style cinematic design: `index.html` (home) plus five section pages (`about/`, `academics/`, `enrichment/`, `admissions/`, `student-life/`), a `404.html`, and the Family Portal demo at `portal/`. CSS and JS live in `css/` and `js/` (see §3); there is no build step.
+- Every public page and the portal are available in English, Korean, Chinese (Simplified) and Spanish.
+- Favicon (`img/favicon.svg`, `img/apple-touch-icon.png`) and share previews (Open Graph tags + `img/og.jpg`, 1200×630) are on every page.
 - `img/0.jpg`–`img/8.jpg`: AI-generated atmosphere images (Higgsfield, GPT Image).
 - `img/v0.mp4` (hero campus walk, golden hour) and `img/v1.mp4` (athletics slow-motion basketball): AI-generated videos (Higgsfield, Seedance 2.5, 10s, 720p, no audio).
-- The Family Portal exists only as a **front-end demo** with in-memory fake data (resets on reload).
+- The Family Portal exists only as a **front-end demo** with in-memory fake data (resets on reload). It demonstrates three roles (parent, teacher, admin), a parent with two children, the document-request flow including rejection, and calendar export (.ics / Google Calendar). Supabase (build-plan steps 3–5) is not connected yet.
 - A gold bottom banner reads "Design proposal … not the official school website" and `<meta name="robots" content="noindex,nofollow">` is set. **Keep both until the school approves the official launch.**
 
 ### Image map
@@ -166,7 +168,7 @@ events(id, title, starts_at, ends_at, location, audience)
    - Mobile QA at 390px.
 8. **Launch prep** (only when Moses says the school approved):
    - Remove the proposal banner and noindex (on both `index.html` and `portal/index.html`), and set the footer's bottom padding back to 30px in `css/site.css`.
-   - Connect a custom domain.
+   - Connect a custom domain, and update the absolute `og:url` / `og:image` URLs in every page head (they point at koreayjk.github.io/cornerstone).
    - Replace the AI media with real photography.
 
 ## 8. Working rules for Claude

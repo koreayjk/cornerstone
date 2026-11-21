@@ -100,11 +100,11 @@
 .tl{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .tl>div{background:#fff;border-radius:24px;padding:34px 30px;min-height:230px;display:flex;flex-direction:column;justify-content:space-between}
 .tl b{font-family:'Inter Tight';font-size:58px;letter-spacing:-.05em;font-weight:600;line-height:1}
-.tl b.gd{color:var(--gold)}
-.tl h5{font-size:19px;font-weight:600;margin-bottom:6px;letter-spacing:-.01em}
+.tl b.gd{color:var(--gold-ink)}
+.tl h4{font-size:19px;font-weight:600;margin-bottom:6px;letter-spacing:-.01em}
 .tl p{color:#6e6e73;font-size:15px;line-height:1.5}
 .acc{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px;align-items:center}
-.acc em{font-style:normal;font-size:13px;color:#86868b;margin-right:8px}
+.acc em{font-style:normal;font-size:13px;color:#6e6e73;margin-right:8px}
 .acc span{background:#fff;border-radius:999px;padding:9px 16px;font-size:13.5px;font-weight:500}
 
 .adm{background:#000;padding:16vh 0}
@@ -113,7 +113,7 @@
 .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
 .steps div{background:#141416;border-radius:22px;padding:28px 24px;min-height:200px}
 .steps b{display:block;font-family:'Inter Tight';color:var(--gold2);font-size:15px;font-weight:600}
-.steps h5{font-size:22px;letter-spacing:-.02em;font-weight:600;margin:40px 0 8px}
+.steps h4{font-size:22px;letter-spacing:-.02em;font-weight:600;margin:40px 0 8px}
 .steps p{font-size:14.5px;color:#a1a1a6;line-height:1.5}
 .opts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px}
 .opts div{border:1px solid #2a2a2e;border-radius:22px;padding:24px}
@@ -136,10 +136,10 @@
 .feat4 b{display:block;font-size:20px;letter-spacing:-.02em;margin-bottom:6px}
 .feat4 span{font-size:14.5px;color:#6e6e73;line-height:1.5}
 
-footer{background:#F5F5F7;color:#6e6e73;font-size:12.5px;padding:0 0 30px}
+footer{background:#F5F5F7;color:#6e6e73;font-size:12.5px;padding:0 0 76px} /* extra bottom space for the fixed .prop banner; back to 30px when the banner is removed at launch */
 footer .wrap{border-top:1px solid #d2d2d7;padding-top:24px}
 .fg{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:30px;padding:20px 0 30px;border-bottom:1px solid #d2d2d7}
-.fg h6{font-size:12.5px;color:#1d1d1f;font-weight:600;margin-bottom:10px}
+.fg h4{font-size:12.5px;color:#1d1d1f;font-weight:600;margin-bottom:10px}
 .fg li{list-style:none;margin-bottom:8px}
 .fg a:hover{color:#1d1d1f;text-decoration:underline}
 .fb{display:flex;justify-content:space-between;gap:20px;padding-top:16px;flex-wrap:wrap}
@@ -165,7 +165,7 @@ footer .wrap{border-top:1px solid #d2d2d7;padding-top:24px}
 .tile{height:520px}
 .tiles .hd{flex-direction:column;align-items:flex-start}
 .tl{grid-template-columns:1fr}
-.steps{grid-template-columns:1fr}.steps h5{margin-top:20px}.steps div{min-height:0}
+.steps{grid-template-columns:1fr}.steps h4{margin-top:20px}.steps div{min-height:0}
 .feat4{grid-template-columns:1fr}
 .ath:after{background:linear-gradient(0deg,rgba(0,0,0,.9) 10%,rgba(0,0,0,.2) 70%)}
 .ath .athin{align-items:flex-end;padding-bottom:12vh}

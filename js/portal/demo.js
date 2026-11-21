@@ -102,13 +102,13 @@ return [['home', 'dashboard', 'home'], ['ann', 'postNotice', 'ann'], ['msg', 'me
 }
 function renderNav() {
 const items = navItems();
-const btn = (k, l, i, c, short) => `<button class="${S.view === k ? 'on' : ''}" onclick="go('${k}')">${ic(i)}<span>${esc(t((short ? 'tab.' : 'nav.') + l))}</span>${c ? `<span class="ct">${c}</span>` : ''}</button>`;
+const btn = (k, l, i, c, short) => `<button class="${S.view === k ? 'on' : ''}"${S.view === k ? ' aria-current="page"' : ''} onclick="go('${k}')">${ic(i)}<span>${esc(t((short ? 'tab.' : 'nav.') + l))}</span>${c ? `<span class="ct" aria-label="(${c})">${c}</span>` : ''}</button>`;
 document.getElementById('pnav').innerHTML = items.map(([k, l, i, c]) => btn(k, l, i, c)).join('');
 document.getElementById('mtab').innerHTML = items.slice(0, 5).map(([k, l, i, c]) => btn(k, l, i, c, true)).join('');
 }
 function renderMe() {
 const p = S.role === 'parent', av = document.getElementById('meAv');
-av.textContent = p ? 'KF' : 'ST'; av.style.background = p ? 'var(--gold)' : 'var(--navy3)';
+av.textContent = p ? 'KF' : 'ST'; av.style.background = p ? 'var(--gold)' : 'var(--navy3)'; av.style.color = p ? '#111' : '#fff';
 document.getElementById('meName').textContent = t(p ? 'me.parentName' : 'me.teacherName');
 document.getElementById('meRole').textContent = t(p ? 'me.parentRole' : 'me.teacherRole');
 }
@@ -143,28 +143,28 @@ return `
 <div class="grid3" style="margin-bottom:24px">
 <div class="box kpi"><span>${esc(t('kpi.average'))}</span><b>${avg}%</b><small>${esc(t('kpi.acrossCourses', { n: S.grades.length }))}</small></div>
 <div class="box kpi"><span>${esc(t('kpi.attendance'))}</span><b>${pct}%</b><small>${esc(t('kpi.absences', { n: att.absent }))}</small></div>
-<div class="box kpi"><span>${esc(t('kpi.unread'))}</span><b>${ua}</b><small><a href="#" onclick="go('ann');return false" style="color:var(--gold)">${esc(t('kpi.readNow'))}</a></small></div>
+<div class="box kpi"><span>${esc(t('kpi.unread'))}</span><b>${ua}</b><small><a href="#" onclick="go('ann');return false">${esc(t('kpi.readNow'))}</a></small></div>
 </div>
 <div class="grid2">
-<div class="box"><h3>${esc(t('home.latestAnn'))}</h3><div class="sub">${esc(t('home.latestAnnSub'))}</div>${S.announcements.slice(0, 3).map(a => annRow(a)).join('')}</div>
-<div class="box"><h3>${esc(t('home.upcoming'))}</h3><div class="sub">${esc(t('home.upcomingSub'))}</div><div class="cal">${S.events.filter(e => e.upcoming).map(e => evRow(e)).join('')}</div></div>
+<div class="box"><h2>${esc(t('home.latestAnn'))}</h2><div class="sub">${esc(t('home.latestAnnSub'))}</div>${S.announcements.slice(0, 3).map(a => annRow(a)).join('')}</div>
+<div class="box"><h2>${esc(t('home.upcoming'))}</h2><div class="sub">${esc(t('home.upcomingSub'))}</div><div class="cal">${S.events.filter(e => e.upcoming).map(e => evRow(e)).join('')}</div></div>
 </div>`;
 },
-ann() { return `<div class="box">${S.announcements.map(a => { a.read = true; return annRow(a, true) }).join('') || `<div class="empty">${esc(t('ann.empty'))}</div>`}</div>` },
+ann() { return `<div class="box"><h2 class="sr">${esc(t('title.announcements'))}</h2>${S.announcements.map(a => { a.read = true; return annRow(a, true) }).join('') || `<div class="empty">${esc(t('ann.empty'))}</div>`}</div>` },
 msg() { return msgView('parent') },
 acad() {
 const att = S.attendance;
-return `<div class="grid2"><div class="box"><h3>${esc(t('acad.semester'))}</h3><div class="sub">${esc(t('acad.sub', { name: S.student.name, grade: gradeTxt() }))}</div>
+return `<div class="grid2"><div class="box"><h2>${esc(t('acad.semester'))}</h2><div class="sub">${esc(t('acad.sub', { name: S.student.name, grade: gradeTxt() }))}</div>
 <div class="tbl-wrap"><table><tr><th>${esc(t('th.course'))}</th><th>${esc(t('th.teacher'))}</th><th>${esc(t('th.progress'))}</th><th>${esc(t('th.grade'))}</th></tr>
 ${S.grades.map(g => `<tr><td><b style="font-weight:600">${g.c}</b></td><td style="color:var(--muted)">${g.t}</td><td><div class="bar2"><i style="width:${g.p}%"></i></div><small style="color:var(--muted)">${g.p}%</small></td><td class="grade">${g.g}</td></tr>`).join('')}
 </table></div></div>
 <div><div class="box kpi" style="margin-bottom:18px"><span>${esc(t('kpi.present'))}</span><b>${att.present}</b><small>${esc(t('kpi.daysSemester'))}</small></div>
 <div class="box kpi" style="margin-bottom:18px"><span>${esc(t('kpi.absentTardy'))}</span><b>${att.absent} · ${att.tardy}</b><small>${esc(t('kpi.excused', { n: att.excused, date: fmt.day(att.excusedOn) }))}</small></div>
-<div class="box"><h3>${esc(t('acad.needReport'))}</h3><div class="sub">${esc(t('acad.needReportSub'))}</div><button class="sbtn gold" onclick="go('doc')">${esc(t('acad.requestDoc'))}</button></div></div></div>`;
+<div class="box"><h2>${esc(t('acad.needReport'))}</h2><div class="sub">${esc(t('acad.needReportSub'))}</div><button class="sbtn gold" onclick="go('doc')">${esc(t('acad.requestDoc'))}</button></div></div></div>`;
 },
 doc() {
 return `<div class="grid2">
-<div class="box"><h3>${esc(t('doc.requestTitle'))}</h3><div class="sub">${esc(t('doc.requestSub'))}</div>
+<div class="box"><h2>${esc(t('doc.requestTitle'))}</h2><div class="sub">${esc(t('doc.requestSub'))}</div>
 <label for="rqType">${esc(t('doc.type'))}</label><select id="rqType">${opts(S.docTypes, 'docType.')}</select>
 <div class="row2"><div><label for="rqPurpose">${esc(t('doc.purpose'))}</label><input id="rqPurpose" placeholder="${esc(t('doc.purposePh'))}"></div>
 <div><label for="rqCopies">${esc(t('doc.copies'))}</label><select id="rqCopies"><option>1</option><option>2</option><option>3</option></select></div></div>
@@ -174,15 +174,15 @@ return `<div class="grid2">
 <label for="rqNote">${esc(t('doc.notes'))}</label><textarea id="rqNote" placeholder="${esc(t('doc.notesPh'))}"></textarea>
 <button class="sbtn pri" style="margin-top:18px;padding:13px 22px" onclick="submitReq()">${esc(t('doc.submit'))}</button>
 </div>
-<div class="box"><h3>${esc(t('doc.mine'))}</h3><div class="sub">${esc(t('doc.mineSub'))}</div>
-${S.requests.filter(r => r.by === 'kim').slice().reverse().map(r => `<div class="req"><div><h4>${esc(t('docType.' + r.type))}</h4><small>#${r.id} · ${esc(fmt.day(r.date))} · ${esc(r.purpose === null ? t('doc.general') : r.purpose)} · ${esc(t('doc.copiesN', { n: r.copies }))}</small>
+<div class="box"><h2>${esc(t('doc.mine'))}</h2><div class="sub">${esc(t('doc.mineSub'))}</div>
+${S.requests.filter(r => r.by === 'kim').slice().reverse().map(r => `<div class="req"><div><h3>${esc(t('docType.' + r.type))}</h3><small>#${r.id} · ${esc(fmt.day(r.date))} · ${esc(r.purpose === null ? t('doc.general') : r.purpose)} · ${esc(t('doc.copiesN', { n: r.copies }))}</small>
 <div class="rq-track">${STEPS.map((s, i) => `<i class="${i <= r.status ? 'on' : ''}"></i>`).join('')}</div><small>${esc(t('status.' + STEPS[r.status]))}</small></div>
 <div>${r.status === 2 ? `<button class="sbtn gold" onclick="openDoc(${r.id})">${esc(t('doc.download'))}</button>` : `<span class="tag">${esc(t('status.' + STEPS[r.status]))}</span>`}</div></div>`).join('') || `<div class="empty">${esc(t('doc.emptyMine'))}</div>`}
 </div></div>`;
 },
-cal() { return `<div class="box"><h3>${esc(t('cal.title'))}</h3><div class="sub">${esc(t('cal.sub'))}</div><div class="cal">${S.events.map(e => evRow(e, true)).join('')}</div></div>` }
+cal() { return `<div class="box"><h2>${esc(t('cal.title'))}</h2><div class="sub">${esc(t('cal.sub'))}</div><div class="cal">${S.events.map(e => evRow(e, true)).join('')}</div></div>` }
 };
-function annRow(a, full) { return `<div class="ann"><div class="t"><span class="tag ${tagCls(a.cat)}">${esc(t('cat.' + a.cat))}</span>${esc(fmt.day(a.date))} · ${esc(t('aud.' + a.aud))}${!a.read && !full ? ` · <b style="color:var(--gold)">${esc(t('ann.new'))}</b>` : ''}</div><h4>${esc(I18N.tr(a, 'title'))}</h4>${full ? `<p>${esc(I18N.tr(a, 'body'))}</p>` : ''}</div>` }
+function annRow(a, full) { return `<div class="ann"><div class="t"><span class="tag ${tagCls(a.cat)}">${esc(t('cat.' + a.cat))}</span>${esc(fmt.day(a.date))} · ${esc(t('aud.' + a.aud))}${!a.read && !full ? ` · <b class="new">${esc(t('ann.new'))}</b>` : ''}</div><h3>${esc(I18N.tr(a, 'title'))}</h3>${full ? `<p>${esc(I18N.tr(a, 'body'))}</p>` : ''}</div>` }
 function submitReq() {
 const v = id => document.getElementById(id).value;
 const id = Math.max(...S.requests.map(r => r.id)) + 1;
@@ -201,11 +201,11 @@ return `<div class="welcome"><div class="img" style="background-image:url(../img
 <div class="box kpi"><span>${esc(t('kpi.unreadMsgs'))}</span><b>${um}</b><small>${esc(t('kpi.unreadMsgsSub'))}</small></div>
 <div class="box kpi"><span>${esc(t('kpi.noticesPosted'))}</span><b>${S.announcements.length}</b><small>${esc(t('kpi.thisMonth'))}</small></div>
 </div>
-<div class="box"><h3>${esc(t('t.queue'))}</h3><div class="sub">${esc(t('t.queueSub'))}</div>${reqQueue()}</div>`;
+<div class="box"><h2>${esc(t('t.queue'))}</h2><div class="sub">${esc(t('t.queueSub'))}</div>${reqQueue()}</div>`;
 },
 ann() {
 const name = l => I18N.LANGS[l].name;
-return `<div class="grid2"><div class="box"><h3>${esc(t('post.title'))}</h3><div class="sub">${esc(t('post.sub'))}</div>
+return `<div class="grid2"><div class="box"><h2>${esc(t('post.title'))}</h2><div class="sub">${esc(t('post.sub'))}</div>
 <label for="anT">${esc(t('post.fTitle'))}</label><input id="anT" placeholder="${esc(t('post.fTitlePh'))}">
 <div class="row2"><div><label for="anA">${esc(t('post.audience'))}</label><select id="anA">${opts(AUDS, 'aud.')}</select></div>
 <div><label for="anC">${esc(t('post.category'))}</label><select id="anC">${opts(CATS, 'cat.')}</select></div></div>
@@ -214,17 +214,17 @@ return `<div class="grid2"><div class="box"><h3>${esc(t('post.title'))}</h3><div
 ${TR_LANGS.map(l => `<label for="anT_${l}">${esc(t('post.trTitle', { lang: name(l) }))}</label><input id="anT_${l}" lang="${l}">
 <label for="anB_${l}">${esc(t('post.trMessage', { lang: name(l) }))}</label><textarea id="anB_${l}" lang="${l}" style="min-height:80px"></textarea>`).join('')}</details>
 <button class="sbtn pri" style="margin-top:18px;padding:13px 22px" onclick="postAnn()">${esc(t('post.publish'))}</button></div>
-<div class="box"><h3>${esc(t('post.published'))}</h3><div class="sub">${esc(t('post.publishedSub'))}</div>${S.announcements.map(a => annRow(a, true)).join('')}</div></div>`;
+<div class="box"><h2>${esc(t('post.published'))}</h2><div class="sub">${esc(t('post.publishedSub'))}</div>${S.announcements.map(a => annRow(a, true)).join('')}</div></div>`;
 },
 msg() { return msgView('teacher') },
-doc() { return `<div class="box"><h3>${esc(t('t.allRequests'))}</h3><div class="sub">${esc(t('t.allRequestsSub'))}</div>${reqQueue(true)}</div>` },
-acad() { return `<div class="box"><h3>${esc(t('t.period', { course: 'English II (Honors)', n: 2 }))}</h3><div class="sub">${esc(t('t.gradebookSub'))}</div><div class="tbl-wrap"><table><tr><th>${esc(t('th.student'))}</th><th>Essay: Hebrews 11</th><th>Unit 3 Test</th><th>${esc(t('th.average'))}</th></tr>
+doc() { return `<div class="box"><h2>${esc(t('t.allRequests'))}</h2><div class="sub">${esc(t('t.allRequestsSub'))}</div>${reqQueue(true)}</div>` },
+acad() { return `<div class="box"><h2>${esc(t('t.period', { course: 'English II (Honors)', n: 2 }))}</h2><div class="sub">${esc(t('t.gradebookSub'))}</div><div class="tbl-wrap"><table><tr><th>${esc(t('th.student'))}</th><th>Essay: Hebrews 11</th><th>Unit 3 Test</th><th>${esc(t('th.average'))}</th></tr>
 ${[['Grace Kim', 98, 95, 96], ['Daniel Park', 91, 88, 90], ['Emma Johnson', 94, 90, 92], ['Noah Williams', 86, 84, 85], ['Hannah Lee', 97, 93, 95]].map(s => `<tr><td><b style="font-weight:600">${s[0]}</b></td><td>${s[1]}</td><td>${s[2]}</td><td class="grade">${s[3]}%</td></tr>`).join('')}</table></div></div>` }
 };
 function reqQueue(all) {
 const list = S.requests.filter(r => all || r.status < 2).slice().reverse();
 if (!list.length) return `<div class="empty">${esc(t('t.caughtUp'))}</div>`;
-return list.map(r => `<div class="req"><div><h4>${esc(t('docType.' + r.type))}</h4><small>#${r.id} · ${esc(t('me.parentName'))} · ${S.student.name} · ${esc(r.purpose === null ? t('doc.general') : r.purpose)} · ${esc(t('docLang.' + r.lang))}</small>
+return list.map(r => `<div class="req"><div><h3>${esc(t('docType.' + r.type))}</h3><small>#${r.id} · ${esc(t('me.parentName'))} · ${S.student.name} · ${esc(r.purpose === null ? t('doc.general') : r.purpose)} · ${esc(t('docLang.' + r.lang))}</small>
 <div class="rq-track">${STEPS.map((s, i) => `<i class="${i <= r.status ? 'on' : ''}"></i>`).join('')}</div><small>${esc(t('status.' + STEPS[r.status]))}</small></div>
 <div style="display:flex;gap:8px">${r.status === 0 ? `<button class="sbtn" onclick="adv(${r.id})">${esc(t('t.startReview'))}</button>` : r.status === 1 ? `<button class="sbtn gold" onclick="adv(${r.id})">${esc(t('t.approve'))}</button>` : `<button class="sbtn" onclick="openDoc(${r.id})">${esc(t('t.preview'))}</button><span class="tag green" style="align-self:center">${esc(t('t.issued'))}</span>`}</div></div>`).join('');
 }
@@ -247,8 +247,8 @@ const tname = x => x.nameKey ? t(x.nameKey) : x.name;
 const tsub = x => [x.subj, x.subjKey && t(x.subjKey)].filter(Boolean).join(' · ');
 const name = x => role === 'parent' ? tname(x) : t('me.parentName');
 const sub = x => role === 'parent' ? tsub(x) : t('msg.re', { student: S.student.name, name: tname(x) });
-const avBg = role === 'parent' ? 'var(--navy3)' : 'var(--gold)';
-return `<div class="msgs"><div class="th-list">${S.threads.map((x, i) => `<div class="th ${i === S.thread ? 'on' : ''}" onclick="S.thread=${i};render()"><div class="av" style="background:${avBg}">${role === 'parent' ? x.ini : 'KF'}</div><div style="min-width:0"><b>${esc(name(x))}</b><small>${esc(x.msgs[x.msgs.length - 1].text)}</small></div>${(role === 'parent' ? x.unreadP : x.unreadT) ? '<span class="dot"></span>' : ''}</div>`).join('')}</div>
+const avBg = role === 'parent' ? 'var(--navy3);color:#fff' : 'var(--gold)';
+return `<div class="msgs"><div class="th-list">${S.threads.map((x, i) => `<button class="th ${i === S.thread ? 'on' : ''}"${i === S.thread ? ' aria-current="true"' : ''} onclick="S.thread=${i};render()"><div class="av" style="background:${avBg}">${role === 'parent' ? x.ini : 'KF'}</div><div style="min-width:0"><b>${esc(name(x))}</b><small>${esc(x.msgs[x.msgs.length - 1].text)}</small></div>${(role === 'parent' ? x.unreadP : x.unreadT) ? '<span class="dot" aria-hidden="true"></span>' : ''}</button>`).join('')}</div>
 <div class="conv"><div class="conv-h"><div class="av" style="background:${avBg}">${role === 'parent' ? th.ini : 'KF'}</div><div><b>${esc(name(th))}</b><br><small style="color:var(--muted)">${esc(sub(th))}</small></div></div>
 <div class="conv-b" id="cb">${th.msgs.map(m => `<div class="bub ${m.from === role ? 'me' : ''}">${esc(m.text)}<small>${esc(msgTime(m.at))}</small></div>`).join('')}</div>
 <div class="conv-f"><input id="mIn" placeholder="${esc(t('msg.ph'))}" aria-label="${esc(t('msg.ph'))}" onkeydown="if(event.key==='Enter'&&!event.isComposing)send()"><button class="sbtn pri" onclick="send()">${esc(t('msg.send'))}</button></div></div></div>`;
@@ -272,7 +272,7 @@ goodStanding: `<p>This letter confirms that <b>${s.name}</b>, a ${grade} student
 };
 const body = bodies[r.type] || `<p>This document certifies the requested record — <b>${type}</b> — for <b>${s.name}</b> (Student ID: ${s.id}), ${grade}, issued by the Office of the Registrar of Brazos Valley Cornerstone Christian Academy.</p>`;
 document.getElementById('doc').innerHTML = `
-<div class="doc-actions"><button onclick="document.getElementById('docModal').classList.remove('open')">${esc(t('docm.close'))}</button><button class="pri" onclick="window.print()">${esc(t('docm.print'))}</button></div>
+<div class="doc-actions"><button onclick="closeModal()">${esc(t('docm.close'))}</button><button class="pri" onclick="window.print()">${esc(t('docm.print'))}</button></div>
 <div lang="en">
 <div class="lh"><svg viewBox="0 0 44 52"><use href="#crest"/></svg>
 <div><b>Brazos Valley Cornerstone Christian Academy</b><small>3200 Cavitt Avenue · Bryan, Texas 77801 · (979) 694-8200</small></div></div>
@@ -283,8 +283,11 @@ document.getElementById('doc').innerHTML = `
 <div class="sig"><div><p style="margin:0">Sincerely,</p><div style="font-family:var(--serif);font-style:italic;font-size:30px;margin:18px 0 4px;color:var(--navy)">Head of School</div><p style="margin:0;border-top:1px solid #ccc;padding-top:6px;font-size:12px">Head of School · Brazos Valley Cornerstone Christian Academy</p></div>
 <div class="seal">Official<br>Cornerstone<br>Seal<br>· 2002 ·</div></div>
 <p style="margin-top:40px;font-size:11px;color:#999;text-align:center">Demo document — layout preview only. Not an official record.</p></div>`;
-document.getElementById('docModal').classList.add('open');
+openModal();
 }
+function openModal() { const m = document.getElementById('docModal'); m._back = document.activeElement; m.classList.add('open'); m.querySelector('.doc-actions button').focus() }
+function closeModal() { const m = document.getElementById('docModal'); m.classList.remove('open'); if (m._back && m._back.focus) m._back.focus() }
+addEventListener('keydown', e => { if (e.key === 'Escape' && document.getElementById('docModal').classList.contains('open')) closeModal() });
 
 I18N.onChange(() => render());
 I18N.init();

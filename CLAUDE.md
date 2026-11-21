@@ -151,12 +151,12 @@ events(id, title, starts_at, ends_at, location, audience)
 4. **Auth and roles**: login, logout, a role-based nav, and invitation flow documentation.
 5. **Announcements**, then **Messages**, then **Grades & Attendance**, then **Document requests + PDF**.
 6. **EN/KO/ZH/ES i18n** across the portal. ✅ done for the demo (dictionaries + picker).
-7. **Polish**:
-   - Accessibility: focus states, alt text, contrast.
+7. **Polish**: ✅ done (axe-core: 0 violations on the site and every portal view).
+   - Accessibility: focus states, alt text, contrast. Use `--gold-ink` (#8A6A1F) for gold text on light backgrounds and dark text (#111) on gold fills; plain `--gold` text on light fails WCAG AA.
    - Performance: lazy-load images, compress videos.
    - Mobile QA at 390px.
 8. **Launch prep** (only when Moses says the school approved):
-   - Remove the proposal banner and noindex.
+   - Remove the proposal banner and noindex (on both `index.html` and `portal/index.html`), and set the footer's bottom padding back to 30px in `css/site.css`.
    - Connect a custom domain.
    - Replace the AI media with real photography.
 

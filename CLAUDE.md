@@ -34,7 +34,9 @@
 | img/7.jpg | International students laughing on campus steps | International section |
 | img/8.jpg | Plain Protestant chapel with a pulpit and an open Bible, light rays | Chapel scroll scene, Faith & Service tile, teacher portal welcome |
 
-⚠️ All images and videos are AI-generated placeholders. Before the official launch, replace them with **real school photography** shot to the same compositions. Never present AI images as real students of the school.
+**Photo gallery** (`student-life/#gallery`, `js/gallery.js`): 69 real photos from the school's previous website (2012–2022), stored as `img/gallery/NN.avif|webp` (1000px long edge, metadata stripped, numbered with no names). Moses approved including students' faces (2026-11-22). Never put student names in file names, alt text or captions. <!-- VERIFY: school confirms photo consent before launch -->
+
+⚠️ All other images and videos are AI-generated placeholders. Before the official launch, replace them with **real school photography** shot to the same compositions. Never present AI images as real students of the school.
 
 ## 3. Hosting and architecture
 

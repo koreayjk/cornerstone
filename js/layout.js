@@ -50,6 +50,7 @@ const Layout = (() => {
       { id: 'character', label: 'Cougar of the Week & The Bee Kind People' },
       { id: 'trips', label: 'Field Trips / Field Studies', ready: false },
       { id: 'service', label: 'Service Projects' },
+      { id: 'gallery', label: 'Photo Gallery' },
       { id: 'fundraisers', label: 'Fundraisers', ready: false }] }
   ];
   const ready = m => m.items.filter(i => i.ready !== false);

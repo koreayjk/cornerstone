@@ -95,3 +95,25 @@ test('visit section links to map directions', async ({ page }) => {
   await expect(page.locator('#visit a[href^="https://www.google.com/maps/dir/"]')).toHaveCount(1);
   await expect(page.locator('#visit a[href^="https://maps.apple.com/"]')).toHaveCount(1);
 });
+
+test('student life: gallery filters and opens photos in the viewer', async ({ page }) => {
+  await open(page, 'student-life/', 'ko');
+  const items = page.locator('#gal .gi');
+  await expect(items).toHaveCount(69);
+  await page.click('.gfilter [data-f="athletics"]');
+  await expect(page.locator('.gfilter [data-f="athletics"]')).toHaveAttribute('aria-pressed', 'true');
+  const shown = await page.locator('#gal .gi:not([hidden])').count();
+  expect(shown).toBeGreaterThan(5);
+  expect(shown).toBeLessThan(69);
+  await page.locator('#gal .gi:not([hidden])').first().click();
+  const lb = page.locator('#lb');
+  await expect(lb).toBeVisible();
+  await expect(lb.locator('img')).toHaveAttribute('alt', '체육');
+  await expect(lb.locator('img')).toHaveJSProperty('complete', true);
+  expect(await lb.locator('img').evaluate(i => i.naturalWidth)).toBeGreaterThan(0);
+  await expect(lb.locator('.lb-n')).toHaveText(`1 / ${shown}`);
+  await page.keyboard.press('ArrowRight');
+  await expect(lb.locator('.lb-n')).toHaveText(`2 / ${shown}`);
+  await page.keyboard.press('Escape');
+  await expect(lb).toBeHidden();
+});

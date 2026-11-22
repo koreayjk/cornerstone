@@ -39,3 +39,10 @@
     if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1));
   });
 })();
+// Welcome Back video: loads only when the viewer presses play (about 6 MB, with sound)
+$$('.gv-play').forEach(b => b.addEventListener('click', () => {
+  const v = document.createElement('video');
+  v.src = b.dataset.src; v.controls = true; v.autoplay = true; v.playsInline = true;
+  v.setAttribute('aria-label', b.getAttribute('aria-label'));
+  b.replaceWith(v); v.focus();
+}));

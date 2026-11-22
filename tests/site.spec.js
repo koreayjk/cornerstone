@@ -117,3 +117,16 @@ test('student life: gallery filters and opens photos in the viewer', async ({ pa
   await page.keyboard.press('Escape');
   await expect(lb).toBeHidden();
 });
+
+test('student life: the Welcome Back video loads only after play is pressed', async ({ page }) => {
+  const videos = [];
+  page.on('request', r => { if (r.url().endsWith('.mp4')) videos.push(r.url()) });
+  await open(page, 'student-life/', 'en');
+  await page.locator('.gv-play').scrollIntoViewIfNeeded();
+  expect(videos).toEqual([]);
+  await page.click('.gv-play');
+  const v = page.locator('.gvid video');
+  await expect(v).toHaveAttribute('controls', '');
+  await expect.poll(() => v.evaluate(el => el.readyState)).toBeGreaterThan(0);
+  expect(videos.some(u => u.endsWith('welcome-back.mp4'))).toBe(true);
+});

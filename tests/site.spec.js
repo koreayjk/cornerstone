@@ -118,6 +118,23 @@ test('student life: gallery filters and opens photos in the viewer', async ({ pa
   await expect(lb).toBeHidden();
 });
 
+test('section heroes never clip the headline, even in a short wide window', async ({ page }, info) => {
+  test.skip(info.project.name !== 'desktop', 'desktop window sizes');
+  for (const size of [{ width: 1000, height: 500 }, { width: 1440, height: 600 }, { width: 1280, height: 420 }]) {
+    await page.setViewportSize(size);
+    for (const pg of PAGES.filter(p => p)) {
+      for (const lang of ['en', 'es']) {
+        await open(page, pg, lang);
+        const r = await page.evaluate(() => {
+          const h = document.querySelector('.phero h1'), nav = document.querySelector('#nav');
+          return h && { top: h.getBoundingClientRect().top, navBottom: nav.getBoundingClientRect().bottom };
+        });
+        if (r) expect(r.top, `${pg} [${lang}] ${size.width}x${size.height}`).toBeGreaterThanOrEqual(r.navBottom);
+      }
+    }
+  }
+});
+
 test('student life: the Welcome Back video loads only after play is pressed', async ({ page }) => {
   const videos = [];
   page.on('request', r => { if (r.url().endsWith('.mp4')) videos.push(r.url()) });

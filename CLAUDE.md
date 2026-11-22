@@ -36,6 +36,8 @@
 
 **Photo gallery** (`student-life/#gallery`, `js/gallery.js`): 69 real photos from the school's previous website (2012–2022), stored as `img/gallery/NN.avif|webp` (1000px long edge, metadata stripped, numbered with no names). Moses approved including students' faces (2026-11-22). Never put student names in file names, alt text or captions. <!-- VERIFY: school confirms photo consent before launch -->
 
+`img/welcome-back.mp4` (+ `img/gallery/welcome.avif|webp` poster): the school's own "Welcome Back!" video (2022, iMovie slideshow with sound), shown in the gallery and loaded only when played. It is not used as a background loop because of its title cards.
+
 ⚠️ All other images and videos are AI-generated placeholders. Before the official launch, replace them with **real school photography** shot to the same compositions. Never present AI images as real students of the school.
 
 ## 3. Hosting and architecture
@@ -67,7 +69,8 @@
 
 ### Section pages and the old site menu
 The public site mirrors the old WordPress menu (About, Academics, Enrichment, Admissions, Student Life) as five pages; each sub-menu item is a section (`#id`) on that page. `MENU` in `js/layout.js` drives the nav dropdowns, the mobile menu and each page's sticky sub-nav.
-Items marked `ready: false` have no source content yet and are hidden: Faculty and Staff, Employment Opportunities, Kindergarten, Grades 1-5 Curriculum, Curriculum – Upper Grades, Art, Computer Lab.
+Items marked `ready: false` have no source content yet and are hidden: Faculty and Staff (the old site's page is empty and its staff photos date from 2014–2018; needs a current staff list).
+Kindergarten, Grades 1-5, Upper Grades, Art and Computer Lab are condensed from the old site's pages (2016–2023) <!-- VERIFY: curriculum titles still current -->; Upper Grades graduation credits come from the 2026-27 handbook. Employment points to the office because the old site's application forms list an outdated College Station address.
 Tuition, Handbook, Supply Lists, Uniforms, Board, Field Trips and Fundraisers come from the school's 2026-27 documents (tuition sheet, Student Handbook, supply lists), which are published in `files/` (PDF) and linked from the pages. When the school issues new versions, replace the PDFs and update the numbers. To add one: get the original text/files from the school or Moses (the old site blocks cloud fetches), add the `<section class="sec" id="…">` to the page, add its keys to all four dictionaries, and remove `ready: false`. Never invent tuition amounts, staff names or dates.
 
 ### Automated checks

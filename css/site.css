@@ -371,3 +371,22 @@ html.i18n-pending body{visibility:hidden}
 .sec.dk .gi{background:#141416}
 @media (max-width:900px){.plans{grid-template-columns:1fr}}
 .btn[download]{white-space:normal;max-width:100%}
+/* graduation credits */
+.sec h3.sub{font-size:19px;font-weight:600;letter-spacing:-.01em;margin-top:56px}
+.creds{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:16px}
+.creds div{border-radius:18px;padding:18px 20px}
+.sec.lt .creds div{background:#fff}.sec.dk .creds div{background:#141416}
+.creds b{display:block;font-family:var(--serif);font-size:34px;letter-spacing:-.04em;font-weight:600;line-height:1}
+.sec.lt .creds b{color:var(--gold-ink)}.sec.dk .creds b{color:var(--gold2)}
+.creds span{display:block;font-size:14px;margin-top:8px}
+.sec.lt .creds span{color:#6e6e73}.sec.dk .creds span{color:#a1a1a6}
+@media (max-width:900px){.creds{grid-template-columns:repeat(2,1fr)}}
+/* Welcome Back video in the gallery */
+.gvid{margin-top:6vh}
+.gv-play,.gvid video{display:block;position:relative;width:100%;aspect-ratio:16/9;border:0;padding:0;border-radius:24px;overflow:hidden;background:#141416;cursor:pointer}
+.gv-play img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--ease)}
+.gv-play:hover img{transform:scale(1.02)}
+.gv-play .pb{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:84px;height:84px;border-radius:50%;background:rgba(255,255,255,.9);color:#000;display:grid;place-items:center;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+.gv-play .pb svg{width:34px;height:34px;margin-left:4px}
+.gv-cap{font-size:14px;margin-top:12px;color:#a1a1a6}
+@media (max-width:600px){.gv-play .pb{width:60px;height:60px}.gv-play .pb svg{width:24px;height:24px}}

@@ -69,11 +69,11 @@ test('calendar exports a valid .ics file', async ({ page }, info) => {
   expect(/[^\r]\n/.test(txt), 'CRLF line endings only').toBe(false);
   expect(Math.max(...lines.map(l => Buffer.byteLength(l))), 'lines folded at 75 octets').toBeLessThanOrEqual(75);
   expect(lines[0]).toBe('BEGIN:VCALENDAR');
-  expect((txt.match(/BEGIN:VEVENT/g) || []).length).toBe(7);
+  expect((txt.match(/BEGIN:VEVENT/g) || []).length).toBe(13);
   expect(txt).toContain('BEGIN:VTIMEZONE');
   expect(txt).toContain('SUMMARY:성탄 프로그램');
-  expect(txt).toContain('DTSTART;VALUE=DATE:20270316');
-  expect(txt).toContain('DTEND;VALUE=DATE:20270321'); // spring break Mar 16–20, end is exclusive
+  expect(txt).toContain('DTSTART;VALUE=DATE:20270315');
+  expect(txt).toContain('DTEND;VALUE=DATE:20270320'); // spring break Mar 15–19, end is exclusive
   const g = await page.locator('.evx a').first().getAttribute('href');
   expect(g).toMatch(/^https:\/\/calendar\.google\.com\/calendar\/render\?action=TEMPLATE/);
 });
@@ -174,7 +174,7 @@ test('email templates render in each language', async ({ page }) => {
     await expect(page.locator('.mail-h')).toContainText(text);
   };
   await expectSubject('doc', 'ko', '서류가 준비되었습니다: 재학 증명서');
-  await expectSubject('ann', 'zh', '新通知：圣诞节目暨读经与颂歌');
+  await expectSubject('ann', 'zh', '新通知：圣诞节目 — 12 月 17 日（周四）');
   await expectSubject('msg', 'es', 'Nuevo mensaje de Mrs. Sarah Taylor');
   await expectSubject('invite', 'en', 'You’re invited to the Cornerstone Family Portal');
 });

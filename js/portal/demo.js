@@ -20,46 +20,59 @@ children: [
 ],
 announcements: [
 { id: 1, cat: 'event', aud: 'all', date: '2026-11-18', read: false,
-  title: 'Christmas Program & Lessons and Carols',
-  body: 'Join us Thursday, December 4 at 6:30 PM in the Sanctuary. Students should arrive by 6:00 PM in Sunday dress. Please RSVP by Nov 28.',
+  title: 'Christmas Program — Thursday, December 17',
+  body: 'Save the date for our Christmas Program on Thursday, December 17. Your child’s teacher will send the time and details.',
   i18n: {
-    ko: { title: '성탄 프로그램 및 구주 탄생 낭독과 캐럴', body: '12월 4일(목) 오후 6시 30분, 본당에서 함께해 주세요. 학생들은 주일 복장으로 오후 6시까지 도착해야 합니다. 11월 28일까지 참석 여부를 알려 주세요.' },
-    zh: { title: '圣诞节目暨读经与颂歌', body: '诚邀您于 12 月 4 日（周四）晚 6:30 在礼堂参加。学生须身着主日服装于晚 6:00 前到达。请于 11 月 28 日前回复是否出席。' },
-    es: { title: 'Programa de Navidad y Lecciones y Villancicos', body: 'Acompáñenos el jueves 4 de diciembre a las 6:30 p. m. en el Santuario. Los estudiantes deben llegar a las 6:00 p. m. con ropa de domingo. Confirme su asistencia antes del 28 de noviembre.' }
+    ko: { title: '성탄 프로그램 — 12월 17일(목)', body: '12월 17일(목) 성탄 프로그램 날짜를 비워 두세요. 시간과 자세한 내용은 담임 선생님이 안내해 드립니다.' },
+    zh: { title: '圣诞节目 — 12 月 17 日（周四）', body: '请预留 12 月 17 日（周四）参加圣诞节目。具体时间和详情将由孩子的老师另行通知。' },
+    es: { title: 'Programa de Navidad — jueves 17 de diciembre', body: 'Reserve la fecha para nuestro Programa de Navidad el jueves 17 de diciembre. El maestro de su hijo le enviará la hora y los detalles.' }
   } },
 { id: 2, cat: 'urgent', aud: 'all', date: '2026-11-15', read: false,
-  title: 'Thanksgiving Break — No School Nov 24–28',
-  body: 'Campus will be closed for Thanksgiving Break. Classes resume Monday, December 1. Residential students: dormitory schedule has been sent separately.',
+  title: 'Thanksgiving Holiday — No School Nov 23–27',
+  body: 'There is no school during the Thanksgiving Holiday, November 23–27. Classes resume Monday, November 30.',
   i18n: {
-    ko: { title: '추수감사절 방학 — 11월 24–28일 휴교', body: '추수감사절 방학 기간에는 캠퍼스가 문을 닫습니다. 수업은 12월 1일(월)에 다시 시작합니다. 기숙 학생: 기숙사 일정은 별도로 안내했습니다.' },
-    zh: { title: '感恩节假期 — 11 月 24–28 日停课', body: '感恩节假期期间校园关闭。12 月 1 日（周一）复课。住宿学生：宿舍安排已另行发送。' },
-    es: { title: 'Receso de Acción de Gracias — No hay clases del 24 al 28 de nov.', body: 'El campus estará cerrado durante el receso de Acción de Gracias. Las clases se reanudan el lunes 1 de diciembre. Estudiantes residentes: el horario del dormitorio se envió por separado.' }
+    ko: { title: '추수감사절 연휴 — 11월 23–27일 휴교', body: '추수감사절 연휴인 11월 23–27일에는 수업이 없습니다. 수업은 11월 30일(월)에 다시 시작합니다.' },
+    zh: { title: '感恩节假期 — 11 月 23–27 日停课', body: '感恩节假期（11 月 23–27 日）停课。11 月 30 日（周一）复课。' },
+    es: { title: 'Feriado de Acción de Gracias — No hay clases del 23 al 27 de nov.', body: 'No hay clases durante el feriado de Acción de Gracias, del 23 al 27 de noviembre. Las clases se reanudan el lunes 30 de noviembre.' }
   } },
 { id: 3, cat: 'academics', aud: 'upper', date: '2026-11-10', read: true,
-  title: 'Upper School Semester Exam Schedule',
-  body: 'Semester exams run December 15–18. A detailed schedule and study guides are posted in each course.',
+  title: 'End of the First Semester',
+  body: 'The first semester ends Friday, December 18, with a 1:00 PM early release. Teachers will post review guides in each course.',
   i18n: {
-    ko: { title: '고등부 학기말 시험 일정', body: '학기말 시험은 12월 15–18일에 진행됩니다. 자세한 일정과 학습 가이드는 각 과목에 게시되어 있습니다.' },
-    zh: { title: '高中部期末考试安排', body: '期末考试于 12 月 15–18 日举行。详细安排和复习指南已发布在各门课程中。' },
-    es: { title: 'Calendario de exámenes semestrales de la Escuela Superior', body: 'Los exámenes semestrales serán del 15 al 18 de diciembre. El horario detallado y las guías de estudio están publicados en cada materia.' }
+    ko: { title: '1학기 종료 안내', body: '1학기는 12월 18일(금)에 끝나며, 이날은 오후 1시에 일찍 하교합니다. 과목별 복습 자료는 선생님들이 올려 드립니다.' },
+    zh: { title: '第一学期结束', body: '第一学期于 12 月 18 日（周五）结束，当天下午 1:00 提前放学。各科老师将发布复习资料。' },
+    es: { title: 'Fin del primer semestre', body: 'El primer semestre termina el viernes 18 de diciembre, con salida temprano a la 1:00 p. m. Los maestros publicarán guías de repaso en cada materia.' }
   } }
 ],
+// Dates from the school's 2026-27 calendar (files/calendar-2026-27.pdf).
 // date = first day; until = last day (inclusive) for multi-day events; time = local start time
 events: [
-{ id: 'xmas-program', date: '2026-12-04', time: '18:30', title: 'Christmas Program', s: '6:30 PM · Sanctuary', upcoming: true,
-  i18n: { ko: { title: '성탄 프로그램', s: '오후 6:30 · 본당' }, zh: { title: '圣诞节目', s: '晚 6:30 · 礼堂' }, es: { title: 'Programa de Navidad', s: '6:30 p. m. · Santuario' } } },
-{ id: 'exams', date: '2026-12-15', until: '2026-12-18', title: 'Semester exams', s: 'Upper School · Dec 15–18', upcoming: true,
-  i18n: { ko: { title: '학기말 시험', s: '고등부 · 12월 15–18일' }, zh: { title: '期末考试', s: '高中部 · 12 月 15–18 日' }, es: { title: 'Exámenes semestrales', s: 'Escuela Superior · 15–18 de dic.' } } },
-{ id: 'xmas-break', date: '2026-12-19', title: 'Christmas break begins', s: 'Noon dismissal', upcoming: true,
-  i18n: { ko: { title: '성탄 방학 시작', s: '정오 하교' }, zh: { title: '圣诞假期开始', s: '中午放学' }, es: { title: 'Comienzan las vacaciones de Navidad', s: 'Salida al mediodía' } } },
-{ id: 'spring-sem', date: '2027-01-05', title: 'Spring semester begins', s: 'All grades',
-  i18n: { ko: { title: '봄 학기 시작', s: '전 학년' }, zh: { title: '春季学期开始', s: '全体年级' }, es: { title: 'Comienza el semestre de primavera', s: 'Todos los grados' } } },
-{ id: 'ptc', date: '2027-02-06', title: 'Parent–Teacher Conferences', s: 'Book a time slot', upcoming: true,
-  i18n: { ko: { title: '학부모–교사 상담', s: '상담 시간을 예약하세요' }, zh: { title: '家长会', s: '请预约时段' }, es: { title: 'Conferencias de padres y maestros', s: 'Reserve un horario' } } },
-{ id: 'spring-break', date: '2027-03-16', until: '2027-03-20', title: 'Spring break', s: 'No school Mar 16–20',
-  i18n: { ko: { title: '봄 방학', s: '3월 16–20일 휴교' }, zh: { title: '春假', s: '3 月 16–20 日停课' }, es: { title: 'Vacaciones de primavera', s: 'No hay clases del 16 al 20 de marzo' } } },
-{ id: 'commencement', date: '2027-05-22', title: 'Commencement', s: 'Class of 2027',
-  i18n: { ko: { title: '졸업식', s: '2027년 졸업반' }, zh: { title: '毕业典礼', s: '2027 届' }, es: { title: 'Graduación', s: 'Generación 2027' } } }
+{ id: 'thanksgiving', date: '2026-11-23', until: '2026-11-27', title: 'Thanksgiving Holiday', s: 'No school Nov 23–27', upcoming: true,
+  i18n: { ko: { title: '추수감사절 연휴', s: '11월 23–27일 휴교' }, zh: { title: '感恩节假期', s: '11 月 23–27 日停课' }, es: { title: 'Feriado de Acción de Gracias', s: 'No hay clases del 23 al 27 de nov.' } } },
+{ id: 'xmas-program', date: '2026-12-17', title: 'Christmas Program', s: 'All grades', upcoming: true,
+  i18n: { ko: { title: '성탄 프로그램', s: '전 학년' }, zh: { title: '圣诞节目', s: '全体年级' }, es: { title: 'Programa de Navidad', s: 'Todos los grados' } } },
+{ id: 'sem-end', date: '2026-12-18', time: '13:00', title: 'End of first semester', s: '1:00 PM early release', upcoming: true,
+  i18n: { ko: { title: '1학기 종료', s: '오후 1시 조기 하교' }, zh: { title: '第一学期结束', s: '下午 1:00 提前放学' }, es: { title: 'Fin del primer semestre', s: 'Salida a la 1:00 p. m.' } } },
+{ id: 'xmas-break', date: '2026-12-21', until: '2027-01-01', title: 'Christmas Holiday', s: 'No school Dec 21 – Jan 1', upcoming: true,
+  i18n: { ko: { title: '성탄 방학', s: '12월 21일 – 1월 1일 휴교' }, zh: { title: '圣诞假期', s: '12 月 21 日至 1 月 1 日停课' }, es: { title: 'Vacaciones de Navidad', s: 'No hay clases del 21 de dic. al 1 de ene.' } } },
+{ id: 'classes-resume', date: '2027-01-04', title: 'Classes resume', s: 'Fourth grading period begins',
+  i18n: { ko: { title: '수업 재개', s: '4번째 성적 기간 시작' }, zh: { title: '复课', s: '第四个评分周期开始' }, es: { title: 'Se reanudan las clases', s: 'Comienza el cuarto periodo de calificaciones' } } },
+{ id: 'mlk', date: '2027-01-18', title: 'Martin Luther King Jr. Day', s: 'Holiday · no school',
+  i18n: { ko: { title: '마틴 루터 킹 주니어의 날', s: '공휴일 · 휴교' }, zh: { title: '马丁·路德·金纪念日', s: '假日 · 停课' }, es: { title: 'Día de Martin Luther King Jr.', s: 'Feriado · no hay clases' } } },
+{ id: 'walker-day', date: '2027-01-25', title: 'Bob & JoAnn Walker Day of Service', s: 'Students serve on and off campus',
+  i18n: { ko: { title: 'Bob & JoAnn Walker 봉사의 날', s: '교내외 봉사 활동' }, zh: { title: 'Bob & JoAnn Walker 服务日', s: '学生在校内外服务' }, es: { title: 'Día de Servicio Bob & JoAnn Walker', s: 'Servicio dentro y fuera de la escuela' } } },
+{ id: 'stanford', date: '2027-03-01', until: '2027-03-05', title: 'Stanford Achievement Testing', s: 'Mar 1–5',
+  i18n: { ko: { title: 'Stanford 학업성취도 평가', s: '3월 1–5일' }, zh: { title: 'Stanford 学业成就测试', s: '3 月 1–5 日' }, es: { title: 'Prueba Stanford Achievement', s: 'Del 1 al 5 de marzo' } } },
+{ id: 'spring-break', date: '2027-03-15', until: '2027-03-19', title: 'Spring Break', s: 'No school Mar 15–19',
+  i18n: { ko: { title: '봄 방학', s: '3월 15–19일 휴교' }, zh: { title: '春假', s: '3 月 15–19 日停课' }, es: { title: 'Vacaciones de primavera', s: 'No hay clases del 15 al 19 de marzo' } } },
+{ id: 'good-friday', date: '2027-03-26', title: 'Good Friday', s: 'Holiday · no school',
+  i18n: { ko: { title: '성금요일', s: '공휴일 · 휴교' }, zh: { title: '耶稣受难日', s: '假日 · 停课' }, es: { title: 'Viernes Santo', s: 'Feriado · no hay clases' } } },
+{ id: 'k-grad', date: '2027-05-10', title: 'Kindergarten Graduation', s: 'Kindergarten',
+  i18n: { ko: { title: '킨더가튼 졸업식', s: '킨더가튼' }, zh: { title: '幼儿园毕业典礼', s: '幼儿园' }, es: { title: 'Graduación de kínder', s: 'Kínder' } } },
+{ id: 'last-day', date: '2027-05-12', title: 'Last day of school', s: 'Awards Program · End of Year Celebration',
+  i18n: { ko: { title: '마지막 수업일', s: '시상식 · 학년말 축하 행사' }, zh: { title: '最后上课日', s: '颁奖典礼 · 学年结束庆祝会' }, es: { title: 'Último día de clases', s: 'Entrega de premios · Celebración de fin de año' } } },
+{ id: 'commencement', date: '2027-05-14', title: 'Senior Graduation', s: 'Class of 2027',
+  i18n: { ko: { title: '고등학교 졸업식', s: '2027년 졸업반' }, zh: { title: '高中毕业典礼', s: '2027 届' }, es: { title: 'Graduación de último año', s: 'Generación 2027' } } }
 ],
 docTypes: ['enrollment', 'attendance', 'transcript', 'reportCard', 'goodStanding', 'immunization', 'i20'],
 // status: 0 submitted · 1 in review · 2 ready · 3 rejected (reason is staff free text, shown as written)

@@ -38,7 +38,9 @@
 
 `img/welcome-back.mp4` (+ `img/gallery/welcome.avif|webp` poster): the school's own "Welcome Back!" video (2022, iMovie slideshow with sound), shown in the gallery and loaded only when played. It is not used as a background loop because of its title cards.
 
-⚠️ All other images and videos are AI-generated placeholders. Before the official launch, replace them with **real school photography** shot to the same compositions. Never present AI images as real students of the school.
+**Real photos on the section pages** (`img/real/<slug>-800|1200|1344.avif|webp`, generated from the old site's originals, metadata stripped): the five section-page heroes (`hero-<page>`, 1344×752 crops) and the photos inside sections (`.pics`, one or two per section; chapel uses a 4:5 crop). Each photo is used once. Regenerate from the originals rather than upscaling the 1000px gallery files.
+
+⚠️ All other images and videos (home page, school-division tiles, the International section, the portal) are AI-generated placeholders. Before the official launch, replace them with **real school photography** shot to the same compositions. Never present AI images as real students of the school.
 
 ## 3. Hosting and architecture
 
@@ -71,7 +73,8 @@
 The public site mirrors the old WordPress menu (About, Academics, Enrichment, Admissions, Student Life) as five pages; each sub-menu item is a section (`#id`) on that page. `MENU` in `js/layout.js` drives the nav dropdowns, the mobile menu and each page's sticky sub-nav.
 Items marked `ready: false` have no source content yet and are hidden: Faculty and Staff (the old site's page is empty and its staff photos date from 2014–2018; needs a current staff list).
 Kindergarten, Grades 1-5, Upper Grades, Art and Computer Lab are condensed from the old site's pages (2016–2023) <!-- VERIFY: curriculum titles still current -->; Upper Grades graduation credits come from the 2026-27 handbook. Employment points to the office because the old site's application forms list an outdated College Station address.
-Tuition, Handbook, Supply Lists, Uniforms, Board, Field Trips and Fundraisers come from the school's 2026-27 documents (tuition sheet, Student Handbook, supply lists), which are published in `files/` (PDF) and linked from the pages. When the school issues new versions, replace the PDFs and update the numbers. To add one: get the original text/files from the school or Moses (the old site blocks cloud fetches), add the `<section class="sec" id="…">` to the page, add its keys to all four dictionaries, and remove `ready: false`. Never invent tuition amounts, staff names or dates.
+The 2026-27 School Calendar (Student Life, and the portal's events) comes from the school's calendar PDF (`files/calendar-2026-27.pdf`). Music & Band and Electives & Clubs (Enrichment) and the parent testimonial on Admissions come from the old site (2013–2019) <!-- VERIFY: still current -->.
+Tuition, Handbook, Supply Lists, Uniforms, Board, Field Trips and Fundraisers come from the school's 2026-27 documents (tuition sheet, Student Handbook, supply lists), which are published in `files/` (PDF) and linked from the pages. When the school issues new versions, replace the PDFs and update the numbers. To add one: get the original text/files from the school or Moses (the old site's WordPress API, `/wp-json/wp/v2/pages` and `/media`, has worked from the cloud since 2026-11-22), add the `<section class="sec" id="…">` to the page, add its keys to all four dictionaries, and remove `ready: false`. Never invent tuition amounts, staff names or dates.
 
 ### Automated checks
 `npx playwright test` (after `npm install`) starts a static server and checks, on desktop 1440px and mobile 390px:

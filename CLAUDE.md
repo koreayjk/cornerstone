@@ -18,7 +18,7 @@
 - Favicon (`img/favicon.svg`, `img/apple-touch-icon.png`) and share previews (Open Graph tags + `img/og.jpg`, 1200×630) are on every page.
 - `img/0.jpg`–`img/8.jpg`: AI-generated atmosphere images (Higgsfield, GPT Image).
 - `img/v0.mp4` (hero campus walk, golden hour) and `img/v1.mp4` (athletics slow-motion basketball): AI-generated videos (Higgsfield, Seedance 2.5, 10s, 720p, no audio).
-- The Family Portal exists only as a **front-end demo** with in-memory fake data (resets on reload). It demonstrates three roles (parent, teacher, admin), a parent with two children, teacher grade entry and daily attendance that the family sees immediately, the office's invitation flow (invite → email → accept and set a password; there is no public sign-up), email notification previews in the recipient's language, the document-request flow including rejection, and calendar export (.ics / Google Calendar). Letter grades use a common US scale (A ≥ 93, A- ≥ 90, B+ ≥ 87 …) <!-- VERIFY: the school's grading scale -->. Supabase (build-plan steps 3–5) is not connected yet.
+- The Family Portal exists only as a **front-end demo** with in-memory fake data (resets on reload). It demonstrates three roles (parent, teacher, admin), a parent with two children, teacher grade entry and daily attendance that the family sees immediately, the office's invitation flow (invite → email → accept and set a password; there is no public sign-up), email notification previews in the recipient's language, the document-request flow including rejection, and calendar export (.ics / Google Calendar). Letter grades follow the 2026-27 Student Handbook: grades 1–5 A+ 97, A 94, A- 90, B+ 87, B 84, B- 80, C+ 77, C 74, C- 70, D 66, F below; grades 6–12 A 90, B 80, C 70, F below 70. Supabase (build-plan steps 3–5) is not connected yet.
 - A gold bottom banner reads "Design proposal … not the official school website" and `<meta name="robots" content="noindex,nofollow">` is set. **Keep both until the school approves the official launch.**
 
 ### Image map
@@ -67,7 +67,8 @@
 
 ### Section pages and the old site menu
 The public site mirrors the old WordPress menu (About, Academics, Enrichment, Admissions, Student Life) as five pages; each sub-menu item is a section (`#id`) on that page. `MENU` in `js/layout.js` drives the nav dropdowns, the mobile menu and each page's sticky sub-nav.
-Items marked `ready: false` have no source content yet and are hidden: Faculty and Staff, Board of Directors, Employment Opportunities, Kindergarten, Grades 1-5 Curriculum, Curriculum – Upper Grades, Art, Computer Lab, Tuition, Parent and Student Handbook, 2026-27 School Supply Lists, Uniforms and Dress Code, Field Trips / Field Studies, Fundraisers. To add one: get the original text/files from the school or Moses (the old site blocks cloud fetches), add the `<section class="sec" id="…">` to the page, add its keys to all four dictionaries, and remove `ready: false`. Never invent tuition amounts, staff names or dates.
+Items marked `ready: false` have no source content yet and are hidden: Faculty and Staff, Employment Opportunities, Kindergarten, Grades 1-5 Curriculum, Curriculum – Upper Grades, Art, Computer Lab.
+Tuition, Handbook, Supply Lists, Uniforms, Board, Field Trips and Fundraisers come from the school's 2026-27 documents (tuition sheet, Student Handbook, supply lists), which are published in `files/` (PDF) and linked from the pages. When the school issues new versions, replace the PDFs and update the numbers. To add one: get the original text/files from the school or Moses (the old site blocks cloud fetches), add the `<section class="sec" id="…">` to the page, add its keys to all four dictionaries, and remove `ready: false`. Never invent tuition amounts, staff names or dates.
 
 ### Automated checks
 `npx playwright test` (after `npm install`) starts a static server and checks, on desktop 1440px and mobile 390px:
@@ -122,7 +123,10 @@ Items marked `ready: false` have no source content yet and are hidden: Faculty a
   - Interview with the principal or a board member.
   - **Free 3-day trial**.
 - Athletics: Lady Cougars are back-to-back TCAL Class 2A state champions (2022, 60–30 over Marshall Christian). Sports: basketball, volleyball, football, cheer, baseball, track & field (some offered with BVCHEA).
-- Student life: Cool Cougar of the Week, the Bee Kind People Project, the Joanne Walker Day of Service, Messiah's Ranch, and PACK (Parents Association for Cornerstone Kids).
+- Student life: Cool Cougar of the Week, the Bee Kind People Project, the Bob & JoAnn Walker Day of Service (January), Messiah's Ranch, and PACK (Parent Association of Cornerstone Kids).
+- From the 2026-27 Student Handbook: school day 8:00 AM–3:15 PM (K–5 core until 1:45 PM); doors open 7:30 AM; drop-off/pick-up on Willow Street; extended care 3:30–5:30 PM at $7.50/hour; Board: Trey Marchbanks (President), Clay Bassham (Vice-President), Joe Hays, Meriden Warden, Marcia Crouch.
+- Tuition 2026-27 (school's tuition sheet): registration $350 (Plan I) / $300 (Plan II) / $175 (Plan III); 5% discount for a year paid in advance, 4% for a semester (deadline August 1). The footnotes for Plan II "*" and Plan III "**" are unknown <!-- VERIFY -->.
+- The 2026-27 application form lists bvccaoffice@gmail.com, while the site uses office@bvcca.com <!-- VERIFY: which address the office wants published -->.
 - International: SEVP-certified, issues Form I-20 for F-1 students.
 - **Do not invent** numbers, testimonials, staff names or awards. Mark anything unverified with `<!-- VERIFY -->` and list it in the PR or commit message.
 

@@ -337,3 +337,37 @@ html.i18n-pending body{visibility:hidden}
 .lb button svg{width:20px;height:20px}
 .lb-x{top:18px;right:18px}.lb-p{left:18px;top:50%;transform:translateY(-50%)}.lb-nx{right:18px;top:50%;transform:translateY(-50%)}
 @media (max-width:600px){.gal{columns:2;column-gap:8px}.gi{margin-bottom:8px;border-radius:12px}.lb-p,.lb-nx{top:auto;bottom:12px;transform:none}}
+/* Tuition plans */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8vh;align-items:start}
+.plan{border-radius:24px;padding:30px 28px}
+.sec.dk .plan{background:#141416}.sec.lt .plan{background:#fff}
+.plan h3{font-family:var(--serif);font-size:clamp(28px,2.6vw,38px);letter-spacing:-.04em;font-weight:600;line-height:1}
+.plan>p{font-size:14.5px;margin-top:8px}
+.sec.dk .plan>p,.sec.dk .plan small,.sec.dk .plan em,.sec.dk .fee span{color:#a1a1a6}
+.sec.lt .plan>p,.sec.lt .plan small,.sec.lt .plan em,.sec.lt .fee span{color:#6e6e73}
+.fee{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:16px 0;margin-top:18px;border-bottom:1px solid rgba(128,128,128,.25);font-size:14.5px}
+.fee b{font-weight:600;font-size:17px}
+.pr{padding:18px 0;border-bottom:1px solid rgba(128,128,128,.25)}
+.pr:last-child{border-bottom:0;padding-bottom:0}
+.pr>span{display:block;font-size:14px;font-weight:500;margin-bottom:4px}
+.pr b{font-family:var(--serif);font-size:30px;letter-spacing:-.035em;font-weight:600}
+.sec.dk .pr b{color:var(--gold2)}.sec.lt .pr b{color:var(--gold-ink)}
+.pr small{font-size:13px;margin-left:6px}
+.pr em{display:block;font-style:normal;font-size:13px;margin-top:4px;font-variant-numeric:tabular-nums}
+.plans+.cards{margin-top:16px}
+/* PDF download tiles */
+.dls{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:8vh}
+.dls a{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:24px 26px;border-radius:20px;font-size:18px;font-weight:600;letter-spacing:-.01em;transition:transform .3s var(--ease),background .3s}
+.sec.dk .dls a{background:#141416;color:#f5f5f7}.sec.dk .dls a:hover{background:#1d1d20}
+.sec.lt .dls a{background:#fff;color:#1d1d1f}
+.dls a:hover{transform:translateY(-2px)}
+.dls small{font-size:12px;font-weight:600;letter-spacing:.04em;padding:4px 9px;border-radius:999px;border:1px solid currentColor;opacity:.6}
+.sec .note{font-size:15px;line-height:1.55;max-width:680px;margin-top:28px}
+.sec.dk .note{color:#a1a1a6}.sec.lt .note{color:#6e6e73}
+.btn svg{width:18px;height:18px}
+/* gallery on a dark section */
+.sec.dk .gfilter button{background:transparent;border-color:rgba(255,255,255,.3);color:#f5f5f7}
+.sec.dk .gfilter button[aria-pressed="true"]{background:#f5f5f7;border-color:#f5f5f7;color:#000}
+.sec.dk .gi{background:#141416}
+@media (max-width:900px){.plans{grid-template-columns:1fr}}
+.btn[download]{white-space:normal;max-width:100%}

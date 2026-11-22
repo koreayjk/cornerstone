@@ -97,17 +97,20 @@ S.attLog = {};      // { 'YYYY-MM-DD': { studentKey: 'present' | 'absent' | 'tar
 S.updated = {};     // what the family should see flagged as new
 S.gbDraft = null; S.attDraft = null;
 const ATT = ['present', 'absent', 'tardy', 'excused'];
-// common US scale (verify with the school)
-const LETTERS = [[93, 'A'], [90, 'A-'], [87, 'B+'], [83, 'B'], [80, 'B-'], [77, 'C+'], [73, 'C'], [70, 'C-'], [67, 'D+'], [63, 'D'], [60, 'D-'], [0, 'F']];
-const letter = p => LETTERS.find(([m]) => p >= m)[1];
+// grading scale from the 2026-27 Student Handbook: grades 1-5 use +/- letters,
+// grades 6-12 use A/B/C/F (there is no D in grades 6-12)
+const LETTERS_LOWER = [[97, 'A+'], [94, 'A'], [90, 'A-'], [87, 'B+'], [84, 'B'], [80, 'B-'], [77, 'C+'], [74, 'C'], [70, 'C-'], [66, 'D'], [0, 'F']];
+const LETTERS_UPPER = [[90, 'A'], [80, 'B'], [70, 'C'], [0, 'F']];
+const letter = (p, grade) => (grade >= 6 ? LETTERS_UPPER : LETTERS_LOWER).find(([m]) => p >= m)[1];
+const GB_GRADE = 10;   // Mrs. Taylor's English II class is a 10th-grade course
 const gbAvg = (gb, st) => { const v = gb.assignments.map(a => st.scores[a.id]).filter(x => typeof x === 'number'); return v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length) : null };
 const today = () => localISO().slice(0, 10);
 // a child's courses with the teacher's live gradebook applied
 function gradesOf(c) {
   return c.grades.map(g => {
-    if (g.c !== S.gradebook.course) return g;
+    if (g.c !== S.gradebook.course) return { ...g, g: letter(g.p, c.grade) };
     const st = S.gradebook.students.find(x => x.key === c.key), p = st && gbAvg(S.gradebook, st);
-    return p == null ? g : { ...g, p, g: letter(p), updated: !!(S.updated.grades && S.updated.grades[c.key]) };
+    return p == null ? { ...g, g: letter(g.p, c.grade) } : { ...g, p, g: letter(p, c.grade), updated: !!(S.updated.grades && S.updated.grades[c.key]) };
   });
 }
 // semester totals plus today's entry from the teacher (tardy counts as present; excused as absent)
@@ -372,7 +375,7 @@ const g = gb();
 return `<div class="box"><div class="boxh"><div><h2>${esc(t('t.period', { course: g.course, n: g.period }))}</h2><div class="sub">${esc(t('gb.hint'))}</div></div>
 <div class="gbact"><span class="tag" id="gbDirty"${S.gbDraft ? '' : ' hidden'}>${esc(t('gb.unsaved'))}</span><button class="sbtn pri" onclick="saveGrades()">${esc(t('gb.save'))}</button></div></div>
 <div class="tbl-wrap"><table class="gb"><tr><th>${esc(t('th.student'))}</th>${g.assignments.map(a => `<th>${esc(a.name)}</th>`).join('')}<th>${esc(t('th.average'))}</th></tr>
-${g.students.map(st => { const p = gbAvg(g, st); return `<tr><td><b style="font-weight:600">${esc(st.name)}</b></td>${g.assignments.map(a => `<td><input class="gbin" type="number" inputmode="numeric" min="0" max="100" step="1" value="${st.scores[a.id] ?? ''}" aria-label="${esc(t('gb.cell', { student: st.name, assignment: a.name }))}" oninput="gbInput(this,'${st.key}','${a.id}')"></td>`).join('')}<td class="grade" id="gbavg-${st.key}">${p == null ? '—' : `${p}% · ${letter(p)}`}</td></tr>` }).join('')}
+${g.students.map(st => { const p = gbAvg(g, st); return `<tr><td><b style="font-weight:600">${esc(st.name)}</b></td>${g.assignments.map(a => `<td><input class="gbin" type="number" inputmode="numeric" min="0" max="100" step="1" value="${st.scores[a.id] ?? ''}" aria-label="${esc(t('gb.cell', { student: st.name, assignment: a.name }))}" oninput="gbInput(this,'${st.key}','${a.id}')"></td>`).join('')}<td class="grade" id="gbavg-${st.key}">${p == null ? '—' : `${p}% · ${letter(p, GB_GRADE)}`}</td></tr>` }).join('')}
 </table></div>
 <div class="gbadd"><label class="sr" for="gbNew">${esc(t('gb.addPh'))}</label><input id="gbNew" placeholder="${esc(t('gb.addPh'))}" onkeydown="if(event.key==='Enter'&&!event.isComposing)addAssignment()"><button class="sbtn" onclick="addAssignment()">${esc(t('gb.add'))}</button></div></div>`;
 }
@@ -383,7 +386,7 @@ const ok = raw === '' || (Number.isFinite(n) && n >= 0 && n <= 100);
 el.setAttribute('aria-invalid', String(!ok)); el.classList.toggle('bad', !ok);
 if (raw === '') delete st.scores[aid]; else st.scores[aid] = ok ? Math.round(n) : NaN;
 const p = ok ? gbAvg(d, st) : null, cell = document.getElementById('gbavg-' + key);
-if (cell) cell.textContent = !ok ? '—' : p == null ? '—' : `${p}% · ${letter(p)}`;
+if (cell) cell.textContent = !ok ? '—' : p == null ? '—' : `${p}% · ${letter(p, GB_GRADE)}`;
 const dirty = document.getElementById('gbDirty'); if (dirty) dirty.hidden = false;
 }
 function saveGrades() {

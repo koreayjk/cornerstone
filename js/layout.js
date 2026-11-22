@@ -34,7 +34,9 @@ const Layout = (() => {
       { id: 'afternoons', label: 'Art, Music & Computers' },
       { id: 'art', label: 'Art' },
       { id: 'computer', label: 'Computer Lab' },
-      { id: 'language', label: 'Foreign Language' }] },
+      { id: 'language', label: 'Foreign Language' },
+      { id: 'music', label: 'Music & Band' },
+      { id: 'electives', label: 'Electives & Clubs' }] },
     { id: 'admissions', label: 'Admissions', items: [
       { id: 'apply', label: 'Application for Admission' },
       { id: 'prepare', label: 'What to Prepare' },
@@ -51,7 +53,8 @@ const Layout = (() => {
       { id: 'trips', label: 'Field Trips / Field Studies' },
       { id: 'service', label: 'Service Projects' },
       { id: 'gallery', label: 'Photo Gallery' },
-      { id: 'fundraisers', label: 'Fundraisers' }] }
+      { id: 'fundraisers', label: 'Fundraisers' },
+      { id: 'calendar', label: '2026-27 School Calendar' }] }
   ];
   const ready = m => m.items.filter(i => i.ready !== false);
   const href = (m, i) => root + m.id + '/' + (i ? '#' + i.id : '');

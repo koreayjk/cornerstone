@@ -19,7 +19,7 @@ const Layout = (() => {
       { id: 'accreditation', label: 'Accreditation' },
       { id: 'pack', label: 'PACK' },
       { id: 'faculty', label: 'Faculty and Staff', ready: false },
-      { id: 'board', label: 'Board of Directors', ready: false },
+      { id: 'board', label: 'Board of Directors' },
       { id: 'employment', label: 'Employment Opportunities', ready: false }] },
     { id: 'academics', label: 'Academics', items: [
       { id: 'program', label: 'Academic Program' },
@@ -38,20 +38,20 @@ const Layout = (() => {
     { id: 'admissions', label: 'Admissions', items: [
       { id: 'apply', label: 'Application for Admission' },
       { id: 'prepare', label: 'What to Prepare' },
-      { id: 'tuition', label: 'Tuition', ready: false },
-      { id: 'handbook', label: 'Parent and Student Handbook', ready: false },
-      { id: 'supplies', label: '2026-27 School Supply Lists', ready: false },
-      { id: 'uniforms', label: 'Uniforms and Dress Code', ready: false },
+      { id: 'tuition', label: 'Tuition' },
+      { id: 'handbook', label: 'Parent and Student Handbook' },
+      { id: 'supplies', label: '2026-27 School Supply Lists' },
+      { id: 'uniforms', label: 'Uniforms and Dress Code' },
       { id: 'international', label: 'International Students' },
       { id: 'inquire', label: 'Inquiry Form' },
       { id: 'visit', label: 'Visit Us' }] },
     { id: 'student-life', label: 'Student Life', items: [
       { id: 'chapel', label: 'Chapel' },
       { id: 'character', label: 'Cougar of the Week & The Bee Kind People' },
-      { id: 'trips', label: 'Field Trips / Field Studies', ready: false },
+      { id: 'trips', label: 'Field Trips / Field Studies' },
       { id: 'service', label: 'Service Projects' },
       { id: 'gallery', label: 'Photo Gallery' },
-      { id: 'fundraisers', label: 'Fundraisers', ready: false }] }
+      { id: 'fundraisers', label: 'Fundraisers' }] }
   ];
   const ready = m => m.items.filter(i => i.ready !== false);
   const href = (m, i) => root + m.id + '/' + (i ? '#' + i.id : '');

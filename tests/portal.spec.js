@@ -216,3 +216,21 @@ test('portal is installable and opens offline', async ({ page, context, baseURL 
   await expect(page.locator('#ptitle')).toHaveText('Home');
   await context.setOffline(false);
 });
+
+test('letter grades follow the handbook scale for each grade band', async ({ page }) => {
+  await open(page, 'portal/', 'en');
+  const L = (p, g) => page.evaluate(([p, g]) => letter(p, g), [p, g]);
+  // grades 1-5: plus/minus letters
+  expect(await L(97, 4)).toBe('A+'); expect(await L(93, 4)).toBe('A-'); expect(await L(88, 4)).toBe('B+');
+  expect(await L(66, 4)).toBe('D'); expect(await L(65, 4)).toBe('F');
+  // grades 6-12: A/B/C/F only
+  expect(await L(97, 10)).toBe('A'); expect(await L(89, 10)).toBe('B'); expect(await L(70, 10)).toBe('C'); expect(await L(69, 10)).toBe('F');
+});
+
+test('supply lists, handbook and application are downloadable PDFs', async ({ request }) => {
+  for (const f of ['handbook-2026-27', 'application-2026-27', 'supplies-kindergarten', 'supplies-grade-1', 'supplies-grades-2-3', 'supplies-grades-4-5', 'supplies-middle-school', 'supplies-high-school']) {
+    const r = await request.get(`files/${f}.pdf`);
+    expect(r.ok(), f).toBe(true);
+    expect((await r.body()).subarray(0, 5).toString(), f).toBe('%PDF-');
+  }
+});
